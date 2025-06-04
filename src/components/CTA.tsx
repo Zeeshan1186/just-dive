@@ -1,0 +1,32 @@
+import cta from "../assets/images/cta.png";
+
+
+function CTA() {
+    return (
+        <>
+            <div
+                className="relative w-full h-[60vh] md:h-[65vh] bg-cover bg-center flex items-center justify-center"
+                style={{ backgroundImage: `url(${cta})` }} // adjust path as needed
+            >
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-black/30"></div>
+
+                {/* Text and buttons */}
+                <div className="relative z-10 text-center px-4">
+                    <h2 className="Trirong text-white text-2xl md:text-4xl font-normal mb-4 leading-tight">
+                        We also offer a range of additional services <br />
+                        to enhance your holiday experience
+                    </h2>
+
+                    <div className="flex Poppins justify-center gap-3 flex-wrap">
+                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                            Contact Us
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+export default CTA;
