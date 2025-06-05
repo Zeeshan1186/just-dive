@@ -30,12 +30,15 @@ const blogs = [
 const BlogSection = () => {
     return (
         <section className="px-4 py-4 max-w-7xl mx-auto">
-            <div className="text-center relative mb-20">
+            <div className="text-center relative mb-6">
                 <h2 className="text-4xl font-bold relative z-10 Trirong font-normal">Blogs</h2>
-                <h2 className="text-[80px] md:text-[120px] font-bold blog absolute inset-0 top-[-40px] md:top-[-60px] z-0 select-none">
-                    Blogs
-                </h2>
-                {/* <div className="w-80 h-0.5 bg-yellow-400 mx-auto mt-4"></div> */}
+                <div className="flex justify-center mt-[-90px] items-center">
+                    <span className="w-150 border-t border-dotted border-[#C3A357]"></span>
+                    <span className="relative top-[-10px] text-[80px] md:text-[120px] font-bold blog inset-0 z-0 select-none">
+                        Blogs
+                    </span>
+                    <span className="w-150 border-t border-dotted border-[#C3A357]"></span>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-20">

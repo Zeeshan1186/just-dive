@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
     Popover,
@@ -46,7 +47,7 @@ export default function Banner() {
                     {/* Location Dropdown */}
                     <Popover open={openLocation} onOpenChange={setOpenLocation}>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" className="bg-white font-normal items-center text-black px-4 py-2 rounded-full">
+                            <Button variant="outline" className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full">
                                 {selectedLocation ? selectedLocation : "Select Your Location"}
                                 <ChevronDown className="" />
                             </Button>
@@ -75,7 +76,7 @@ export default function Banner() {
                             <Button
                                 variant="outline"
                                 className={cn(
-                                    "bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
+                                    " w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
                                 )}
                             >
                                 {date ? format(date, "PPP") : "Choose Date"}
@@ -83,7 +84,21 @@ export default function Banner() {
                             </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0 bg-white text-black shadow-md z-50">
-                            <Calendar mode="single" selected={date} onSelect={setDate} initialFocus />
+                            <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={setDate}
+                                initialFocus
+                                disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
+                                classNames={{
+                                    day: cn(
+                                        buttonVariants({ variant: "ghost" }),
+                                        "size-8 p-0 font-normal aria-selected:opacity-100"
+                                    ),
+                                    day_selected: "bg-[#b89d53] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
+                                }}
+                            />
+
                         </PopoverContent>
                     </Popover>
 

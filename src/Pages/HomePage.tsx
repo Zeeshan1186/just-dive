@@ -1,17 +1,15 @@
 import CTA from '@/components/CTA';
 import Banner from '../components/Banner';
 import DiveLocation from '../components/DiveLocation';
-import Header from '../components/Header';
 import Packages from '../components/Packages';
 import AboutUs from '@/components/AboutUs';
 import BlogSection from '@/components/BlogSection';
 import { TestimonialCarousel } from '@/components/TestimonialCarousel';
-import Footer from '@/components/Footer';
+import Clients from '@/components/Clients';
 
 function HomePage() {
     return (
         <>
-            <Header />
             <Banner />
             <Packages />
             <DiveLocation />
@@ -19,7 +17,7 @@ function HomePage() {
             <BlogSection />
             <TestimonialCarousel />
             <CTA />
-            <Footer />
+            <Clients />
         </>
     );
 }

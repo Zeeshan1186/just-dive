@@ -10,7 +10,7 @@ import package4 from "../assets/images/Packages/Package4.png";
 import { Clock3 } from "lucide-react";
 
 
-const packages = [
+const packages = [  
     {
         id: 1,
         title: "SCUBA DIVING AT GRAND ISLAND IN GOA",
@@ -43,7 +43,7 @@ const packages = [
 
 export default function Packages() {
     return (
-        <div className="w-full px-18 py-8 pb-4">
+        <div className="w-full px-18 py-8 pb-12">
             <div className="flex flex-col justify-center items-center">
                 <img src={wave} alt="Wave" className="w-10 items-center mb-4" />
                 <h2 className="text-center Trirong text-[#626262] text-4xl font-normal mb-2">SPECIAL DIVE PACKAGE</h2>

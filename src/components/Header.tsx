@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
 import logo from "../assets/images/Justdive.png";
+import { NavLink } from 'react-router-dom';
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -13,15 +14,36 @@ export default function Header() {
                 <div className="flex items-center space-x-2">
                     <img src={logo} alt="Logo" className="h-12 w-auto" />
                     <div className="leading-tight">
-                        <h1 className="text-2xl font-bold textgolden">JUST DIVE</h1>
-                        <p className="text-sm font-semibold text-[#072F49]">By Eesha Adventure</p>
+                        <h1 className="text-2xl font-bold Trirong textgolden">JUST DIVE</h1>
+                        <p className="text-sm font-normal Poppins text-[#072F49]">By Eesha Adventure</p>
                     </div>
                 </div>
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-6 Poppins text-md font-400 text-[#303030] items-center">
-                    <a href="#" className="hover:font-medium hover:text-[#C3A357]">Home</a>
-                    <a href="#" className="hover:font-medium hover:text-[#C3A357]">About US</a>
+                    <NavLink
+                        to="/"
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-[#C3A357] font-medium'
+                                : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                        }
+                    >
+                        Home
+                    </NavLink>
+
+                    <NavLink
+                        to="/aboutus"
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-[#C3A357] font-medium'
+                                : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                        }
+                    >
+                        About Us
+                    </NavLink>
+
+
                     <div
                         className="relative group"
                         onMouseEnter={() => setIsDropdownOpen(true)}
@@ -31,16 +53,75 @@ export default function Header() {
                             Scuba Packages <ChevronDown size={16} className="ml-1" />
                         </button>
                         {isDropdownOpen && (
-                            <div className="absolute top-full left-0  bg-white shadow-md rounded-md py-2 w-48">
-                                <a href="#" className="block px-4 py-2 hover:font-medium hover:text-[#C3A357]">Scuba Event 1</a>
-                                <a href="#" className="block px-4 py-2 hover:font-medium hover:text-[#C3A357]">Scuba Event 2</a>
-                                <a href="#" className="block px-4 py-2 hover:font-medium hover:text-[#C3A357]">Scuba Event 3</a>
+                            <div className="absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-48">
+                                <NavLink
+                                    to="/scuba-event-1"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-4 py-2 text-[#C3A357] font-medium'
+                                            : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                                    }
+                                >
+                                    Scuba Event 1
+                                </NavLink>
+
+                                <NavLink
+                                    to="/scuba-event-2"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-4 py-2 text-[#C3A357] font-medium'
+                                            : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                                    }
+                                >
+                                    Scuba Event 2
+                                </NavLink>
+
+                                <NavLink
+                                    to="/scuba-event-3"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-4 py-2 text-[#C3A357] font-medium'
+                                            : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                                    }
+                                >
+                                    Scuba Event 3
+                                </NavLink>
                             </div>
                         )}
                     </div>
-                    <a href="#" className="hover:font-medium hover:text-[#C3A357]">Media</a>
-                    <a href="#" className="hover:font-medium hover:text-[#C3A357]">FAQ</a>
-                    <a href="#" className="hover:font-medium hover:text-[#C3A357]">Contact Us</a>
+
+                    <NavLink
+                        to="/media"
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-[#C3A357] font-medium'
+                                : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                        }
+                    >
+                        Media
+                    </NavLink>
+
+                    <NavLink
+                        to="/faq"
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-[#C3A357] font-medium'
+                                : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                        }
+                    >
+                        FAQ
+                    </NavLink>
+
+                    <NavLink
+                        to="/contact"
+                        className={({ isActive }) =>
+                            isActive
+                                ? 'text-[#C3A357] font-medium'
+                                : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                        }
+                    >
+                        Contact Us
+                    </NavLink>
                 </nav>
 
                 {/* Right side icons */}
@@ -78,7 +159,7 @@ export default function Header() {
                     <a href="#" className="block px-4 py-2 text-sm border-b">Contact Us</a>
                     <div className="flex items-center justify-between px-4 py-4">
                         <Phone className="textgolden" size={20} />
-                        <button className="bggolden text-white font-medium px-4 py-2 rounded-full text-sm hover:bg-yellow-500">
+                        <button className="bggolden text-white Poppins font-normal px-4 py-2 rounded-full text-sm hover:bg-yellow-500">
                             Book Now
                         </button>
                     </div>
