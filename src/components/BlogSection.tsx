@@ -2,6 +2,7 @@ import blog1 from "../assets/images/blog1.png";
 import blog2 from "../assets/images/blog2.png";
 import blog3 from "../assets/images/blog3.png";
 import blogimg from "../assets/images/blog-img.png";
+import { Button } from "@/components/ui/button";
 
 const blogs = [
     {
@@ -67,9 +68,9 @@ const BlogSection = () => {
                 ))}
             </div>
             <div className="flex justify-center items-center">
-                <button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                <Button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                     View More
-                </button>
+                </Button>
             </div>
         </section>
     );

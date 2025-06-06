@@ -127,7 +127,7 @@ export default function Header() {
                 {/* Right side icons */}
                 <div className="hidden md:flex items-center space-x-4">
                     <Phone className="textgolden" size={20} />
-                    <button className="bggolden text-white font-medium px-4 py-2 rounded-full text-sm hover:bg-yellow-500">
+                    <button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                         Book Now
                     </button>
                 </div>

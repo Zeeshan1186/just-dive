@@ -6,7 +6,7 @@ import BookingPage from './Pages/BookingPage';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AboutUs from './Pages/AboutUs';
-import NotFound from './Pages/NotFound'; // import the new component
+import NotFound from './Pages/NotFound';
 
 const App: React.FC = () => {
   return (

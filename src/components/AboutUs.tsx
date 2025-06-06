@@ -14,13 +14,21 @@ const AboutUs = () => {
                     className="max-w-[80%] md:max-w-[80%]"
                 />
 
-                <div className="w-[80%] absolute text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                <div
+                    style={{
+                        animation: "float 3s ease-in-out infinite",
+                        transformOrigin: "center",
+                    }}
+                    className="w-[80%] absolute text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                >
                     <img
-                        src={diver} // replace with actual path
+                        src={diver}
                         alt="Scuba Diver"
                         className="max-w-[100%] md:max-w-full"
                     />
                 </div>
+
+
             </div>
 
             {/* Right Content */}

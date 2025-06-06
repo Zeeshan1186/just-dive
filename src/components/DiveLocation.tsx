@@ -1,6 +1,7 @@
 import dive1 from "../assets/images/Location/dive1.png";
 import dive2 from "../assets/images/Location/dive2.png";
 import cta from "../assets/images/Location/cta.png";
+import { Button } from "@/components/ui/button";
 
 const DiveLocation = () => {
     return (
@@ -19,12 +20,12 @@ const DiveLocation = () => {
                     </h2>
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Know More
-                        </button>
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        </Button>
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Book Now
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -42,12 +43,12 @@ const DiveLocation = () => {
                     </h2>
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Know More
-                        </button>
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        </Button>
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Book Now
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>
@@ -66,12 +67,12 @@ const DiveLocation = () => {
                     </h2>
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Know More
-                        </button>
-                        <button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        </Button>
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
                             Book Now
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </div>

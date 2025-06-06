@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,17 +13,72 @@ import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.png";
 import banner from "../assets/images/Banner.png";
 import waves from "../assets/images/Waves.png";
+import { motion, AnimatePresence } from "framer-motion";
+// import { useRouter } from "next/router";
+import { useNavigate } from "react-router-dom";
 
 const locations = ["Goa", "Andaman", "Lakshadweep", "Malvan"];
 
 export default function Banner() {
-    const [selectedLocation, setSelectedLocation] = React.useState<string>("");
+    const [selectedLocation, setSelectedLocation] = React.useState<string>(
+        ""
+    );
     const [openLocation, setOpenLocation] = React.useState(false);
     const [date, setDate] = React.useState<Date | undefined>(undefined);
+    const [openDate, setOpenDate] = React.useState(false);
+
+    // Load saved data from localStorage on mount
+    useEffect(() => {
+        const storedLocation = localStorage.getItem("selectedLocation");
+        if (storedLocation) {
+            setSelectedLocation(storedLocation);
+        }
+
+        const storedDate = localStorage.getItem("selectedDate");
+        if (storedDate) {
+            const parsedDate = new Date(storedDate);
+            if (!isNaN(parsedDate.getTime())) {
+                setDate(parsedDate);
+            }
+        }
+    }, []);
+
+    // Save location to localStorage when it changes
+    useEffect(() => {
+        if (selectedLocation) {
+            localStorage.setItem("selectedLocation", selectedLocation);
+        }
+    }, [selectedLocation]);
+
+    // Save date to localStorage when it changes
+    useEffect(() => {
+        if (date) {
+            localStorage.setItem("selectedDate", date.toISOString());
+        }
+    }, [date]);
+    useEffect(() => {
+        if (selectedLocation) {
+            localStorage.setItem("selectedLocation", selectedLocation);
+            console.log("Saved Location:", selectedLocation); // ✅ Debug
+        }
+    }, [selectedLocation]);
+
+    // Save as 'yyyy-MM-dd' (local time)
+    useEffect(() => {
+        if (date) {
+            const formattedDate = format(date, "yyyy-MM-dd");
+            localStorage.setItem("selectedDate", formattedDate);
+        }
+    }, [date]);
+    const navigate = useNavigate();
+
+    // localStorage.clear();
 
     return (
         <div
-            className="relative h-[85vh] bg-cover bg-no-repeat bg-right" style={{ backgroundImage: `url(${banner})` }}>
+            className="relative h-[85vh] bg-cover bg-no-repeat bg-right"
+            style={{ backgroundImage: `url(${banner})` }}
+        >
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 flex flex-col justify-center items-start h-full max-w-6xl mx-auto px-4 text-white">
                 <div className="mb-4">
@@ -47,63 +102,98 @@ export default function Banner() {
                     {/* Location Dropdown */}
                     <Popover open={openLocation} onOpenChange={setOpenLocation}>
                         <PopoverTrigger asChild>
-                            <Button variant="outline" className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full">
+                            <Button
+                                variant="outline"
+                                className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full"
+                            >
                                 {selectedLocation ? selectedLocation : "Select Your Location"}
-                                <ChevronDown className="" />
+                                <ChevronDown />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-38 bg-white px-2 py-2 text-black shadow-md z-50">
-                            <ul>
-                                {locations.map((loc) => (
-                                    <li
-                                        key={loc}
-                                        className="px-3 py-2 hover:bg-gray-100 cursor-pointer rounded"
-                                        onClick={() => {
-                                            setSelectedLocation(loc);
-                                            setOpenLocation(false);
-                                        }}
+
+                        <AnimatePresence>
+                            {openLocation && (
+                                <PopoverContent asChild className="w-50">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="w-38 bg-white px-2 py-2 text-black shadow-md z-50"
                                     >
-                                        {loc}
-                                    </li>
-                                ))}
-                            </ul>
-                        </PopoverContent>
+                                        <ul>
+                                            {locations.map((loc) => (
+                                                <li
+                                                    key={loc}
+                                                    className="px-3 py-2 hover:bg-gray-100 cursor-pointer rounded"
+                                                    onClick={() => {
+                                                        setSelectedLocation(loc);
+                                                        setOpenLocation(false);
+                                                    }}
+                                                >
+                                                    {loc}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </motion.div>
+                                </PopoverContent>
+                            )}
+                        </AnimatePresence>
                     </Popover>
 
                     {/* Date Picker */}
-                    <Popover>
+                    <Popover open={openDate} onOpenChange={setOpenDate}>
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
                                 className={cn(
-                                    " w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
+                                    "w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
                                 )}
                             >
                                 {date ? format(date, "PPP") : "Choose Date"}
                                 <CalendarIcon className="ml-2 h-4 w-4" />
                             </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-white text-black shadow-md z-50">
-                            <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={setDate}
-                                initialFocus
-                                disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
-                                classNames={{
-                                    day: cn(
-                                        buttonVariants({ variant: "ghost" }),
-                                        "size-8 p-0 font-normal aria-selected:opacity-100"
-                                    ),
-                                    day_selected: "bg-[#b89d53] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
-                                }}
-                            />
 
-                        </PopoverContent>
+                        <AnimatePresence>
+                            {openDate && (
+                                <PopoverContent asChild className="w-30">
+                                    <motion.div
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="w-70 bg-white text-black shadow-md z-50"
+                                    >
+                                        <Calendar
+                                            mode="single"
+                                            selected={date}
+                                            onSelect={setDate}
+                                            initialFocus
+                                            disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
+                                            classNames={{
+                                                day: cn(
+                                                    buttonVariants({ variant: "ghost" }),
+                                                    "size-8 p-0 font-normal aria-selected:opacity-100"
+                                                ),
+                                                day_selected:
+                                                    "bg-[#b89d53] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
+                                            }}
+                                        />
+                                    </motion.div>
+                                </PopoverContent>
+                            )}
+                        </AnimatePresence>
                     </Popover>
 
                     {/* Book Now Button */}
-                    <Button className="bggolden hover:bg-yellow-500 text-white px-6 py-2 rounded-full">
+                    <Button
+                        className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2"
+                        onClick={() => {
+                            // Values are already in localStorage, so just redirect
+                            navigate("/booking");
+                        }}
+                    >
                         Book Now
                     </Button>
                 </div>
