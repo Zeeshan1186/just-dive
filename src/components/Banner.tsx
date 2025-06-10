@@ -188,10 +188,16 @@ export default function Banner() {
 
                     {/* Book Now Button */}
                     <Button
-                        className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2"
+                        disabled={!selectedLocation || !date}
+                        className={cn(
+                            "text-white font-normal rounded-full text-sm px-4 py-2 transition",
+                            "bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53]",
+                            (!selectedLocation || !date) && "opacity-50 cursor-not-allowed"
+                        )}
                         onClick={() => {
-                            // Values are already in localStorage, so just redirect
-                            navigate("/booking");
+                            if (selectedLocation && date) {
+                                navigate("/booking");
+                            }
                         }}
                     >
                         Book Now

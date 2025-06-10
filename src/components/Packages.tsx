@@ -13,6 +13,7 @@ import package1 from "../assets/images/Packages/Package1.png";
 import package2 from "../assets/images/Packages/Package2.png";
 import package3 from "../assets/images/Packages/Package3.png";
 import package4 from "../assets/images/Packages/Package4.png";
+import { Link } from "react-router-dom";
 
 const packages = [
     { id: 1, title: "SCUBA DIVING AT GRAND ISLAND IN GOA", duration: "2 Hours", image: package1 },
@@ -77,12 +78,14 @@ export default function Packages() {
                                         >
                                             Book Now
                                         </Button>
-                                        <Button
-                                            variant="outline"
-                                            className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
-                                        >
-                                            Know More
-                                        </Button>
+                                        <Link to="/itinerypage">
+                                            <Button
+                                                variant="outline"
+                                                className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                            >
+                                                Know More
+                                            </Button>
+                                        </Link>
                                     </div>
                                 </div>
                             </div>

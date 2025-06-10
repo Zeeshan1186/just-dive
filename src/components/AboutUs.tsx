@@ -1,77 +1,53 @@
-import CountUp from "react-countup";
-import diver from "../assets/images/diver.png";
-import diverbg from "../assets/images/diverbg.png";
-import waves from "../assets/images/Bluewave.png";
+import banner from "../assets/images/About_ban.png";
+import waves from "../assets/images/Waves.png";
+import img1 from "../assets/images/about.png";
 
-const AboutUs = () => {
+function AboutUs() {
     return (
-        <section className="flex flex-col md:flex-row items-center gap-10 px-6 py-12 max-w-7xl mx-auto">
-            {/* Left Image */}
-            <div className="relative w-full md:w-1/2 flex justify-center">
-                <img
-                    src={diverbg} // replace with actual path
-                    alt="Scuba Diver"
-                    className="max-w-[80%] md:max-w-[80%]"
-                />
-
-                <div
-                    style={{
-                        animation: "float 3s ease-in-out infinite",
-                        transformOrigin: "center",
-                    }}
-                    className="w-[80%] absolute text-center top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-                >
-                    <img
-                        src={diver}
-                        alt="Scuba Diver"
-                        className="max-w-[100%] md:max-w-full"
-                    />
-                </div>
-
-
-            </div>
-
-            {/* Right Content */}
-            <div className="w-full md:w-[50%] text-center md:text-left">
-                <img src={waves} alt="" className="w-12 mb-5" />
-                <h2 className="text-3xl md:text-5xl Trirong font-normal mb-4">About Us</h2>
-                <p className="text-gray-600 mb-6 Poppins text-[#3C3C3C] leading-relaxed">
-                    Just Dive Murdeshwar is a premier PADI-certified scuba diving center
-                    offering world-class diving experiences and professional PADI courses
-                    at Netrani Island, Karnataka. Established in 2023, the company quickly
-                    gained recognition for its commitment to safety, quality, and
-                    excellence in diving education.
-                </p>
-                <div className="flex flex-col items-center sm:flex-row justify-around text-center gap-6 sm:gap-0">
-                    <div>
-                        <button className="w-28 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] transition hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
-                            Read More
-                        </button>
+        <>
+            <div
+                className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
+                style={{ backgroundImage: `url(${banner})` }}
+            >
+                <div className="absolute inset-0 bg-black/50" />
+                <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4 text-white">
+                    <div className="mb-4">
+                        <span className="text-xl text-yellow-300">
+                            <img src={waves} alt="" />
+                        </span>
                     </div>
-
-                    {/* Counters */}
-                    <div>
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
-                            <CountUp end={25} duration={2} />+
-                        </h3>
-                        <p className="mt-1 text-black font-medium Poppins">Years Of Experience</p>
-                    </div>
-                    <div className="border-l border-gray-300 px-6">
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
-                            <CountUp end={3000} duration={3} />+
-                        </h3>
-                        <p className="mt-1 text-black font-medium Poppins">Happy Customers</p>
-                    </div>
-                    <div className="border-l border-gray-300 px-6">
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
-                            <CountUp end={100} duration={2} />%
-                        </h3>
-                        <p className="mt-1 text-black font-medium Poppins">Top Rated Service</p>
-                    </div>
+                    <h1 className="text-4xl sm:text-5xl Trirong md:text-5xl font-normal leading-tight mb-6">
+                        About Us
+                    </h1>
                 </div>
             </div>
-        </section>
+            <section className="py-12 px-4 md:px-10 lg:px-20 bg-white">
+                <div className="flex gap-5 items-center">
+                    {/* Left Image Grid */}
+                    <div className="">
+                        <img src={img1} alt="scuba" className="rounded-2xl w-[80%] h-auto object-cover" />
+                    </div>
+
+                    {/* Right Content */}
+                    <div className="w-[100%]">
+                        <img src={waves} alt="icon" className="mb-2 w-12" />
+                        <h2 className="text-3xl sm:text-4xl font-semibold mb-4">About Us</h2>
+                        <p className="text-gray-700 mb-4">
+                            Just Dive Murdeshwar is a premier PADI-certified scuba diving center offering world-class diving experiences and professional PADI courses at Netrani Island, Karnataka. Established in 2023, the company quickly gained recognition for its commitment to safety, quality, and excellence in diving education.
+                        </p>
+                        <p className="text-gray-700">
+                            The dive center offers a range of programs catering to both beginners and experienced divers. From fun diving experiences for first-timers to advanced PADI certification courses, Just Dive provides a structured and enjoyable approach to learning scuba diving. The clear waters of Netrani Island, known for their rich marine biodiversity, make it an ideal location to explore coral reefs, schools of vibrant fish, and occasional sightings of reef sharks and turtles.
+                        </p>
+                    </div>
+                </div>
+
+                {/* Bottom Banner Image */}
+                <div className="mt-12">
+                    <img src={banner} alt="diving banner" className="w-full h-auto rounded-xl object-cover" />
+                </div>
+            </section>
+        </>
     );
-};
+}
 
 export default AboutUs;
