@@ -8,6 +8,8 @@ import Footer from './components/Footer';
 import NotFound from './Pages/NotFound';
 import IteneraryCardPage from './Pages/ItineraryCardPage';
 import AboutUsPage from './Pages/AboutUsPage';
+import Faq from './Pages/Faq';
+import ScubaPackages from './Pages/ScubaPackages';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +19,9 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />
         <Route path="/booking" element={<BookingPage />} />
-        <Route path="/itinerypage" element={<IteneraryCardPage />} />
+        <Route path="/itinery" element={<IteneraryCardPage />} />
+        <Route path="/scubapackages" element={<ScubaPackages />} />
+        <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

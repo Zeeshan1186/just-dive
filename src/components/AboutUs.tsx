@@ -1,4 +1,5 @@
 import banner from "../assets/images/About_ban.png";
+import about from "../assets/images/about2.png";
 import waves from "../assets/images/Waves.png";
 import img1 from "../assets/images/about.png";
 
@@ -43,7 +44,7 @@ function AboutUs() {
 
                 {/* Bottom Banner Image */}
                 <div className="mt-12">
-                    <img src={banner} alt="diving banner" className="w-full h-auto rounded-xl object-cover" />
+                    <img src={about} alt="diving banner" className="w-full h-[70vh] rounded-xl object-cover" />
                 </div>
             </section>
         </>

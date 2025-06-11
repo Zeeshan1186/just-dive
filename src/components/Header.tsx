@@ -49,9 +49,14 @@ export default function Header() {
                         onMouseEnter={() => setIsDropdownOpen(true)}
                         onMouseLeave={() => setIsDropdownOpen(false)}
                     >
-                        <button className="flex items-center hover:text-yellow-800">
+                        <NavLink to="/scubapackages"
+                            className={({ isActive }) =>
+                                isActive
+                                    ? 'text-[#C3A357] font-medium flex items-center'
+                                    : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                            }>
                             Scuba Packages <ChevronDown size={16} className="ml-1" />
-                        </button>
+                        </NavLink>
                         {isDropdownOpen && (
                             <div className="absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-48">
                                 <NavLink
