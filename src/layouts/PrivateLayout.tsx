@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import person from '@/assets/images/john.png';
+import { Outlet } from 'react-router-dom';
 
 export default function PrivateLayout() {
     return (
@@ -23,7 +24,7 @@ export default function PrivateLayout() {
                     </div>
                 </header>
                 <div className="flex flex-1 flex-col gap-4 p-4">
-                    
+                    <Outlet />
                 </div>
             </SidebarInset>
         </SidebarProvider>

@@ -18,7 +18,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collap
 const initialData = [
     {
         title: "Dashboard",
-        url: "#",
+        url: "/admin/dashboard",
     },
     {
         title: "Manage Bookings",
