@@ -10,6 +10,8 @@ import IteneraryCardPage from './Pages/ItineraryCardPage';
 import AboutUsPage from './Pages/AboutUsPage';
 import Faq from './Pages/Faq';
 import ScubaPackages from './Pages/ScubaPackages';
+import ContactUsPage from './Pages/ContactUsPage';
+import ThankYouMessage from './components/ThankYouMessage';
 
 const App: React.FC = () => {
   return (
@@ -22,6 +24,8 @@ const App: React.FC = () => {
         <Route path="/itinery" element={<IteneraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
         <Route path="/faq" element={<Faq />} />
+        <Route path="/contactus" element={<ContactUsPage />} />
+        <Route path="/thankyou" element={<ThankYouMessage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

@@ -1,6 +1,7 @@
 import banner from "../assets/images/About_ban.png";
 import about from "../assets/images/about2.png";
 import waves from "../assets/images/Waves.png";
+import bluewaves from "../assets/images/Bluewave.png";
 import img1 from "../assets/images/about.png";
 
 function AboutUs() {
@@ -30,9 +31,9 @@ function AboutUs() {
                     </div>
 
                     {/* Right Content */}
-                    <div className="w-[100%]">
-                        <img src={waves} alt="icon" className="mb-2 w-12" />
-                        <h2 className="text-3xl sm:text-4xl font-semibold mb-4">About Us</h2>
+                    <div className="w-[100%] Poppins">
+                        <img src={bluewaves} alt="icon" className="mb-3 w-10" />
+                        <h2 className="text-3xl sm:text-4xl Trirong font-normal mb-4">About Us</h2>
                         <p className="text-gray-700 mb-4">
                             Just Dive Murdeshwar is a premier PADI-certified scuba diving center offering world-class diving experiences and professional PADI courses at Netrani Island, Karnataka. Established in 2023, the company quickly gained recognition for its commitment to safety, quality, and excellence in diving education.
                         </p>

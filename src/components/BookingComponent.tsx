@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import banner from "../assets/images/booking.png";
+import BookingForm from "./BookingForm";
 
 export default function BookingComponent() {
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -46,10 +47,10 @@ export default function BookingComponent() {
             setShowModal(false);
         }
     };
-    
+
 
     return (
-        <section className="w-full">
+        <section className="w-full pb-5">
             {/* Banner */}
             <div
                 className="relative h-[75vh] bg-cover bg-no-repeat bg-right"
@@ -149,6 +150,7 @@ export default function BookingComponent() {
                     </div>
                 </div>
             )}
+            <BookingForm />
         </section>
     );
 }

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
 import logo from "../assets/images/Justdive.png";
 import { NavLink } from 'react-router-dom';
+import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -10,13 +12,16 @@ export default function Header() {
     return (
         <header className="w-full shadow-sm bg-white sticky top-0 z-50">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 flex items-center justify-between py-4">
-                {/* Logo and Brand */}
-                <div className="flex items-center space-x-2">
-                    <img src={logo} alt="Logo" className="h-12 w-auto" />
-                    <div className="leading-tight">
-                        <h1 className="text-2xl font-bold Trirong textgolden">JUST DIVE</h1>
-                        <p className="text-sm font-normal Poppins text-[#072F49]">By Eesha Adventure</p>
-                    </div>
+                <div>
+                    <Link to="/">
+                        <div className="flex items-center space-x-2">
+                            <img src={logo} alt="Logo" className="h-12 w-auto" />
+                            <div className="leading-tight">
+                                <h1 className="text-2xl font-bold Trirong textgolden">JUST DIVE</h1>
+                                <p className="text-sm font-normal Poppins text-[#072F49]">By Eesha Adventure</p>
+                            </div>
+                        </div>
+                    </Link>
                 </div>
 
                 {/* Desktop Navigation */}
@@ -53,12 +58,12 @@ export default function Header() {
                             className={({ isActive }) =>
                                 isActive
                                     ? 'text-[#C3A357] font-medium flex items-center'
-                                    : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                                    : 'text-[#303030] hover:font-medium hover:text-[#C3A357] flex items-center'
                             }>
                             Scuba Packages <ChevronDown size={16} className="ml-1" />
                         </NavLink>
                         {isDropdownOpen && (
-                            <div className="absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-48">
+                            <div className="absolute top-full left-0 bg-white shadow-md rounded-md py-2 w-55 ">
                                 <NavLink
                                     to="/scuba-event-1"
                                     className={({ isActive }) =>
@@ -67,7 +72,7 @@ export default function Header() {
                                             : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
                                     }
                                 >
-                                    Scuba Event 1
+                                    Discover Dive Package
                                 </NavLink>
 
                                 <NavLink
@@ -78,7 +83,7 @@ export default function Header() {
                                             : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
                                     }
                                 >
-                                    Scuba Event 2
+                                    Adventure Reef Explorer
                                 </NavLink>
 
                                 <NavLink
@@ -89,8 +94,20 @@ export default function Header() {
                                             : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
                                     }
                                 >
-                                    Scuba Event 3
+                                    Pro Diver Experience
                                 </NavLink>
+
+                                <NavLink
+                                    to="/scuba-event-3"
+                                    className={({ isActive }) =>
+                                        isActive
+                                            ? 'block px-4 py-2 text-[#C3A357] font-medium'
+                                            : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'
+                                    }
+                                >
+                                    Sunset Snorkel & Dive Combo
+                                </NavLink>
+
                             </div>
                         )}
                     </div>
@@ -118,7 +135,7 @@ export default function Header() {
                     </NavLink>
 
                     <NavLink
-                        to="/contact"
+                        to="/contactus"
                         className={({ isActive }) =>
                             isActive
                                 ? 'text-[#C3A357] font-medium'
@@ -131,10 +148,14 @@ export default function Header() {
 
                 {/* Right side icons */}
                 <div className="hidden md:flex items-center space-x-4">
-                    <Phone className="textgolden" size={20} />
-                    <button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
-                        Book Now
-                    </button>
+                    <a href="tel:8482911183" aria-label="Call us">
+                        <Phone className="textgolden cursor-pointer" size={20} />
+                    </a>
+                    <Link to="/booking">
+                        <Button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                            Book Now
+                        </Button>
+                    </Link>
                 </div>
 
                 {/* Mobile Menu Button */}
@@ -163,10 +184,18 @@ export default function Header() {
                     <a href="#" className="block px-4 py-2 text-sm border-b">FAQ</a>
                     <a href="#" className="block px-4 py-2 text-sm border-b">Contact Us</a>
                     <div className="flex items-center justify-between px-4 py-4">
-                        <Phone className="textgolden" size={20} />
-                        <button className="bggolden text-white Poppins font-normal px-4 py-2 rounded-full text-sm hover:bg-yellow-500">
-                            Book Now
-                        </button>
+                        <a href="tel:8482911183" aria-label="Call us">
+                            <Phone className="textgolden" size={20} />
+                        </a>
+
+                        <Link to="/booking">
+                            <Button
+                                className="bggolden text-white Poppins font-normal px-4 py-2 rounded-full text-sm hover:bg-yellow-500"
+                                aria-label="Book your scuba diving adventure"
+                            >
+                                Book Now
+                            </Button>
+                        </Link>
                     </div>
                 </div>
             )}
