@@ -10,6 +10,8 @@ import LoginPage from './Pages/LoginPage';
 import { RootLayout } from './layouts/RootLayouts';
 import DashboardPage from './Pages/admin/DashboardPage';
 import PrivateLayout from './layouts/PrivateLayout';
+import Faq from './Pages/Faq';
+import ScubaPackages from './Pages/ScubaPackages';
 
 const App: React.FC = () => {
   return (
@@ -23,6 +25,9 @@ const App: React.FC = () => {
         <Route path="/admin" element={<PrivateLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
         </Route>
+        <Route path="/itinery" element={<IteneraryCardPage />} />
+        <Route path="/scubapackages" element={<ScubaPackages />} />
+        <Route path="/faq" element={<Faq />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </RootLayout>
