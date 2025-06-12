@@ -59,7 +59,6 @@ export default function Banner() {
     useEffect(() => {
         if (selectedLocation) {
             localStorage.setItem("selectedLocation", selectedLocation);
-            console.log("Saved Location:", selectedLocation); // ✅ Debug
         }
     }, [selectedLocation]);
 
