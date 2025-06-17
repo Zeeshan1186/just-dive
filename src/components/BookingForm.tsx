@@ -28,7 +28,6 @@ const BookingForm = () => {
     const [selectedSlot, setSelectedSlot] = useState("");
 
     const onSubmit = (data: any) => {
-        console.log("Form Submitted:", data);
         alert("Booking Submitted!");
         reset();
         setSelectedDate("");
@@ -124,7 +123,7 @@ const BookingForm = () => {
                 {/* Document Upload */}
                 <div>
                     <div className="flex justify-center items-center border-1 border-[#63636333]  rounded-md p-3">
-                       <File className="w-5 mr-2"/> <input
+                        <File className="w-5 mr-2" /> <input
                             type="file"
                             {...register("document", { required: true })}
                             accept=".pdf,.jpg,.jpeg,.png"
@@ -137,7 +136,7 @@ const BookingForm = () => {
                 {/* Date of Adventure */}
                 <div>
                     <div className="flex justify-center items-center border-1 border-[#63636333]  rounded-md p-3">
-                       <Calendar className="w-5 mr-2"/> <input
+                        <Calendar className="w-5 mr-2" /> <input
                             type="date"
                             placeholder="Date of Adventure*"
                             {...register("date", { required: true })}
@@ -150,7 +149,7 @@ const BookingForm = () => {
                 {/* Slot Selection */}
                 <div>
                     <div className="flex justify-center items-center border-1 border-[#63636333]  rounded-md p-3">
-                       <BetweenVerticalEnd className="w-5 mr-2"/> <select
+                        <BetweenVerticalEnd className="w-5 mr-2" /> <select
                             {...register("slot", { required: true })}
                             className="w-full"
                             onChange={(e) => setSelectedSlot(e.target.value)}

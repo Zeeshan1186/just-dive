@@ -45,7 +45,7 @@ export function LoginForm({
         try {
             const response = await login(values);
             if (response?.data?.status === HTTP_CODE.BAD_REQUEST) {
-                toast.error(response?.data?.message);
+                toast.error(response?.data?.error);
             } else {
                 const token = response?.data?.token;
                 localStorage.setItem("token", `Bearer ${token}`);

@@ -14,6 +14,9 @@ import Faq from './Pages/Faq';
 import ScubaPackages from './Pages/ScubaPackages';
 import ContactUsPage from './Pages/ContactUsPage';
 import ThankYouMessage from './components/ThankYouMessage';
+import LocationPage from './Pages/admin/LocationPage';
+import AddLocation from './components/Location/AddLocation';
+import EditLocation from './components/Location/EditLocation';
 
 const App: React.FC = () => {
   return (
@@ -26,6 +29,10 @@ const App: React.FC = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={<PrivateLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
+          {/* Location Url */}
+          <Route path="location" element={<LocationPage />} />
+          <Route path="location/add" element={<AddLocation />} />
+          <Route path="location/edit/:id" element={<EditLocation />} />
         </Route>
         <Route path="/itinery" element={<IteneraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />

@@ -14,6 +14,7 @@ import {
     SidebarRail,
 } from "@/components/ui/sidebar"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
+import { Link, useLocation } from "react-router-dom"
 
 const initialData = [
     {
@@ -40,7 +41,7 @@ const initialData = [
     },
     {
         title: "Manage Location",
-        url: "#",
+        url: "/admin/location",
     },
     {
         title: "Coupon Management",
@@ -57,11 +58,10 @@ const initialData = [
 ]
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const [activeItem, setActiveItem] = React.useState<string>("")
-
-    const handleClick = (title: string) => {
-        setActiveItem(title)
-    }
+    const location = useLocation();
+    const currentPath = location.pathname;
+    const isActive = (url: string) =>
+        currentPath === url || currentPath.startsWith(`${url}/`);
 
     return (
         <Sidebar {...props} className="">
@@ -96,19 +96,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                 <SidebarMenuItem key={child.title}>
                                                     <SidebarMenuButton
                                                         asChild
-                                                        isActive={activeItem === child.title}
+                                                        isActive={isActive(child.url)}
                                                         className={
-                                                            activeItem === child.title
+                                                            isActive(child.url)
                                                                 ? "!bg-[#509CDB] !text-white"
                                                                 : "text-white"
                                                         }
                                                     >
-                                                        <a
-                                                            href={child.url}
-                                                            onClick={() => handleClick(child.title)}
+                                                        <Link
+                                                            to={child.url}
                                                         >
                                                             {child.title}
-                                                        </a>
+                                                        </Link>
                                                     </SidebarMenuButton>
                                                 </SidebarMenuItem>
                                             ))}
@@ -123,19 +122,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 <SidebarMenuItem>
                                     <SidebarMenuButton
                                         asChild
-                                        isActive={activeItem === item.title}
+                                        isActive={isActive(item.url)}
                                         className={
-                                            activeItem === item.title
+                                            isActive(item.url)
                                                 ? "!bg-[#509CDB] !text-white"
                                                 : "text-white"
                                         }
                                     >
-                                        <a
-                                            href={item.url}
-                                            onClick={() => handleClick(item.title)}
+                                        <Link
+                                            to={item.url}
                                         >
                                             {item.title}
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             </SidebarMenu>
