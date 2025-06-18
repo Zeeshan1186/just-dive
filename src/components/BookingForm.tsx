@@ -21,7 +21,6 @@ const BookingForm = () => {
         register,
         handleSubmit,
         reset,
-        formState: { errors },
     } = useForm();
     const [selectedDate, setSelectedDate] = useState("");
     const [selectedPackage, setSelectedPackage] = useState("");
@@ -45,7 +44,7 @@ const BookingForm = () => {
             {/* Selection Summary */}
             {(selectedPackage || selectedSlot) && (
                 <div className="bg-blue-100 text-blue-800 p-3 rounded mb-6 text-sm sm:text-base">
-                    <p><strong>Package:</strong> {selectedPackage || "Not selected"}</p>
+                    <p><strong>Packages:</strong> {selectedPackage || "Not selected"}</p>
                     <p><strong>Date:</strong> {selectedDate || "Not selected"}</p>
                     <p><strong>Slot:</strong> {selectedSlot || "Not selected"}</p>
                 </div>
