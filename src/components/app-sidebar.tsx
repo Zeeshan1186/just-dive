@@ -35,7 +35,7 @@ const initialData = [
             },
             {
                 title: "Add Package",
-                url: "#",
+                url: "/admin/add-package",
             },
         ],
     },
@@ -45,7 +45,7 @@ const initialData = [
     },
     {
         title: "Coupon Management",
-        url: "#",
+        url: "/admin/coupon",
     },
     {
         title: "Reports",

@@ -24,3 +24,8 @@ export const getLocationById = async (id: number) => {
 export const editLocation = async (data: any, id: number) => {
   return await api.put(`${API_PATHS.ADDRESS}/${id}`, data);
 };
+
+// Coupon API
+export const getCoupons = async () => {
+  return await api.get(API_PATHS.COUPON);
+};

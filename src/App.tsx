@@ -17,6 +17,9 @@ import ThankYouMessage from './components/ThankYouMessage';
 import LocationPage from './Pages/admin/LocationPage';
 import AddLocation from './components/Location/AddLocation';
 import EditLocation from './components/Location/EditLocation';
+import CouponPage from './Pages/admin/CouponPage';
+import AddCoupon from './components/Coupon/AddCoupon';
+import AddPackage from './components/Package/AddPackage';
 
 const App: React.FC = () => {
   return (
@@ -33,6 +36,11 @@ const App: React.FC = () => {
           <Route path="location" element={<LocationPage />} />
           <Route path="location/add" element={<AddLocation />} />
           <Route path="location/edit/:id" element={<EditLocation />} />
+          {/* Coupon Url */}
+          <Route path="coupon" element={<CouponPage />} />
+          <Route path="coupon/add" element={<AddCoupon />} />
+          {/* Package Url */}
+          <Route path="add-package" element={<AddPackage />} />
         </Route>
         <Route path="/itinery" element={<IteneraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
