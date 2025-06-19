@@ -3,7 +3,7 @@ import { HTTP_CODE } from '@/constants/http-codes';
 import { getPackages } from '@/services/apiService';
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner';
-import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type SortingState, type VisibilityState } from '@tanstack/react-table';
+import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type Row, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { PAGINATION_COUNT } from '@/constants/const-variables';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, Loader2, Plus, Search } from 'lucide-react';
@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useNavigate } from 'react-router-dom';
 import type { IPackage } from '@/interface/package';
 import { simpleDate } from '@/utils/date-format';
+import PackageRowActions from '@/components/Package/PackageRowActions';
 
 export default function PackagePage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -69,6 +70,10 @@ export default function PackagePage() {
                     {row.original.location.location_name}
                 </div>
             ),
+            filterFn: (row, _columnId, filterValue) => {
+                const locationName = row.original.location?.location_name?.toLowerCase() ?? "";
+                return locationName.includes(filterValue.toLowerCase());
+            },
         },
         {
             accessorKey: "price",
@@ -88,18 +93,18 @@ export default function PackagePage() {
                 </div>
             ),
         },
-        // {
-        //     id: "actions",
-        //     header: "Actions",
-        //     enableHiding: false,
-        //     cell: ({ row }: { row: any }) => {
-        //         return (
-        //             <LocationRowActions
-        //                 row={row as Row<ILocation>}
-        //             />
-        //         );
-        //     },
-        // },
+        {
+            id: "actions",
+            header: "Actions",
+            enableHiding: false,
+            cell: ({ row }: { row: any }) => {
+                return (
+                    <PackageRowActions
+                        row={row as Row<IPackage>}
+                    />
+                );
+            },
+        },
     ];
 
     const table = useReactTable({

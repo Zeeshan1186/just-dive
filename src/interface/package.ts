@@ -5,4 +5,5 @@ export interface IPackage {
   name: string;
   location: ILocation;
   price: number;
+  is_active: boolean;
 }

@@ -10,12 +10,6 @@ export default function LocationRowActions({ row }: { row: Row<ILocation> }) {
 
     return (
         <>
-            {/* <EditProduct
-                sheetOpen={isEditOpen}
-                setSheetOpen={setIsEditOpen}
-                category={row.original as unknown as IItem}
-                refreshProducts={refreshProducts}
-            /> */}
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="ghost" className="h-8 w-8 p-0 cursor-pointer">

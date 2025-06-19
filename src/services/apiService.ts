@@ -39,6 +39,24 @@ export const addPackage = async (body: any) => {
   });
 };
 
+export const enableDisablePackage = async (id: number, isEnable: boolean) => {
+  return await api.get(
+    `${API_PATHS.PACKAGE}/status/${id}?is_enable=${isEnable}`
+  );
+};
+
+export const editPackage = async (id: number, body: any) => {
+  return await api.post(`api/edit-package/${id}`, body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const getPackageById = async (id: number) => {
+  return await api.get(`${API_PATHS.PACKAGE}/${id}`);
+};
+
 export const getPackages = async () => {
   return await api.get(API_PATHS.PACKAGE);
 };
