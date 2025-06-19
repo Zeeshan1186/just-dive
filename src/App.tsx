@@ -20,6 +20,7 @@ import EditLocation from './components/Location/EditLocation';
 import CouponPage from './Pages/admin/CouponPage';
 import AddCoupon from './components/Coupon/AddCoupon';
 import AddPackage from './components/Package/AddPackage';
+import PackagePage from './Pages/admin/PackagePage';
 
 const App: React.FC = () => {
   return (
@@ -41,6 +42,7 @@ const App: React.FC = () => {
           <Route path="coupon/add" element={<AddCoupon />} />
           {/* Package Url */}
           <Route path="add-package" element={<AddPackage />} />
+          <Route path="package" element={<PackagePage />} />
         </Route>
         <Route path="/itinery" element={<IteneraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />

@@ -29,3 +29,16 @@ export const editLocation = async (data: any, id: number) => {
 export const getCoupons = async () => {
   return await api.get(API_PATHS.COUPON);
 };
+
+// Package API
+export const addPackage = async (body: any) => {
+  return await api.post(API_PATHS.PACKAGE, body, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const getPackages = async () => {
+  return await api.get(API_PATHS.PACKAGE);
+};

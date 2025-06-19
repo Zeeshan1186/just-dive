@@ -31,7 +31,7 @@ const initialData = [
         items: [
             {
                 title: "Package List",
-                url: "#",
+                url: "/admin/package",
             },
             {
                 title: "Add Package",
