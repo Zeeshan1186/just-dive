@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.png";
-import banner from "../assets/images/Banner.png";
 import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 // import { useRouter } from "next/router";
@@ -74,10 +73,15 @@ export default function Banner() {
     // localStorage.clear();
 
     return (
-        <div
-            className="relative h-[85vh] bg-cover bg-no-repeat bg-right"
-            style={{ backgroundImage: `url(${banner})` }}
-        >
+        <div className="relative w-full h-[85vh] overflow-hidden">
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                src="/video/Maldives Deep South Diving 4k.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+            />
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 flex flex-col justify-center items-start h-full max-w-6xl mx-auto px-4 text-white">
                 <div className="mb-4">

@@ -1,5 +1,5 @@
 import banner from "../assets/images/About_ban.png";
-import about from "../assets/images/about2.png";
+import about from "../assets/images/blog1.png";
 import waves from "../assets/images/Waves.png";
 import bluewaves from "../assets/images/Bluewave.png";
 import img1 from "../assets/images/about.png";
@@ -43,11 +43,11 @@ function AboutUs() {
                     </div>
                 </div>
 
-                {/* Bottom Banner Image */}
-                <div className="mt-12">
-                    <img src={about} alt="diving banner" className="w-full h-[70vh] rounded-xl object-cover" />
-                </div>
             </section>
+                {/* Bottom Banner Image */}
+                <div className="my-12">
+                    <img src={about} alt="diving banner" className="w-full h-[80vh] object-cover" />
+                </div>
         </>
     );
 }

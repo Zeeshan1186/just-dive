@@ -8,6 +8,8 @@ import package2 from "../assets/images/Packages/Package2.png";
 import package3 from "../assets/images/Packages/Package3.png";
 import package4 from "../assets/images/Packages/Package4.png";
 import { Link } from "react-router-dom";
+import turtor from '../assets/Animation - 1750418255641.json';
+import Lottie from 'react-lottie-player';
 
 const packages = [
     { id: 1, title: "SCUBA DIVING AT GRAND ISLAND IN GOA", duration: "2 Hours", image: package1 },
@@ -26,6 +28,7 @@ export default function ScubaPackages() {
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
                 <img src={wave} alt="Wave" className="w-10 mb-4" />
+
                 <h2 className="Trirong text-[#626262] text-4xl font-normal mb-2">
                     SPECIAL DIVE PACKAGE
                 </h2>
@@ -34,7 +37,12 @@ export default function ScubaPackages() {
                     worlds with JUST DIVE
                 </p>
             </div>
-
+            <span className="absolute top-10 left-200"> <Lottie
+                loop
+                play
+                animationData={turtor}
+                style={{ width: '30%', height: '100%' }}
+            /></span>
             {/* Grid instead of Carousel */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {packages.map((pkg, index) => (

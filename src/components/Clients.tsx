@@ -5,18 +5,21 @@ import {
     CarouselContent,
     CarouselItem
 } from "@/components/ui/carousel";
-import Logo from "../assets/images/Justdive.png";
+import certificate1 from "../assets/images/Certificates/certificate.jpg";
+import certificate2 from "../assets/images/Certificates/certificatw.png";
+import padi from "../assets/images/Certificates/padi.jpg";
+import padi2 from "../assets/images/Certificates/padi2.png";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function Clients() {
     const testimonials = [
-        { image: Logo },
-        { image: Logo },
-        { image: Logo },
-        { image: Logo },
-        { image: Logo },
-        { image: Logo },
+        { image: certificate1 },
+        { image: certificate2 },    
+        { image: padi },
+        { image: padi2 },
+        { image: certificate1 },
+        { image: padi },
     ];
 
     const [api, setApi] = useState<CarouselApi | null>(null);
@@ -41,7 +44,7 @@ function Clients() {
                 <span className="w-88 border-t border-dotted border-[#C3A357]"></span>
             </div>
 
-            <div className="flex justify-center items-center relative w-full max-w-4xl mx-auto">
+            <div className="flex justify-center items-center relative w-full max-w-6xl mx-auto">
                 <Carousel
                     opts={{ align: "start", loop: true }}
                     setApi={setApi}
@@ -59,7 +62,7 @@ function Clients() {
                                             <img
                                                 src={testimonial.image}
                                                 alt={`Client ${index + 1}`}
-                                                className="h-24 object-contain"
+                                                className="h-40 object-contain"
                                             />
                                         </CardContent>
                                     </Card>
