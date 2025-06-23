@@ -1,6 +1,9 @@
 import waves from "../assets/images/Bluewave.png";
 import whyus from "../assets/images/whyus.png";
 import team from "../assets/images/Team.png";
+import priya from "../assets/images/priya.jpg";
+import ravi from "../assets/images/ravi.jpg";
+import john from "../assets/images/john.png";
 import Lottie from 'react-lottie-player';
 import experience from '../assets/Animation - 1750410355214.json';
 import result from '../assets/Animation - 1750410365589.json';
@@ -95,24 +98,24 @@ export default function WhyUs() {
                     </div>
 
                     {/* Box 2 */}
-                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${team})` }}>
-                        <h3 className="text-lg font-semibold">Sunil</h3>
+                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${priya})` }}>
+                        <h3 className="text-lg font-semibold">priya</h3>
                         <p className="text-sm">
-                            Managing Partner
+                            Sales & markrting
                         </p>
                     </div>
 
                     {/* Box 3 */}
-                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${team})` }}>
-                        <h3 className="text-lg font-semibold">Sunil</h3>
+                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${ravi})` }}>
+                        <h3 className="text-lg font-semibold">ravi</h3>
                         <p className="text-sm">
-                            Managing Partner
+                            Director
                         </p>
                     </div>
 
                     {/* Box 4 */}
-                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${team})` }}>
-                        <h3 className="text-lg font-semibold">Sunil</h3>
+                    <div className="flex flex-col justify-end items-start text-white p-4 bg-cover bg-no-repeat w-auto h-[50vh]" style={{ backgroundImage: `url(${john})` }}>
+                        <h3 className="text-lg font-semibold">john</h3>
                         <p className="text-sm">
                             Managing Partner
                         </p>

@@ -107,11 +107,14 @@ export default function Banner() {
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
-                                className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full"
+                                className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                             >
                                 {selectedLocation ? selectedLocation : "Select Your Location"}
                                 <ChevronDown />
                             </Button>
+
+
+
                         </PopoverTrigger>
 
                         <AnimatePresence>
@@ -150,12 +153,13 @@ export default function Banner() {
                             <Button
                                 variant="outline"
                                 className={cn(
-                                    "w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
+                                    "w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 )}
                             >
                                 {date ? format(date, "PPP") : "Choose Date"}
                                 <CalendarIcon className="ml-2 h-4 w-4" />
                             </Button>
+
                         </PopoverTrigger>
 
                         <AnimatePresence>

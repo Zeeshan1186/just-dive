@@ -14,6 +14,7 @@ import Faq from './Pages/Faq';
 import ScubaPackages from './Pages/ScubaPackages';
 import ContactUsPage from './Pages/ContactUsPage';
 import ThankYouMessage from './components/ThankYouMessage';
+import ItineraryCardPage from './Pages/ItineraryCardPage';
 
 const App: React.FC = () => {
   return (
@@ -27,7 +28,9 @@ const App: React.FC = () => {
         <Route path="/admin" element={<PrivateLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
         </Route>
-        <Route path="/itinery" element={<IteneraryCardPage />} />
+        {/* <Route path="/itinery" element={<IteneraryCardPage />} /> */}
+        {/* <Route path="/itinerary/:id" element={<ItineraryCardPage />} /> */}
+        <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
