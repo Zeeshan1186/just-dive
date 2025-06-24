@@ -11,7 +11,6 @@ import { format } from "date-fns";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.png";
-import banner from "../assets/images/Banner.png";
 import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 // import { useRouter } from "next/router";
@@ -74,10 +73,15 @@ export default function Banner() {
     // localStorage.clear();
 
     return (
-        <div
-            className="relative h-[85vh] bg-cover bg-no-repeat bg-right"
-            style={{ backgroundImage: `url(${banner})` }}
-        >
+        <div className="relative w-full h-[85vh] overflow-hidden">
+            <video
+                className="absolute top-0 left-0 w-full h-full object-cover"
+                src="/video/Maldives Deep South Diving 4k.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+            />
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 flex flex-col justify-center items-start h-full max-w-6xl mx-auto px-4 text-white">
                 <div className="mb-4">
@@ -103,11 +107,14 @@ export default function Banner() {
                         <PopoverTrigger asChild>
                             <Button
                                 variant="outline"
-                                className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full"
+                                className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                             >
                                 {selectedLocation ? selectedLocation : "Select Your Location"}
                                 <ChevronDown />
                             </Button>
+
+
+
                         </PopoverTrigger>
 
                         <AnimatePresence>
@@ -146,12 +153,13 @@ export default function Banner() {
                             <Button
                                 variant="outline"
                                 className={cn(
-                                    "w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center"
+                                    "w-40 bg-white text-black font-normal px-8 py-2 rounded-full flex items-center animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 )}
                             >
                                 {date ? format(date, "PPP") : "Choose Date"}
                                 <CalendarIcon className="ml-2 h-4 w-4" />
                             </Button>
+
                         </PopoverTrigger>
 
                         <AnimatePresence>

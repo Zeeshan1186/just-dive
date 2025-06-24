@@ -8,6 +8,8 @@ import package2 from "../assets/images/Packages/Package2.png";
 import package3 from "../assets/images/Packages/Package3.png";
 import package4 from "../assets/images/Packages/Package4.png";
 import { Link } from "react-router-dom";
+import turtor from '../assets/Animation - 1750418255641.json';
+import Lottie from 'react-lottie-player';
 
 const packages = [
     { id: 1, title: "SCUBA DIVING AT GRAND ISLAND IN GOA", duration: "2 Hours", image: package1 },
@@ -26,6 +28,7 @@ export default function ScubaPackages() {
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
                 <img src={wave} alt="Wave" className="w-10 mb-4" />
+
                 <h2 className="Trirong text-[#626262] text-4xl font-normal mb-2">
                     SPECIAL DIVE PACKAGE
                 </h2>
@@ -34,7 +37,12 @@ export default function ScubaPackages() {
                     worlds with JUST DIVE
                 </p>
             </div>
-
+            <span className="absolute top-10 left-200"> <Lottie
+                loop
+                play
+                animationData={turtor}
+                style={{ width: '30%', height: '100%' }}
+            /></span>
             {/* Grid instead of Carousel */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {packages.map((pkg, index) => (
@@ -80,21 +88,6 @@ export default function ScubaPackages() {
                         </div>
                     </div>
                 ))}
-
-                {/* View More Card
-                <div className="pl-4 pb-6 basis-1/1 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
-                    <div className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-8 group bg-white cursor-pointer">
-                        <p className="text-lg font-normal Poppins text-[#b89d53] group-hover:underline">
-                            View More Packages
-                        </p>
-                        <Button
-                            variant="outline"
-                            className="mt-4 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
-                        >
-                            Explore All
-                        </Button>
-                    </div>
-                </div> */}
             </div>
         </div>
     );

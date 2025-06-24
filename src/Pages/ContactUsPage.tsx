@@ -6,17 +6,36 @@ import waves from "../assets/images/Waves.png";
 import bluewaves from "../assets/images/Bluewave.png";
 import { Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { sendContactForm } from "../services/apiService"; // ✅ import this
+// import { toast } from "react-hot-toast"; // ✅ ensure toast is installed
+import { useState } from "react";
+import { toast } from "sonner";
 
 const ContactUsPage = () => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
+        formState: { errors, isValid },
         reset,
-    } = useForm();
+    } = useForm({
+        mode: "onChange", // 👈 very important for real-time validation
+    });
 
-    const onSubmit = (data: any) => {
-        reset(); // optional reset after submit
+     
+    const [loading, setLoading] = useState(false);
+
+    const onSubmit = async (data: any) => {
+        try {
+            setLoading(true); // 🔄 Start loader
+            const res = await sendContactForm(data);
+            toast.success("Message sent successfully!");
+            reset();
+        } catch (error) {
+            console.error("Submit Error:", error);
+            toast.error("Failed to send message. Please try again.");
+        } finally {
+            setLoading(false); // ✅ Stop loader regardless of success or error
+        }
     };
 
     return (
@@ -147,9 +166,36 @@ const ContactUsPage = () => {
 
                             <Button
                                 type="submit"
-                                className="w-34 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] transition hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                disabled={!isValid || loading} // 👈 disables if form is invalid or submitting
+                                className={`w-34 font-normal text-sm px-4 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
+                                    ? "bg-[#b89d53] text-white cursor-not-allowed"
+                                    : "bg-[#b89d53] text-white hover:text-[#b89d53] hover:bg-transparent border-[#b89d53]"
+                                    }`}
                             >
-                                Send Message
+                                {loading ? (
+                                    <svg
+                                        className="animate-spin h-4 w-4 text-white"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                    >
+                                        <circle
+                                            className="opacity-500"
+                                            cx="12"
+                                            cy="12"
+                                            r="10"
+                                            stroke="currentColor"
+                                            strokeWidth="2"
+                                        ></circle>
+                                        <path
+                                            className="opacity-75"
+                                            fill="currentColor"
+                                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                                        ></path>
+                                    </svg>
+                                ) : (
+                                    "Send Message"
+                                )}
                             </Button>
                         </form>
                     </div>

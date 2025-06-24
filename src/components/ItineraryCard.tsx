@@ -59,7 +59,7 @@ const ItineraryCard = () => {
 
                     {/* Vehicle Info */}
                     <div>
-                        <div className="bg-[#b89d53] flex justify-center text-white px-4 py-2 font-medium">Vehicle</div>
+                        <div className="bg-[#b89d53] flex justify-start text-white px-4 py-2 font-medium">Vehicle</div>
                         <p className="py-4 px-4 pb-0 bg-white text-lg text-gray-800">{data.vehicle}</p>
                     </div>
 

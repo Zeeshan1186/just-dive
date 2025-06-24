@@ -14,9 +14,14 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-15px)' },
         },
+        blink: {
+          '0%, 100%': { opacity: '1' },
+          '50%': { opacity: '0.8' },
+        },
       },
       animation: {
         float: 'float 3s ease-in-out infinite',
+        blink: 'blink 1s infinite',
       },
     },
   },

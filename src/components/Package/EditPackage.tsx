@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Loader2, Plus, Trash2 } from 'lucide-react';
 import { Separator } from '../ui/separator';
 import { Input } from '../ui/input';
-import { addPackage, getLocations, getPackageById } from '@/services/apiService';
+import { addPackage, editPackage, getLocations, getPackageById } from '@/services/apiService';
 import { HttpStatusCode } from 'axios';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import type { IAddress } from '@/interface/address';
@@ -19,12 +19,12 @@ import type { IPackage } from '@/interface/package';
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const packageSchema = z.object({
     image: z
-        .custom<File | undefined>((val) => val instanceof File, {
-            message: "Image is required",
-        })
-        .refine((file) => file && file.size <= MAX_FILE_SIZE, {
+        .instanceof(File)
+        .refine((file) => file.size <= MAX_FILE_SIZE, {
             message: "Image size must be less than 5MB",
-        }),
+        })
+        .optional()
+        .or(z.literal(undefined)),
     name: z
         .string()
         .min(1, "Package name is required"),
@@ -43,6 +43,8 @@ const packageSchema = z.object({
     slots: z
         .array(z.object({
             time: z.string().min(1, "Slot time is required"),
+            startTime: z.string().min(1, "Slot time is required"),
+            endTime: z.string().min(1, "Slot time is required"),
         }))
         .min(1, "At least one slot is required"),
     schedule: z
@@ -61,6 +63,8 @@ const packageSchema = z.object({
                         z.literal(null),
                     ])
                     .optional(),
+                id: z.number().optional(),
+                existing_photo: z.string().optional(),
             })
         )
         .optional(),
@@ -76,12 +80,12 @@ const packageSchema = z.object({
         }))
         .optional(),
     page_image: z
-        .custom<File | undefined>((val) => val instanceof File, {
-            message: "Detail page image is required",
-        })
-        .refine((file) => file && file.size <= MAX_FILE_SIZE, {
+        .instanceof(File)
+        .refine((file) => file.size <= MAX_FILE_SIZE, {
             message: "Image size must be less than 5MB",
-        }),
+        })
+        .optional()
+        .or(z.literal(undefined)),
     services: z.string().optional(),
     vehicle: z.string().optional(),
     iternary: z.string().optional(),
@@ -103,9 +107,9 @@ export default function EditPackage() {
             location: "",
             price: undefined,
             duration: undefined,
-            slots: [{ time: "" }],
+            slots: [{ time: "", startTime: "", endTime: "" }],
             schedule: [{ title: "" }],
-            mustReads: [{ description: "", photo: undefined }],
+            mustReads: [{ description: "", photo: undefined, id: undefined, existing_photo: packageData?.mustReads?.[0]?.photo }],
             whyChooseUs: [{ title: "", description: "" }],
             note: [{ title: '' }],
             services: "",
@@ -114,9 +118,57 @@ export default function EditPackage() {
         },
     });
 
+    const parseTo24Hour = (timeStr: string) => {
+        if (!timeStr) return "";
+        const match = timeStr.trim().match(/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i);
+        if (!match) return "";
+        let hour = parseInt(match[1], 10);
+        const minute = parseInt(match[2] || "00", 10);
+        const ampm = match[3].toUpperCase();
+        if (ampm === "PM" && hour !== 12) hour += 12;
+        if (ampm === "AM" && hour === 12) hour = 0;
+        return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
+    };
+
     useEffect(() => {
         if (packageData) {
+            // slots
+            const parsedSlots = packageData.slots.map(slot => {
+                const [startRaw, endRaw] = slot.time.split("-").map(s => s.trim());
+                return {
+                    time: slot.time,
+                    startTime: parseTo24Hour(startRaw),
+                    endTime: parseTo24Hour(endRaw),
+                };
+            });
+
             form.setValue('name', packageData.name);
+            form.setValue('location', packageData.location.toString());
+            form.setValue('slots', parsedSlots);
+            form.setValue('seats', packageData.seats);
+            form.setValue('price', packageData.price);
+            form.setValue('duration', packageData.duration);
+            form.setValue('services', packageData.services);
+            form.setValue('vehicle', packageData.vehicle);
+            form.setValue('iternary', packageData.iternary);
+            form.setValue('schedule', packageData.schedules.map(schedule => ({ title: schedule.title })));
+            const mustRead = packageData.mustReads[0];
+            form.reset({
+                ...form.getValues(),
+                mustReads: [{
+                    description: mustRead?.description || ""
+                }]
+            })
+            form.setValue('mustReads', [{
+                description: mustRead?.description || "",
+            }]);
+            form.setValue('whyChooseUs', packageData.whyChooseUs.map(item => ({
+                title: item.title,
+                description: item.description,
+            })));
+            form.setValue('note', packageData.notes.map(note => ({
+                title: note.title,
+            })));
         }
     }, [packageData])
 
@@ -275,13 +327,20 @@ export default function EditPackage() {
             formData.append(`whyChooseUs[${index}][description]`, item.description);
         });
 
-        // MustReads (handle file + description)
         data.mustReads?.forEach((item: any, index: number) => {
+            const mustReadId = packageData?.mustReads[0]?.id;
+            if (mustReadId !== undefined && mustReadId !== null) {
+                formData.append(`mustReads[${index}][id]`, mustReadId.toString()); // ✅ Include ID
+            }
+
             formData.append(`mustReads[${index}][description]`, item.description);
             if (item.photo instanceof File) {
                 formData.append(`mustReads[${index}][photo]`, item.photo);
+            } else {
+                formData.append(`mustReads[${index}][existing_photo]`, packageData?.mustReads?.[0]?.photo ?? "");
             }
         });
+
 
         // note array
         data.note?.forEach((item: any, index: number) => {
@@ -295,7 +354,7 @@ export default function EditPackage() {
         setLoading(true);
         const formData = buildFormData(data);
         try {
-            const res = await addPackage(formData);
+            const res = await editPackage(Number(id), formData);
             if (res.data.status === HttpStatusCode.Ok) {
                 toast.success(res.data.message);
                 navigate('/admin/package')
@@ -321,15 +380,6 @@ export default function EditPackage() {
         }
     }
 
-    function formatTime(time24: string) {
-        if (!time24) return "";
-        const [hourStr, minute] = time24.split(":");
-        let hour = parseInt(hourStr, 10);
-        const ampm = hour >= 12 ? "PM" : "AM";
-        hour = hour % 12 || 12;
-        return `${hour}:${minute} ${ampm}`;
-    }
-
     useEffect(() => {
         getLocation();
         getPackage();
@@ -347,7 +397,7 @@ export default function EditPackage() {
                         <div className="w-[30%]"></div>
 
                         {/* 70% for the image upload */}
-                        <div className="w-[70%] pr-40">
+                        <div className="w-[70%] md:pr-40 pr-0">
                             <FormField
                                 control={form.control}
                                 name="image"
@@ -365,10 +415,12 @@ export default function EditPackage() {
                                                 className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                 onChange={handleFileChange}
                                             />
-                                            {image ? (
+                                            {image || packageData?.package_image ? (
                                                 <img
-                                                    src={URL.createObjectURL(image)}
-                                                    alt="Selected"
+                                                    src={
+                                                        image ? URL.createObjectURL(image) :
+                                                            packageData?.package_image
+                                                    } alt="Selected"
                                                     className="h-52 w-full object-contain"
                                                 />
                                             ) : (
@@ -380,7 +432,7 @@ export default function EditPackage() {
                                         </div>
                                         <FormMessage />
                                         <div className="mt-3 flex items-center justify-center">
-                                            {image && (
+                                            {/* {image && (
                                                 <Button
                                                     type="button"
                                                     variant="outline"
@@ -389,13 +441,13 @@ export default function EditPackage() {
                                                 >
                                                     Remove
                                                 </Button>
-                                            )}
+                                            )} */}
                                             <Button
                                                 type="button"
                                                 className="px-4 py-4 bg-[#509CDB] hover:bg-[#509CDB] font-medium border-1 hover:cursor-pointer"
                                                 onClick={handleClick}
                                             >
-                                                <Plus className="h-4 w-4 Poppins" /> Add Product Image
+                                                <Plus className="h-4 w-4 Poppins" /> Edit Product Image
                                             </Button>
                                         </div>
                                     </FormItem>
@@ -474,69 +526,91 @@ export default function EditPackage() {
                                         Slots *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-2">
-                                        {slotFields.map((slot, index) => (
-                                            <div key={slot.id} className="flex items-center gap-2">
-                                                <FormField
-                                                    key={slot.id}
-                                                    control={form.control}
-                                                    name={`slots.${index}.time`}
-                                                    render={() => (
-                                                        <FormItem>
-                                                            <div className="flex items-center gap-2 w-full">
-                                                                {/* Start Time */}
-                                                                <Input
-                                                                    ref={(el) => { startRefs.current[index] = el; }}
-                                                                    type="time"
-                                                                    onClick={() => startRefs.current[index]?.showPicker?.()}
-                                                                    onChange={(e) => {
-                                                                        const start = e.target.value;
-                                                                        const rawEnd = form.getValues(`slots.${index}.time`)?.split(" to ")[1] || "";
-                                                                        const formattedEnd = rawEnd.includes("AM") || rawEnd.includes("PM") ? rawEnd : formatTime(rawEnd);
-                                                                        const formatted = formatTime(start) + " to " + formattedEnd;
-                                                                        form.setValue(`slots.${index}.time`, formatted);
-                                                                    }}
-                                                                    className="w-[45%] bg-white"
-                                                                />
+                                        {slotFields.map((slot, index) => {
+                                            const startTime = form.watch(`slots.${index}.startTime` as const) || "";
+                                            const endTime = form.watch(`slots.${index}.endTime` as const) || "";
 
-                                                                <span className="text-sm">to</span>
+                                            const formatTime = (time24: string) => {
+                                                if (!time24) return "";
+                                                const [hourStr, minute] = time24.split(":");
+                                                let hour = parseInt(hourStr, 10);
+                                                const ampm = hour >= 12 ? "PM" : "AM";
+                                                hour = hour % 12 || 12;
+                                                return `${hour}:${minute} ${ampm}`;
+                                            };
 
-                                                                {/* End Time */}
-                                                                <Input
-                                                                    ref={(el) => { endRefs.current[index] = el; }}
-                                                                    type="time"
-                                                                    onClick={() => endRefs.current[index]?.showPicker?.()}
-                                                                    onChange={(e) => {
-                                                                        const end = e.target.value;
-                                                                        const rawStart = form.getValues(`slots.${index}.time`)?.split(" to ")[0] || "";
-                                                                        const formattedStart = rawStart.includes("AM") || rawStart.includes("PM") ? rawStart : formatTime(rawStart);
-                                                                        const formatted = formattedStart + " to " + formatTime(end);
-                                                                        form.setValue(`slots.${index}.time`, formatted);
-                                                                    }}
-                                                                    className="w-[45%] bg-white"
-                                                                />
+                                            const handleStartTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                                                const newStart = e.target.value;
+                                                const currentEnd = form.getValues(`slots.${index}.endTime`);
+                                                form.setValue(`slots.${index}.startTime`, newStart);
+                                                form.setValue(`slots.${index}.time`,
+                                                    `${formatTime(newStart)} - ${formatTime(currentEnd)}`);
+                                            };
 
-                                                                {index !== 0 && (
-                                                                    <Button
-                                                                        type="button"
-                                                                        variant="ghost"
-                                                                        size="icon"
-                                                                        onClick={() => removeSlot(index)}
-                                                                        className="text-red-500"
-                                                                    >
-                                                                        <Trash2 className="w-4 h-4" />
-                                                                    </Button>
-                                                                )}
-                                                            </div>
-                                                            <FormMessage />
-                                                        </FormItem>
-                                                    )}
-                                                />
-                                            </div>
-                                        ))}
+                                            const handleEndTimeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+                                                const newEnd = e.target.value;
+                                                const currentStart = form.getValues(`slots.${index}.startTime`);
+                                                form.setValue(`slots.${index}.endTime`, newEnd);
+                                                form.setValue(`slots.${index}.time`,
+                                                    `${formatTime(currentStart)} - ${formatTime(newEnd)}`);
+                                            };
+
+                                            return (
+                                                <div key={slot.id} className="flex items-center gap-2">
+                                                    <FormField
+                                                        key={slot.id}
+                                                        control={form.control}
+                                                        name={`slots.${index}.time`}
+                                                        render={() => (
+                                                            <FormItem>
+                                                                <div className="flex items-center gap-2 w-full">
+                                                                    {/* Start Time */}
+                                                                    <Input
+                                                                        ref={(el) => { startRefs.current[index] = el; }}
+                                                                        type="time"
+                                                                        name={`slots.${index}.startTime`}
+                                                                        value={startTime}
+                                                                        onClick={() => startRefs.current[index]?.showPicker?.()}
+                                                                        onChange={handleStartTimeChange}
+                                                                        className="w-[45%] bg-white"
+                                                                    />
+
+                                                                    <span className="text-sm">to</span>
+
+                                                                    {/* End Time */}
+                                                                    <Input
+                                                                        ref={(el) => { endRefs.current[index] = el; }}
+                                                                        type="time"
+                                                                        name={`slots.${index}.endTime`}
+                                                                        value={endTime}
+                                                                        onClick={() => endRefs.current[index]?.showPicker?.()}
+                                                                        onChange={handleEndTimeChange}
+                                                                        className="w-[45%] bg-white"
+                                                                    />
+
+                                                                    {index !== 0 && (
+                                                                        <Button
+                                                                            type="button"
+                                                                            variant="ghost"
+                                                                            size="icon"
+                                                                            onClick={() => removeSlot(index)}
+                                                                            className="text-red-500"
+                                                                        >
+                                                                            <Trash2 className="w-4 h-4" />
+                                                                        </Button>
+                                                                    )}
+                                                                </div>
+                                                                <FormMessage />
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
+                                            )
+                                        })}
                                         <Button
                                             type="button"
                                             variant="outline"
-                                            onClick={() => appendSlot({ time: "" })}
+                                            onClick={() => appendSlot({ time: "", startTime: "", endTime: "" })}
                                             className="w-fit mt-1 rounded-md text-[#152259]"
                                         >
                                             <Plus className='h-3 w-3' /> Add More Slot
@@ -701,9 +775,11 @@ export default function EditPackage() {
                                                 className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                 onChange={handlePageFileChange}
                                             />
-                                            {pageImage ? (
+                                            {pageImage || packageData?.page_image ? (
                                                 <img
-                                                    src={URL.createObjectURL(pageImage)}
+                                                    src={pageImage ?
+                                                        URL.createObjectURL(pageImage) :
+                                                        packageData?.page_image}
                                                     alt="Selected"
                                                     className="h-52 w-full object-contain"
                                                 />
@@ -716,7 +792,7 @@ export default function EditPackage() {
                                         </div>
                                         <FormMessage />
                                         <div className="mt-3 flex items-center justify-center">
-                                            {pageImage && (
+                                            {/* {pageImage && (
                                                 <Button
                                                     type="button"
                                                     variant="outline"
@@ -725,7 +801,7 @@ export default function EditPackage() {
                                                 >
                                                     Remove
                                                 </Button>
-                                            )}
+                                            )} */}
                                             <Button
                                                 type="button"
                                                 className="px-4 py-4 bg-[#509CDB] hover:bg-[#509CDB] font-medium border-1 hover:cursor-pointer"
@@ -853,9 +929,13 @@ export default function EditPackage() {
                                                                     className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                                     onChange={handleMustReadFileChange}
                                                                 />
-                                                                {mustReadImage ? (
+                                                                {mustReadImage || packageData?.mustReads?.[0]?.photo ? (
                                                                     <img
-                                                                        src={URL.createObjectURL(mustReadImage)}
+                                                                        src={
+                                                                            mustReadImage ?
+                                                                                URL.createObjectURL(mustReadImage) :
+                                                                                packageData?.mustReads?.[0]?.photo
+                                                                        }
                                                                         alt="Selected"
                                                                         className="h-52 w-full object-contain"
                                                                     />
@@ -991,21 +1071,22 @@ export default function EditPackage() {
 
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         {noteFields.map((fieldItem, index) => (
-                                            <div key={fieldItem.id} className="flex flex-col gap-2  border-gray-200 rounded-md">
+                                            <div key={fieldItem.id} className="flex gap-2 items-start ">
                                                 {/* Title Input */}
-                                                <FormField
-                                                    control={form.control}
-                                                    name={`note.${index}.title`}
-                                                    render={({ field, fieldState }) => (
-                                                        <FormItem>
-                                                            <FormControl>
-                                                                <Input {...field} placeholder="Enter note" className="bg-white" />
-                                                            </FormControl>
-                                                            <FormMessage>{fieldState.error?.message}</FormMessage>
-                                                        </FormItem>
-                                                    )}
-                                                />
-
+                                                <div className='w-full'>
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`note.${index}.title`}
+                                                        render={({ field, fieldState }) => (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <Input {...field} placeholder="Enter note" className="bg-white" />
+                                                                </FormControl>
+                                                                <FormMessage>{fieldState.error?.message}</FormMessage>
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
                                                 {/* Remove Button */}
                                                 {index !== 0 && (
                                                     <div className="flex justify-end">
@@ -1045,7 +1126,7 @@ export default function EditPackage() {
                             disabled={loading}
                             className="bg-[#509CDB] hover:bg-[#509CDB] hover:cursor-pointer text-white">
 
-                            {loading ? <Loader2 className="w-5 animate-spin" /> : "Submit"}
+                            {loading ? <div className='flex items-center mr-2'> Update <Loader2 className="w-5 animate-spin" /></div> : "Update"}
                         </Button>
                     </div>
                 </form>

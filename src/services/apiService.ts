@@ -60,3 +60,11 @@ export const getPackageById = async (id: number) => {
 export const getPackages = async () => {
   return await api.get(API_PATHS.PACKAGE);
 };
+
+export const getactivePackages = async () => {
+  return await api.get(API_PATHS.ACTIVE_PACKAGE); // returns array
+};
+
+export const sendContactForm = async (formData: any) => {
+  return await api.post(API_PATHS.CONTACT_SEND, formData);
+};
