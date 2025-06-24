@@ -7,7 +7,7 @@ import { Button } from '../ui/button';
 import { Loader2, Plus, Trash2 } from 'lucide-react';
 import { Separator } from '../ui/separator';
 import { Input } from '../ui/input';
-import { addPackage, editPackage, getLocations, getPackageById } from '@/services/apiService';
+import { editPackage, getLocations, getPackageById } from '@/services/apiService';
 import { HttpStatusCode } from 'axios';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import type { IAddress } from '@/interface/address';
@@ -242,14 +242,6 @@ export default function EditPackage() {
         }
     };
 
-    const handleRemoveImage = () => {
-        setImage(undefined);
-        form.setValue('image', undefined, { shouldValidate: true, shouldDirty: true });
-        if (fileInputRef.current) {
-            fileInputRef.current.value = "";
-        }
-    };
-
     // Page image
     const handlePageFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
@@ -257,14 +249,6 @@ export default function EditPackage() {
             setPageImage(file);
             form.setValue('page_image', file);
             form.clearErrors('image');
-        }
-    };
-
-    const handlePageRemoveImage = () => {
-        setPageImage(undefined);
-        form.setValue('page_image', undefined, { shouldValidate: true, shouldDirty: true });
-        if (pageFileInputRef.current) {
-            pageFileInputRef.current.value = "";
         }
     };
 
@@ -307,7 +291,7 @@ export default function EditPackage() {
         }
 
         // Image (single file)
-        if (data.image instanceof File) {
+        if (data.page_image instanceof File) {
             formData.append("page_image", data.page_image);
         }
 
@@ -903,7 +887,7 @@ export default function EditPackage() {
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         <FormControl>
-                                            <>
+                                            <React.Fragment>
                                                 {/* Description */}
                                                 <Textarea
                                                     placeholder="Enter description"
@@ -969,7 +953,7 @@ export default function EditPackage() {
                                                         </FormItem>
                                                     )}
                                                 />
-                                            </>
+                                            </React.Fragment>
                                         </FormControl>
                                         {/* Show errors */}
                                         <FormMessage>
@@ -1126,7 +1110,7 @@ export default function EditPackage() {
                             disabled={loading}
                             className="bg-[#509CDB] hover:bg-[#509CDB] hover:cursor-pointer text-white">
 
-                            {loading ? <div className='flex items-center mr-2'> Update <Loader2 className="w-5 animate-spin" /></div> : "Update"}
+                            {loading ? <div className='flex items-center'> Update <Loader2 className="w-5 ml-2 animate-spin" /></div> : "Update"}
                         </Button>
                     </div>
                 </form>
