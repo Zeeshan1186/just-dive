@@ -37,7 +37,7 @@ const BookingForm = () => {
     const slotsForDate = mockSlots[selectedDate] || [];
 
     return (
-        <div className="max-w-3xl mx-auto bg-white p-6 sm:p-8 shadow-md rounded-md mt-10">
+        <div className="max-w-3xl mx-auto bg-white px-6 sm:p-8 shadow-md border-1 border-[#ebebeb] rounded-md">
             {/* <h2 className="text-xl sm:text-2xl font-semibold mb-6 text-center">Booking Form</h2> */}
 
             {/* Selection Summary */}

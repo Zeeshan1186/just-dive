@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -13,18 +13,18 @@ import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.png";
 import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
-// import { useRouter } from "next/router";
 import { useNavigate } from "react-router-dom";
+import { getactivePackages } from "@/services/apiService";
 
-const locations = ["Goa", "Andaman", "Lakshadweep", "Malvan"];
 
 export default function Banner() {
-    const [selectedLocation, setSelectedLocation] = React.useState<string>(
-        ""
-    );
+    const [selectedLocation, setSelectedLocation] = React.useState<string>("");
     const [openLocation, setOpenLocation] = React.useState(false);
     const [date, setDate] = React.useState<Date | undefined>(undefined);
     const [openDate, setOpenDate] = React.useState(false);
+    const [locations, setLocations] = useState<string[]>([]);
+
+    const navigate = useNavigate();
 
     // Load saved data from localStorage on mount
     useEffect(() => {
@@ -42,33 +42,41 @@ export default function Banner() {
         }
     }, []);
 
-    // Save location to localStorage when it changes
+    // Fetch and set unique locations
+    useEffect(() => {
+        const fetchLocations = async () => {
+            try {
+                const res = await getactivePackages();
+                const packages = res?.data?.data || [];
+
+                const uniqueLocations = Array.from(
+                    new Set(packages.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
+                );
+
+                setLocations(uniqueLocations as string[]);
+            } catch (err) {
+                console.error("Failed to fetch locations", err);
+            }
+        };
+
+        fetchLocations();
+    }, []);
+
+    // Save selected location to localStorage
     useEffect(() => {
         if (selectedLocation) {
             localStorage.setItem("selectedLocation", selectedLocation);
         }
     }, [selectedLocation]);
 
-    // Save date to localStorage when it changes
-    useEffect(() => {
-        if (date) {
-            localStorage.setItem("selectedDate", date.toISOString());
-        }
-    }, [date]);
-    useEffect(() => {
-        if (selectedLocation) {
-            localStorage.setItem("selectedLocation", selectedLocation);
-        }
-    }, [selectedLocation]);
 
-    // Save as 'yyyy-MM-dd' (local time)
+    // Save selected date to localStorage (choose either ISO or formatted version)
     useEffect(() => {
         if (date) {
             const formattedDate = format(date, "yyyy-MM-dd");
             localStorage.setItem("selectedDate", formattedDate);
         }
     }, [date]);
-    const navigate = useNavigate();
 
     // localStorage.clear();
 
@@ -112,9 +120,6 @@ export default function Banner() {
                                 {selectedLocation ? selectedLocation : "Select Your Location"}
                                 <ChevronDown />
                             </Button>
-
-
-
                         </PopoverTrigger>
 
                         <AnimatePresence>
