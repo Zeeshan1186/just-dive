@@ -65,12 +65,16 @@ export const getactivePackages = async () => {
   return await api.get(API_PATHS.ACTIVE_PACKAGE);
 };
 
+export const getactivePackagesByLocation = async (location: string) => {
+  return await api.get(API_PATHS.ACTIVE_PACKAGE_BY_lOCATION(location));
+};
+
 export const sendContactForm = async (formData: any) => {
   return await api.post(API_PATHS.CONTACT_SEND, formData);
 };
 
 export const getPackageSlotsByDate = async (
-  packageId: string,
+  packageId: number,
   date: string
 ) => {
   return await api.get(API_PATHS.PACKAGE_SLOTS_BY_DATE(packageId, date));

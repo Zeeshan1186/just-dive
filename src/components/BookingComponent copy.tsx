@@ -54,11 +54,11 @@ export default function BookingComponent() {
                     // You can still send a date if API needs it, but assume it doesn’t matter
                     const formattedDate = date ? format(date, 'd/M/yyyy') : "";
                     const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
-
+                    console.log("response", res.data);
                     const slots = Array.isArray(res?.data) ? res.data : [];
                     setDynamicSlots(res.data.data);
-                    console.log("slots:", slots);
                     setSelectedSlot("");
+                    console.log("slots:", slots);
                     setAvailableSeats(null);
                 } catch (error) {
                     console.error("Failed to fetch slots", error);
@@ -73,7 +73,6 @@ export default function BookingComponent() {
     }, [selectedPackage]);
 
 
-
     useEffect(() => {
         const storedDate = localStorage.getItem("selectedDate");
         if (storedDate) {
@@ -86,9 +85,8 @@ export default function BookingComponent() {
         if (popupStep === 1 && selectedPackage) {
             setPopupStep(2);
         } else if (popupStep === 2 && participants) {
-            const pkg = packages.find((p) => p.id === selectedPackage);
+            const pkg = packages.find((p) => String(p.id) === selectedPackage);
             if (pkg) {
-                console.log("Saving to localStorage:", pkg);
                 localStorage.setItem("selectedPackageId", String(pkg.id));   // ✅ store ID
                 localStorage.setItem("selectedPackageName", pkg.name);       // ✅ store name
                 localStorage.setItem("participants", participants);
@@ -146,45 +144,41 @@ export default function BookingComponent() {
                                     </h3>
                                     <h3 className="text-sm mb-5">Click one of the option below </h3>
                                     <h2 className="text-lg font-bold mb-3">Time Slot</h2>
-                                    {selectedPackage ? (
-                                        dynamicSlots.length > 0 ? (
-                                            <div className="w-full flex justify-center items-center mb-3 rounded-sm bg-[#F6F6F6] py-2 px-2">
-                                                <select
-                                                    value={selectedSlot}
-                                                    onChange={(e) => {
-                                                        const selected = e.target.value;
-                                                        setSelectedSlot(selected);
-                                                        localStorage.setItem("selectedSlot", selected);
-                                                        const selectedSlotData = dynamicSlots.find(slot => slot.slot_time === selected);
-                                                        setAvailableSeats(selectedSlotData?.available ?? null);
-                                                    }}
-                                                    className="w-full px-2 py-1 rounded"
-                                                >
-                                                    <option value="">Select a slot</option>
-                                                    {dynamicSlots.map((slot) => (
-                                                        <option key={slot.slot_id} value={slot.slot_time}>
-                                                            {slot.slot_time}
-                                                        </option>
-                                                    ))}
-                                                </select>
-                                            </div>
-                                        ) : (
-                                            <div className="text-sm text-gray-500 italic mb-3">
-                                                No slots available for this package
-                                            </div>
-                                        )
+
+                                    {dynamicSlots.length > 0 ? (
+                                        <div className="w-full flex justify-center items-center mb-3 rounded-sm bg-[#F6F6F6] py-2 px-2">
+                                            <select
+                                                value={selectedSlot}
+                                                onChange={(e) => {
+                                                    const selected = e.target.value;
+                                                    setSelectedSlot(selected);
+                                                    localStorage.setItem("selectedSlot", selected);
+
+                                                    const selectedSlotData = dynamicSlots.find(slot => slot.slot_time === selected);
+                                                    setAvailableSeats(selectedSlotData?.available ?? null);
+                                                }}
+                                                className="w-full px-2 py-1 rounded"
+                                            >
+                                                <option value="">Select a slot</option>
+                                                {dynamicSlots.map((slot) => (
+                                                    <option key={slot.slot_id} value={slot.slot_time}>
+                                                        {slot.slot_time}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     ) : (
                                         <div className="text-sm text-gray-500 italic mb-3">
-                                            Please select a package to view slots
+                                            No slots available
                                         </div>
                                     )}
 
-                                    <hr className="w-[100%] border-t border-1 border-[#b89d53] mb-2" />
 
+                                    <hr className="w-[100%] border-t border-1 border-[#b89d53] mb-2" />
                                     <h2 className="text-lg font-bold">
                                         Available -{" "}
                                         <span className="text-lg font-bold text-[#b89d53]">
-                                            {availableSeats !== null ? availableSeats : "N/A"}
+                                            {availableSeats ?? "N/A"}
                                         </span>
                                     </h2>
 

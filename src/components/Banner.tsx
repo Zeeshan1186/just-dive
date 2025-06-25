@@ -117,7 +117,7 @@ export default function Banner() {
                                 variant="outline"
                                 className="w-52 bg-white font-normal items-center text-black px-4 py-2 rounded-full animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                             >
-                                {selectedLocation ? selectedLocation : "Select Your Location"}
+                                {selectedLocation ? selectedLocation : "Select Location"}
                                 <ChevronDown />
                             </Button>
                         </PopoverTrigger>

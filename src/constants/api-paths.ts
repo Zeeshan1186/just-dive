@@ -5,8 +5,10 @@ export const API_PATHS = {
   PACKAGE: "api/package",
   PACKAGE_LIST: "api/package",
   ACTIVE_PACKAGE: "api/active-package",
+  ACTIVE_PACKAGE_BY_lOCATION: (location: string) =>
+    `api/package/location/${location}`,
   PACKAGE_DETAIL: (id: string | number) => `api/package/${id}`,
   PACKAGE_SLOTS_BY_DATE: (id: string | number, date: string) =>
-    `api/packages/${id}/slots?date=${date}`, // ✅ new
+    `api/availability/package?packageId=${id}&date=${date}`,
   CONTACT_SEND: "api/contact/send",
 };
