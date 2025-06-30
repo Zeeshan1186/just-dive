@@ -69,6 +69,23 @@ export const getactivePackagesByLocation = async (location: string) => {
   return await api.get(API_PATHS.ACTIVE_PACKAGE_BY_lOCATION(location));
 };
 
+export const postBooking = async (formData: any) => {
+  return await api.post(API_PATHS.BOOKING, formData);
+};
+
+// If API accepts coupon code or package ID as query:
+export const applyCoupon = async (
+  packageId: number,
+  couponCode: string,
+  numberOfPerson: number
+) => {
+  return await api.post(API_PATHS.APPLYCOUPON, {
+    package_id: packageId,
+    coupon_code: couponCode,
+    number_of_person: numberOfPerson,
+  });
+};
+
 export const sendContactForm = async (formData: any) => {
   return await api.post(API_PATHS.CONTACT_SEND, formData);
 };

@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import banner from "../assets/images/booking.png";
 import BookingForm from "./BookingForm";
-import { getactivePackagesByLocation } from "../services/apiService";
 import { getPackageSlotsByDate } from "../services/apiService";
+import { getactivePackages, getactivePackagesByLocation } from "../services/apiService";
 
 type Slot = {
     slot_id: number;
@@ -36,7 +36,17 @@ export default function BookingComponent() {
         const fetchPackages = async () => {
             try {
                 const location = localStorage.getItem("selectedLocation");
-                const res = await getactivePackagesByLocation(location ?? "");
+
+                let res;
+
+                if (location) {
+                    res = await getactivePackagesByLocation(location);
+                    console.log("📍 Packages fetched by location:", location);
+                } else {
+                    res = await getactivePackages(); // <-- fallback if no location
+                    console.log("🌍 Fetched all active packages");
+                }
+
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Failed to fetch packages", err);
@@ -46,18 +56,19 @@ export default function BookingComponent() {
         fetchPackages();
     }, []);
 
+
     // Calendar Date and Slots
     useEffect(() => {
         const fetchSlotsAndSeats = async () => {
-            if (selectedPackage) {
+            if (selectedPackage && date) {
                 try {
-                    // You can still send a date if API needs it, but assume it doesn’t matter
-                    const formattedDate = date ? format(date, 'd/M/yyyy') : "";
+                    const formattedDate = format(date, 'd/M/yyyy');
                     const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
 
-                    const slots = Array.isArray(res?.data) ? res.data : [];
-                    setDynamicSlots(res.data.data);
-                    console.log("slots:", slots);
+                    // ✅ Ensure it's always an array before setting
+                    const slots = Array.isArray(res?.data?.data) ? res.data.data : [];
+                    setDynamicSlots(slots);
+
                     setSelectedSlot("");
                     setAvailableSeats(null);
                 } catch (error) {
@@ -70,7 +81,7 @@ export default function BookingComponent() {
         };
 
         fetchSlotsAndSeats();
-    }, [selectedPackage]);
+    }, [selectedPackage, date]); // 👈 include `date` dependency
 
 
 

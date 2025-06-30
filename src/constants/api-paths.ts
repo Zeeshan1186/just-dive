@@ -11,4 +11,6 @@ export const API_PATHS = {
   PACKAGE_SLOTS_BY_DATE: (id: string | number, date: string) =>
     `api/availability/package?packageId=${id}&date=${date}`,
   CONTACT_SEND: "api/contact/send",
+  BOOKING: "api/booking",
+  APPLYCOUPON: "api/apply/coupon"
 };
