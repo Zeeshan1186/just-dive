@@ -23,6 +23,7 @@ import AddPackage from './components/Package/AddPackage';
 import PackagePage from './Pages/admin/PackagePage';
 import EditPackage from './components/Package/EditPackage';
 import ItineraryCardPage from './Pages/ItineraryCardPage';
+import BlogDetailPage from './components/BlogDetailPage';
 
 const App: React.FC = () => {
   return (
@@ -47,10 +48,9 @@ const App: React.FC = () => {
           <Route path="package" element={<PackagePage />} />
           <Route path="package/edit/:id" element={<EditPackage />} />
         </Route>
-        {/* <Route path="/itinery" element={<IteneraryCardPage />} /> */}
-        {/* <Route path="/itinerary/:id" element={<ItineraryCardPage />} /> */}
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
+        <Route path="/blogdetail" element={<BlogDetailPage />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />
