@@ -2,18 +2,23 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
-import { Input } from "../ui/input"
 import { Button } from "../ui/button"
 import { ArrowUp, Loader2 } from "lucide-react"
-import { addLocation } from "@/services/apiService"
+import { addLocation, getPackages } from "@/services/apiService"
 import { HttpStatusCode } from "axios"
 import { useNavigate } from "react-router-dom"
 import { toast } from "sonner"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
+import type { IPackage } from "@/interface/package"
+import { Input } from "../ui/input"
 
 const schema = z.object({
-    location: z.string().min(1, "Location name is required"),
-    address: z.string().min(1, "Address is required"),
+    name: z.string().min(1, "Name is required"),
+    package_id: z.number().min(1, "Package is required"),
+    discount: z.number().min(1, "Discount is required"),
+    validity: z.string().min(1, "Validity is required"),
+    times_use: z.string().min(1, "Required"),
 })
 
 type FormData = z.infer<typeof schema>
@@ -21,14 +26,30 @@ type FormData = z.infer<typeof schema>
 export default function AddCoupon() {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [packages, setPackages] = useState<IPackage[]>([]);
 
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
-            location: "",
-            address: "",
+            name: "",
+            package_id: undefined,
+            discount: undefined,
+            validity: "",
+            times_use: "",
         },
     });
+
+    // custom name
+    const couponPrefixes = ['WELCOME', 'NEWUSER', 'FESTIVE', 'SUMMER', 'RENTAL', 'BONUS', 'WINTER', 'OFFER', 'FLASH', 'LIMITED'];
+    const couponActions = ['DEAL', 'SAVE', 'OFF', 'DISCOUNT', 'PROMO', 'BOOST'];
+
+    function generateCouponCode() {
+        const prefix = couponPrefixes[Math.floor(Math.random() * couponPrefixes.length)];
+        const action = couponActions[Math.floor(Math.random() * couponActions.length)];
+        const amount = Math.floor(Math.random() * 41 + 10); // generates number between 10–50
+        return `${prefix}${action}${amount}`; // e.g., SUMMERDEAL25
+    }
+
 
     const onSubmit = async (data: FormData) => {
         setIsLoading(true);
@@ -45,6 +66,22 @@ export default function AddCoupon() {
         }
     }
 
+    const allPackages = async () => {
+        try {
+            const res = await getPackages();
+            console.log('res', res.data);
+            if (res.data.status === HttpStatusCode.Ok) {
+                setPackages(res.data.data);
+            }
+        } catch (error) {
+            console.log('error comes in packages: ', error);
+        }
+    }
+
+    useEffect(() => {
+        allPackages();
+    }, []);
+
     return (
         <div className="py-4 px-8">
             <div className="text-[#181E4B] font-semibold text-lg Poppins">
@@ -56,47 +93,110 @@ export default function AddCoupon() {
                     {/* Location Name */}
                     <FormField
                         control={form.control}
-                        name="location"
+                        name="package_id"
                         render={({ field }) => (
                             <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start md:gap-4 gap-3">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Enter Location Name *
+                                <div className="grid grid-cols-12 gap-4">
+                                    <FormLabel className="col-span-12 md:col-span-3  Poppins">
+                                        Select Package *
                                     </FormLabel>
-                                    <div className="w-full md:w-[70%]">
+                                    <div className="col-span-12 md:col-span-6">
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            value={field.value ? field.value.toString() : ""}
+                                        >
+                                            <SelectTrigger className="w-full bg-white">
+                                                <SelectValue className="Poppins" placeholder="Select a category" />
+                                            </SelectTrigger>
+                                            <SelectContent className="border Poppins border-gray-200 bg-white">
+                                                <SelectGroup>
+                                                    {packages?.map((item) => (
+                                                        <SelectItem key={item.id} value={item.id.toString()}>
+                                                            {item.name}
+                                                        </SelectItem>
+                                                    ))}
+                                                </SelectGroup>
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </div>
+                                    <div className="col-span-12 md:col-span-3 flex items-center justify-end">
+                                    </div>
+                                </div>
+                            </FormItem>
+
+                        )}
+                    />
+
+                    {/* Name */}
+                    <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="grid grid-cols-12 gap-4">
+                                    <FormLabel className="col-span-12 md:col-span-3 Poppins">
+                                        Name *
+                                    </FormLabel>
+                                    <div className="col-span-12 md:col-span-6">
                                         <FormControl>
                                             <Input
-                                                placeholder="Type Location Name"
+                                                placeholder=""
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
                                         </FormControl>
                                         <FormMessage />
                                     </div>
+                                    <div className="col-span-12 md:col-span-3 flex items-center justify-end">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            className="text-xs"
+                                            onClick={() => {
+                                                const coupon = generateCouponCode();
+                                                form.setValue("name", coupon, { shouldValidate: true });
+                                            }}
+                                        >
+                                            Auto Generate
+                                        </Button>
+                                    </div>
                                 </div>
                             </FormItem>
                         )}
                     />
 
-                    {/* Address */}
                     <FormField
                         control={form.control}
-                        name="address"
+                        name="name"
                         render={({ field }) => (
                             <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start md:gap-4 gap-3">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Enter Address *
+                                <div className="grid grid-cols-12 gap-4">
+                                    <FormLabel className="col-span-12 md:col-span-3 Poppins">
+                                        Name *
                                     </FormLabel>
-                                    <div className="w-full md:w-[70%]">
+                                    <div className="col-span-12 md:col-span-6">
                                         <FormControl>
                                             <Input
-                                                placeholder="Enter Address Here"
+                                                placeholder=""
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
                                         </FormControl>
                                         <FormMessage />
+                                    </div>
+                                    <div className="col-span-12 md:col-span-3 flex items-center justify-end">
+                                        <Button
+                                            type="button"
+                                            variant="outline"
+                                            className="text-xs"
+                                            onClick={() => {
+                                                const coupon = generateCouponCode();
+                                                form.setValue("name", coupon, { shouldValidate: true });
+                                            }}
+                                        >
+                                            Auto Generate
+                                        </Button>
                                     </div>
                                 </div>
                             </FormItem>

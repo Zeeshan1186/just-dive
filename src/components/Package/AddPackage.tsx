@@ -82,7 +82,7 @@ const packageSchema = z.object({
             message: "Image size must be less than 5MB",
         }),
     services: z.string().optional(),
-    vehicle: z.string().optional(),
+    // vehicle: z.string().optional(),
     iternary: z.string().optional(),
 });
 
@@ -105,7 +105,7 @@ export default function AddPackage() {
             whyChooseUs: [{ title: "", description: "" }],
             note: [{ title: '' }],
             services: "",
-            vehicle: "",
+            // vehicle: "",
             iternary: "",
         },
     });
@@ -236,7 +236,7 @@ export default function AddPackage() {
         formData.append("location", data.location);
         formData.append("duration", data.duration);
         formData.append("services", data.services);
-        formData.append("vehicle", data.vehicle);
+        // formData.append("vehicle", data.vehicle);
         formData.append("iternary", data.iternary);
 
         // Image (single file)
@@ -245,7 +245,7 @@ export default function AddPackage() {
         }
 
         // Image (single file)
-        if (data.image instanceof File) {
+        if (data.page_image instanceof File) {
             formData.append("page_image", data.page_image);
         }
 
@@ -377,7 +377,7 @@ export default function AddPackage() {
                                                 className="px-4 py-4 bg-[#509CDB] hover:bg-[#509CDB] font-medium border-1 hover:cursor-pointer"
                                                 onClick={handleClick}
                                             >
-                                                <Plus className="h-4 w-4 Poppins" /> Add Product Image
+                                                <Plus className="h-4 w-4 Poppins" /> Add Package Image
                                             </Button>
                                         </div>
                                     </FormItem>
@@ -400,7 +400,7 @@ export default function AddPackage() {
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>
                                             <Input
-                                                placeholder="Type Package Name"
+                                                placeholder="Type package name"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -543,7 +543,7 @@ export default function AddPackage() {
                                         <FormControl>
                                             <Input
                                                 type='number'
-                                                placeholder="Type Number Of Seats"
+                                                placeholder="Type number of seats"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -569,7 +569,7 @@ export default function AddPackage() {
                                         <FormControl>
                                             <Input
                                                 type='number'
-                                                placeholder="Price Per Person"
+                                                placeholder="Price per person"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -595,7 +595,7 @@ export default function AddPackage() {
                                         <FormControl>
                                             <Input
                                                 type='number'
-                                                placeholder="Enter Duration Of Package"
+                                                placeholder="Enter duration of package"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -620,7 +620,7 @@ export default function AddPackage() {
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>
                                             <Input
-                                                placeholder="Type Service"
+                                                placeholder="Type service"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -633,7 +633,7 @@ export default function AddPackage() {
                     />
 
                     {/* vehicle */}
-                    <FormField
+                    {/* <FormField
                         control={form.control}
                         name="vehicle"
                         render={({ field }) => (
@@ -655,7 +655,7 @@ export default function AddPackage() {
                                 </div>
                             </FormItem>
                         )}
-                    />
+                    /> */}
 
                     {/* Detail page image */}
                     <div className="flex w-full">
@@ -735,7 +735,7 @@ export default function AddPackage() {
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>
                                             <Input
-                                                placeholder="Type Iternary"
+                                                placeholder="Type iternary"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
@@ -762,7 +762,7 @@ export default function AddPackage() {
                                             <div key={fieldItem.id} className="flex gap-2 items-start">
                                                 <FormControl className="w-full">
                                                     <Textarea
-                                                        placeholder="Type Schedule"
+                                                        placeholder="Type schedule"
                                                         {...form.register(`schedule.${index}.title`)}
                                                         className="bg-white w-full"
                                                     />

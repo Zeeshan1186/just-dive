@@ -165,11 +165,11 @@ export default function CouponPage() {
                             className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
                         />
                     </div>
-                    {/* <div className='ml-4'>
+                    <div className='ml-4'>
                         <Button onClick={() => { navigate('/admin/coupon/add') }}>
                             <Plus /> Add Coupon
                         </Button>
-                    </div> */}
+                    </div>
                 </div>
             </div>
 
