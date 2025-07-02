@@ -96,3 +96,11 @@ export const getPackageSlotsByDate = async (
 ) => {
   return await api.get(API_PATHS.PACKAGE_SLOTS_BY_DATE(packageId, date));
 };
+
+export const getBlogs = async () => {
+  return await api.get(API_PATHS.BLOGS);
+};
+
+export const getBlogById = async (id: number | string) => {
+  return await api.get(`api/blog/${id}`);
+};

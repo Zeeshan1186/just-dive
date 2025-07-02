@@ -24,6 +24,8 @@ import PackagePage from './Pages/admin/PackagePage';
 import EditPackage from './components/Package/EditPackage';
 import ItineraryCardPage from './Pages/ItineraryCardPage';
 import BlogDetailPage from './components/BlogDetailPage';
+import Blogs from './Pages/Blogs';
+import Media from './Pages/Media';
 
 const App: React.FC = () => {
   return (
@@ -50,7 +52,9 @@ const App: React.FC = () => {
         </Route>
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
-        <Route path="/blogdetail" element={<BlogDetailPage />} />
+        <Route path="/blog/:id" element={<BlogDetailPage />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/media" element={<Media />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />

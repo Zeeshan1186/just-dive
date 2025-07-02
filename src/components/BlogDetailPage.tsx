@@ -1,74 +1,83 @@
-// BlogDetailPage.tsx
 import {
     CalendarDays,
     Folder,
     User,
-    Search,
     Facebook,
     Instagram,
     Twitter,
 } from "lucide-react";
-import { blogPost, categories, relatedPosts } from "./data";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getBlogById } from "@/services/apiService";
+import { Link } from "react-router-dom";
 
 const BlogDetailPage = () => {
+    const { id } = useParams();
+    const [blogPost, setBlogPost] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchBlog = async () => {
+            try {
+                const res = await getBlogById(id as string);
+                setBlogPost(res.data.data);
+            } catch (err) {
+                console.error("Failed to fetch blog", err);
+            }
+        };
+
+        fetchBlog();
+    }, [id]);
+
+    if (!blogPost) return <div className="text-center py-10">Loading...</div>;
+
     return (
         <div className="flex flex-col md:flex-col max-w-6xl mx-auto px-4 py-8 gap-8">
-            {/* Left - Blog Content */}
-
             <div className="flex gap-10">
+                {/* Left - Blog Content */}
                 <div className="flex-1 w-full">
                     <div className="flex flex-wrap gap-4 text-sm text-gray-500 mb-4">
                         <div className="flex items-center gap-1">
                             <CalendarDays size={16} />
-                            <span>{blogPost.date}</span>
+                            <span>{blogPost.creation_date}</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <Folder size={16} />
-                            <span>{blogPost.categories.join(", ")}</span>
+                            <span>Blog</span>
                         </div>
                         <div className="flex items-center gap-1">
                             <User size={16} />
-                            <span>By {blogPost.author.name}</span>
+                            <span>By {blogPost.author_name}</span>
                         </div>
                     </div>
 
-                    <h1 className="text-3xl md:text-4xl font-bold mb-6">{blogPost.title}</h1>
+                    <h1 className="text-3xl md:text-3xl capitalize Poppins font-bold mb-3">{blogPost.title}</h1>
 
                     <img
-                        src={blogPost.image}
+                        src={blogPost.blog_image}
                         alt="Blog"
                         className="rounded-lg mb-6 w-full object-cover"
                     />
 
-                    <div className="text-gray-700 leading-relaxed space-y-4">
-                        {blogPost.content.map((para, i) => (
-                            <p key={i}>{para}</p>
-                        ))}
+                    <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
+                        {blogPost.description}
                     </div>
                 </div>
 
                 {/* Right - Sidebar */}
-                <aside className="w-[25%] space-y-8">
-                    {/* Search */}
-                    <div className="relative">
-                        <input
-                            type="text"
-                            placeholder="Enter your keywords..."
-                            className="w-full border rounded-md py-2 px-4 pr-10"
-                        />
-                        <Search className="absolute right-3 top-2.5 text-gray-400" size={18} />
-                    </div>
+                <aside className="w-[22%] space-y-8 mt-22">
 
                     {/* Author Card */}
-                    <div className="bg-white p-6 rounded-md shadow text-center">
+                    <div className="bg-white p-6 border-1 border-[#e5e5e5] rounded-md shadow text-center">
                         <img
-                            src={blogPost.author.image}
-                            alt={blogPost.author.name}
+                            src={blogPost.author_image}
+                            alt={blogPost.author_name}
                             className="w-20 h-20 rounded-full mx-auto mb-4"
                         />
-                        <h3 className="font-semibold text-lg">{blogPost.author.name}</h3>
-                        <p className="text-sm text-gray-500 mb-4">{blogPost.author.role}</p>
-                        <p className="text-sm text-gray-600 mb-4">{blogPost.author.bio}</p>
+                        <h3 className="font-semibold text-lg">{blogPost.author_name}</h3>
+                        <p className="text-sm text-gray-500 mb-4">Author</p>
+                        <p className="text-sm text-gray-600 mb-4">
+                            Passionate writer sharing travel & dive adventures in Goa.
+                        </p>
                         <div className="flex justify-center gap-4">
                             <Facebook className="w-5 h-5 text-gray-600" />
                             <Twitter className="w-5 h-5 text-gray-600" />
@@ -78,40 +87,47 @@ const BlogDetailPage = () => {
 
                     {/* Categories */}
                     <div>
-                        <h4 className="text-lg font-semibold mb-3">Categories</h4>
+                        <h4 className="text-lg font-semibold Poppins mb-3">Categories</h4>
                         <ul className="space-y-2">
-                            {categories.map((cat) => (
-                                <li
-                                    key={cat}
-                                    className="text-sm text-gray-600 hover:text-[#b89d53] cursor-pointer"
-                                >
-                                    {cat}
-                                </li>
-                            ))}
+                            <li className="text-sm text-gray-600 hover:text-[#b89d53] cursor-pointer">Blog</li>
+                            {/* You can make this dynamic if needed */}
                         </ul>
                     </div>
                 </aside>
             </div>
 
-            {/* Related Posts */}
-            <div className="w-full mt-12">
-                <h3 className="text-2xl font-bold mb-4">Related Posts</h3>
-                <div className="grid md:grid-cols-3 gap-6">
-                    {relatedPosts.map((post) => (
-                        <div
-                            key={post.id}
-                            className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition"
+            {/* Related Posts (Placeholder for now) */}
+            <div className="w-full mt-8 flex flex-col items-center px-2">
+                <div className="flex justify-center items-center my-5 mb-10">
+                    <span className="w-100 border-t border-dotted border-[#C3A357]"></span>
+                    <span className="relative z-10 p-4 text-black text-4xl font-normal Trirong">
+                        Related Posts
+                    </span>
+                    <span className="w-100 border-t border-dotted border-[#C3A357]"></span>
+                </div>
+                <div className="grid md:grid-cols-4 gap-6">
+                    {/* You can fetch related posts by category later */}
+                    {[...Array(4)].map((_, index) => (
+                        <Link
+                            to={`/blog/${blogPost.id}`}
+                            key={index}
+                            className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
                         >
                             <img
-                                src={post.image}
-                                alt={post.title}
+                                src={blogPost.blog_image}
+                                alt="Related Post"
                                 className="h-40 w-full object-cover"
                             />
                             <div className="p-4">
-                                <h4 className="font-semibold text-lg mb-1">{post.title}</h4>
-                                <p className="text-sm text-gray-500">{post.date}</p>
+                                <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2">
+                                    {blogPost.title}
+                                </h4>
+                                <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
+                                    {blogPost.description}
+                                </p>
+                                <p className="text-sm text-gray-500">{blogPost.creation_date}</p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </div>
