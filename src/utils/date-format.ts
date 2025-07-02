@@ -1,3 +1,5 @@
+import { format, parse } from "date-fns";
+
 export const simpleDate = (isoDate: Date) => {
   const date = new Date(isoDate);
 
@@ -7,4 +9,11 @@ export const simpleDate = (isoDate: Date) => {
     year: "numeric",
   });
   return formatted;
+};
+
+export const bookingDateFormat = (rawDate: string) => {
+  const parsedDate = parse(rawDate, "d/M/yyyy", new Date());
+  const formattedDate = format(parsedDate, "d MMMM yyyy");
+
+  return formattedDate;
 };

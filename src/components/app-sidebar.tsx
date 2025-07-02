@@ -23,7 +23,7 @@ const initialData = [
     },
     {
         title: "Manage Bookings",
-        url: "#",
+        url: "/admin/booking",
     },
     {
         title: "Manage Packages",

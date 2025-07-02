@@ -1,18 +1,17 @@
 import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
 import { HTTP_CODE } from '@/constants/http-codes';
-import { getCoupons, getLocations } from '@/services/apiService';
+import { getCoupons } from '@/services/apiService';
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type Row, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { PAGINATION_COUNT } from '@/constants/const-variables';
-import type { ILocation } from '@/interface/location';
 import { Button } from '@/components/ui/button';
 import { ArrowUpDown, Loader2, Plus, Search } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useNavigate } from 'react-router-dom';
-import LocationRowActions from '@/components/Location/LocationRowActions';
 import type { ICoupon } from '@/interface/coupon';
+import CouponRowActions from '@/components/Coupon/CouponRowActions';
 
 export default function CouponPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -51,7 +50,7 @@ export default function CouponPage() {
             ),
         },
         {
-            accessorKey: "packageName",
+            accessorKey: "package.name",
             header: "Package Name",
             cell: ({ row }) => {
                 const packageName = row.original?.package?.name;
@@ -76,7 +75,7 @@ export default function CouponPage() {
             header: "Validity",
             cell: ({ row }) => (
                 <div className="capitalize">
-                    {row.getValue('validity')}
+                    {row.getValue('validity') === 'life_time' ? "Life Time" : row.getValue('validity')}
                 </div>
             ),
         },
@@ -85,22 +84,22 @@ export default function CouponPage() {
             header: "Times Use",
             cell: ({ row }) => (
                 <div className="capitalize">
-                    {row.getValue('times_use')}
+                    {row.getValue('times_use') === 'life_time' ? "Life Time" : row.getValue('times_use')}
                 </div>
             ),
         },
-        // {
-        //     id: "actions",
-        //     header: "Actions",
-        //     enableHiding: false,
-        //     cell: ({ row }: { row: any }) => {
-        //         return (
-        //             <LocationRowActions
-        //                 row={row as Row<ILocation>}
-        //             />
-        //         );
-        //     },
-        // },
+        {
+            id: "actions",
+            header: "Actions",
+            enableHiding: false,
+            cell: ({ row }: { row: any }) => {
+                return (
+                    <CouponRowActions
+                        row={row as Row<ICoupon>}
+                    />
+                );
+            },
+        },
     ];
 
     const table = useReactTable({

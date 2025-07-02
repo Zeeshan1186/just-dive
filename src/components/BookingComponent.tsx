@@ -41,10 +41,8 @@ export default function BookingComponent() {
 
                 if (location) {
                     res = await getactivePackagesByLocation(location);
-                    console.log("📍 Packages fetched by location:", location);
                 } else {
                     res = await getactivePackages(); // <-- fallback if no location
-                    console.log("🌍 Fetched all active packages");
                 }
 
                 setPackages(res?.data?.data || []);
@@ -99,7 +97,6 @@ export default function BookingComponent() {
         } else if (popupStep === 2 && participants) {
             const pkg = packages.find((p) => p.id === selectedPackage);
             if (pkg) {
-                console.log("Saving to localStorage:", pkg);
                 localStorage.setItem("selectedPackageId", String(pkg.id));   // ✅ store ID
                 localStorage.setItem("selectedPackageName", pkg.name);       // ✅ store name
                 localStorage.setItem("participants", participants);

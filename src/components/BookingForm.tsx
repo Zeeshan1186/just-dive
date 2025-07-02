@@ -92,10 +92,6 @@ const BookingForm = () => {
         const packageId = Number(storedPackageId);
         const participantCount = parseInt(storedParticipants, 10);
 
-        console.log("Applying coupon:", couponCode);
-        console.log("For package ID:", packageId);
-        console.log("Participants:", participantCount);
-
         getPackageById(packageId).then((res) => {
             const pricePerPerson = Number(res.data?.data?.price || 0);
             const total = pricePerPerson * participantCount;
@@ -140,27 +136,12 @@ const BookingForm = () => {
             formData.append("price", grandTotal);
 
             const response = await postBooking(formData);
-            console.log("Booking success:", response);
             alert("Booking submitted successfully!");
         } catch (error) {
             console.error("Booking failed:", error);
             alert("Booking failed. Please check the required fields.");
         }
     };
-
-    console.log({
-        fullName,
-        whatsapp,
-        email,
-        age,
-        gender,
-        nationality,
-        selectedDate,
-        selectedSlot,
-        storedParticipants,
-        grandTotal
-    });
-
 
     return (
         <>

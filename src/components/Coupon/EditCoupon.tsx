@@ -4,9 +4,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Button } from "../ui/button"
 import { ArrowUp, Loader2 } from "lucide-react"
-import { addCoupon, getPackages } from "@/services/apiService"
+import { addCoupon, editCoupon, getCoupon, getPackages } from "@/services/apiService"
 import { HttpStatusCode } from "axios"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import type { IPackage } from "@/interface/package"
@@ -14,6 +14,7 @@ import { Input } from "../ui/input"
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group"
 import { Label } from "../ui/label"
 import { toast } from "sonner"
+import type { ICoupon } from "@/interface/coupon"
 
 const schema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -25,23 +26,36 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export default function AddCoupon() {
+export default function EditCoupon() {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [packages, setPackages] = useState<IPackage[]>([]);
     const [validityType, setValidityType] = useState("");
     const [TimesUseType, setTimesUseType] = useState("");
+    const [coupon, setCoupon] = useState<ICoupon>();
 
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
-            name: "",
-            package_id: undefined,
+            name: coupon?.name || "",
+            package_id: coupon?.package?.id || undefined,
             discount: undefined,
             validity: "",
             times_use: "",
         },
     });
+
+    const couponAPI = async () => {
+        try {
+            const res = await getCoupon(Number(id));
+            if (res.data.status === HttpStatusCode.Ok) {
+                setCoupon(res.data.data);
+            }
+        } catch (error) {
+            console.log('error occur during get coupon:', error);
+        }
+    }
 
     // custom name
     const couponPrefixes = ['WELCOME', 'NEWUSER', 'FESTIVE', 'SUMMER', 'RENTAL', 'BONUS', 'WINTER', 'OFFER', 'FLASH', 'LIMITED'];
@@ -58,7 +72,7 @@ export default function AddCoupon() {
     const onSubmit = async (data: FormData) => {
         setIsLoading(true);
         try {
-            const res = await addCoupon(data);
+            const res = await editCoupon(data, Number(id));
             if (res.data.status === HttpStatusCode.Ok) {
                 toast.success(res.data.message);
                 navigate('/admin/coupon');
@@ -82,7 +96,21 @@ export default function AddCoupon() {
     }
 
     useEffect(() => {
+        form.reset({
+            name: coupon?.name,
+            package_id: coupon?.package.id,
+            discount: coupon?.discount,
+            validity: coupon?.validity,
+            times_use: coupon?.times_use
+        });
+
+        setValidityType(coupon?.validity === "life_time" ? "life_time" : "limited");
+        setTimesUseType(coupon?.times_use === "life_time" ? "life_time" : "limited");
+    }, [coupon])
+
+    useEffect(() => {
         allPackages();
+        couponAPI();
     }, []);
 
     return (
@@ -330,7 +358,7 @@ export default function AddCoupon() {
                     {/* Submit Button */}
                     <div className="flex justify-end gap-4">
                         <Button type="submit" disabled={isLoading} className="bg-[#509CDB] text-white">
-                            Submit {isLoading ? <Loader2 className="w-5 animate-spin" /> : <ArrowUp />}
+                            Update {isLoading ? <Loader2 className="w-5 animate-spin" /> : <ArrowUp />}
                         </Button>
                         <Button type="button" disabled={isLoading} onClick={() => { navigate('/admin/coupon') }}
                             className="bg-[#152259] text-white">

@@ -51,7 +51,7 @@ export default function PackagePage() {
             ),
         },
         {
-            accessorKey: "location",
+            accessorKey: "location.location_name",
             header: ({ column }) => {
                 const isSorted = column.getIsSorted();
                 return (
@@ -70,10 +70,6 @@ export default function PackagePage() {
                     {row.original.location.location_name}
                 </div>
             ),
-            filterFn: (row, _columnId, filterValue) => {
-                const locationName = row.original.location?.location_name?.toLowerCase() ?? "";
-                return locationName.includes(filterValue.toLowerCase());
-            },
         },
         {
             accessorKey: "price",

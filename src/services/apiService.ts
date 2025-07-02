@@ -1,6 +1,7 @@
 import { API_PATHS } from "@/constants/api-paths";
 import api from "./api";
 import type { IUser } from "@/interface/user";
+import type { ICoupon, IPayloadCoupon } from "@/interface/coupon";
 
 const token = localStorage.getItem("token");
 
@@ -28,6 +29,18 @@ export const editLocation = async (data: any, id: number) => {
 // Coupon API
 export const getCoupons = async () => {
   return await api.get(API_PATHS.COUPON);
+};
+
+export const getCoupon = async (id: number) => {
+  return await api.get(`${API_PATHS.COUPON}/${id}`);
+};
+
+export const addCoupon = async (data: IPayloadCoupon) => {
+  return await api.post(API_PATHS.COUPON, data);
+};
+
+export const editCoupon = async (data: IPayloadCoupon, id: number) => {
+  return await api.put(`${API_PATHS.COUPON}/${id}`, data);
 };
 
 // Package API
@@ -69,8 +82,13 @@ export const getactivePackagesByLocation = async (location: string) => {
   return await api.get(API_PATHS.ACTIVE_PACKAGE_BY_lOCATION(location));
 };
 
+// Booking
 export const postBooking = async (formData: any) => {
   return await api.post(API_PATHS.BOOKING, formData);
+};
+
+export const getActiveBooking = async (status: string) => {
+  return await api.get(`${API_PATHS.CONFIRM_BOOKING}?status=${status}`);
 };
 
 // If API accepts coupon code or package ID as query:

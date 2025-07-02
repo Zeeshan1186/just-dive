@@ -54,11 +54,9 @@ export default function BookingComponent() {
                     // You can still send a date if API needs it, but assume it doesn’t matter
                     const formattedDate = date ? format(date, 'd/M/yyyy') : "";
                     const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
-                    console.log("response", res.data);
                     const slots = Array.isArray(res?.data) ? res.data : [];
                     setDynamicSlots(res.data.data);
                     setSelectedSlot("");
-                    console.log("slots:", slots);
                     setAvailableSeats(null);
                 } catch (error) {
                     console.error("Failed to fetch slots", error);

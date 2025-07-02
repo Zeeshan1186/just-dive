@@ -12,5 +12,6 @@ export const API_PATHS = {
     `api/availability/package?packageId=${id}&date=${date}`,
   CONTACT_SEND: "api/contact/send",
   BOOKING: "api/booking",
-  APPLYCOUPON: "api/apply/coupon"
+  APPLYCOUPON: "api/apply/coupon",
+  CONFIRM_BOOKING: "api/confirm-booking",
 };
