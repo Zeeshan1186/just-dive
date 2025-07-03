@@ -8,12 +8,13 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getBlogById } from "@/services/apiService";
+import { getBlogById, getBlogs } from "@/services/apiService";
 import { Link } from "react-router-dom";
 
 const BlogDetailPage = () => {
     const { id } = useParams();
     const [blogPost, setBlogPost] = useState<any>(null);
+    const [latestBlogs, setLatestBlogs] = useState<any[]>([]);
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -25,7 +26,25 @@ const BlogDetailPage = () => {
             }
         };
 
+        const fetchLatestBlogs = async () => {
+            try {
+                const res = await getBlogs();
+                // Exclude current blog and sort by creation date descending
+                const sorted = res.data.data
+                    .filter((blog: any) => blog.id !== Number(id))
+                    .sort(
+                        (a: any, b: any) =>
+                            new Date(b.creation_date).getTime() -
+                            new Date(a.creation_date).getTime()
+                    );
+                setLatestBlogs(sorted.slice(0, 4)); // Take latest 4 blogs
+            } catch (err) {
+                console.error("Failed to fetch latest blogs", err);
+            }
+        };
+
         fetchBlog();
+        fetchLatestBlogs();
     }, [id]);
 
     if (!blogPost) return <div className="text-center py-10">Loading...</div>;
@@ -107,25 +126,25 @@ const BlogDetailPage = () => {
                 </div>
                 <div className="grid md:grid-cols-4 gap-6">
                     {/* You can fetch related posts by category later */}
-                    {[...Array(4)].map((_, index) => (
+                    {latestBlogs.map((blog) => (
                         <Link
-                            to={`/blog/${blogPost.id}`}
-                            key={index}
+                            to={`/blog/${blog.id}`}
+                            key={blog.id}
                             className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
                         >
                             <img
-                                src={blogPost.blog_image}
-                                alt="Related Post"
+                                src={blog.blog_image}
+                                alt={blog.title}
                                 className="h-40 w-full object-cover"
                             />
                             <div className="p-4">
-                                <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2">
-                                    {blogPost.title}
+                                <h4 className="font-semibold text-[#171717] leading-6 Poppins line-clamp-2 text-lg mb-2">
+                                    {blog.title}
                                 </h4>
                                 <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
-                                    {blogPost.description}
+                                    {blog.description}
                                 </p>
-                                <p className="text-sm text-gray-500">{blogPost.creation_date}</p>
+                                <p className="text-sm text-gray-500">{blog.creation_date}</p>
                             </div>
                         </Link>
                     ))}

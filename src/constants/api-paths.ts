@@ -14,4 +14,5 @@ export const API_PATHS = {
   BOOKING: "api/booking",
   APPLYCOUPON: "api/apply/coupon",
   BLOGS: "api/blogs",
+  BLOG: "/api/blog",
 };

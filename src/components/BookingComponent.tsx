@@ -46,13 +46,11 @@ export default function BookingComponent() {
                     res = await getactivePackages(); // <-- fallback if no location
                     console.log("🌍 Fetched all active packages");
                 }
-
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Failed to fetch packages", err);
             }
         };
-
         fetchPackages();
     }, []);
 

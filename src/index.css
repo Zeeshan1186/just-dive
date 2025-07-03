@@ -15,6 +15,15 @@ html {
   background-color: #C3A357;
 }
 
+.sidebar-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @font-face {
   font-family: 'CustomFontTrirong';
   src: url('/src/assets/fonts/Trirong-Regular.ttf') format('woff');
