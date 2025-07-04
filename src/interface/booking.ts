@@ -1,5 +1,6 @@
 import type { ILocation } from "./location";
 import type { IPackage } from "./package";
+import type { Slot } from "./slot";
 
 export interface IBooking {
   id: number;
@@ -11,4 +12,11 @@ export interface IBooking {
   number_of_participants: number;
   price: number;
   status: string;
+  whatsapp_no: string;
+  email: string;
+  gender: string;
+  age: number;
+  nationality: string;
+  document?: string;
+  slot: Slot;
 }

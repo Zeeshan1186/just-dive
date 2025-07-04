@@ -19,7 +19,6 @@ type Slot = {
     time: string;
 };
 
-
 export default function BookingComponent() {
     const [date, setDate] = useState<Date | undefined>(undefined);
     const [popupStep, setPopupStep] = useState(1);

@@ -30,6 +30,7 @@ import Blogs from './Pages/Blogs';
 import Media from './Pages/Media';
 import AdminBlogs from './Pages/admin/AdminBlogs';
 import AddBlog from './Pages/admin/BlogForm';
+import AddAdminBooking from './components/Booking/addAdminBooking';
 
 const App: React.FC = () => {
   return (
@@ -56,9 +57,12 @@ const App: React.FC = () => {
           <Route path="package/edit/:id" element={<EditPackage />} />
           {/* Booking Url */}
           <Route path="booking" element={<AdminBookingPage />} />
+          <Route path="booking/add" element={<AddAdminBooking />} />
+
+          {/* Blog Url */}
           <Route path="blogs" element={<AdminBlogs />} />
-          <Route path="/admin/add-blog" element={<AddBlog />} />
-          <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
+          <Route path="add-blog" element={<AddBlog />} />
+          <Route path="edit-blog/:id" element={<AddBlog />} />
         </Route>
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />

@@ -13,7 +13,6 @@ const BlogSection = () => {
             try {
                 const res = await getBlogs();
                 setBlogs(res.data.data || []);
-                console.log("Blogs:", blogs);
             } catch (err) {
                 console.error("Failed to load blogs", err);
             }

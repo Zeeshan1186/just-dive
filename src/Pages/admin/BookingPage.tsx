@@ -1,3 +1,4 @@
+import BookingRowActions from '@/components/Booking/bookingRowActions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -9,8 +10,9 @@ import { bookingDateFormat } from '@/utils/date-format';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { HttpStatusCode } from 'axios';
 import { format, parseISO } from 'date-fns';
-import { ArrowUpDown, Loader2, Search } from 'lucide-react';
+import { ArrowUpDown, Loader2, Plus, Search } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export default function AdminBookingPage() {
     const [bookingData, setBooking] = useState<IBooking[]>([]);
@@ -25,6 +27,7 @@ export default function AdminBookingPage() {
         pageIndex: 0,
         pageSize: PAGINATION_COUNT,
     });
+    const navigate = useNavigate();
 
     const bookingCreatedAtFormat = (dateString: string | undefined): string => {
         if (!dateString) return '';
@@ -110,20 +113,18 @@ export default function AdminBookingPage() {
                 )
             },
         },
-        // {
-        //     id: "actions",
-        //     header: "Actions",
-        //     enableHiding: false,
-        //     cell: ({ row }: { row: any }) => {
-        //         return (
-        //             <OrderRowActions
-        //                 row={row as Row<IOrder>}
-        //                 refreshOrders={refreshOrders}
-        //                 orderStatus={activeOrder}
-        //             />
-        //         );
-        //     },
-        // }
+        {
+            id: "actions",
+            header: "Actions",
+            enableHiding: false,
+            cell: ({ row }: { row: any }) => {
+                return (
+                    <BookingRowActions
+                        row={row}
+                    />
+                );
+            },
+        }
     ];
 
     const table = useReactTable({
@@ -173,7 +174,7 @@ export default function AdminBookingPage() {
     const renderTable = () => {
         return (
             <Table className="border border-gray-200">
-                <TableHeader className='bg-[#dfdfdf]'>
+                <TableHeader className='bg-[#FFF6E2]'>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id} className="border-b border-gray-200">
                             {headerGroup.headers.map((header) => (
@@ -228,7 +229,7 @@ export default function AdminBookingPage() {
     return (
         <div className='p-4'>
             <div className='flex justify-between'>
-                <div className='text-[#181E4B] font-semibold text-lg Poppins'>Manage Coupon</div>
+                <div className='text-[#181E4B] font-semibold text-lg Poppins'>Manage Bookings</div>
                 <div className='flex'>
                     <div className="border border-gray-200 flex items-center justify-center bg-white rounded-md shadow-md w-full max-w-[200px] md:max-w-[300px]">
                         <Search className="h-5 w-5 text-gray-500 ml-2 cursor-pointer" />
@@ -243,11 +244,11 @@ export default function AdminBookingPage() {
                             className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
                         />
                     </div>
-                    {/* <div className='ml-4'>
-                        <Button onClick={() => { navigate('/admin/coupon/add') }}>
-                            <Plus /> Add Coupon
+                    <div className='ml-4'>
+                        <Button onClick={() => { navigate('/admin/booking/add') }}>
+                            <Plus /> Add Booking
                         </Button>
-                    </div> */}
+                    </div>
                 </div>
             </div>
             <div>
