@@ -44,13 +44,11 @@ export default function BookingComponent() {
                 } else {
                     res = await getactivePackages(); // <-- fallback if no location
                 }
-
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Failed to fetch packages", err);
             }
         };
-
         fetchPackages();
     }, []);
 

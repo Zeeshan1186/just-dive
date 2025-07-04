@@ -114,3 +114,31 @@ export const getPackageSlotsByDate = async (
 ) => {
   return await api.get(API_PATHS.PACKAGE_SLOTS_BY_DATE(packageId, date));
 };
+
+export const getBlogs = async () => {
+  return await api.get(API_PATHS.BLOGS);
+};
+
+export const getBlogById = async (id: number | string) => {
+  return await api.get(`api/blog/${id}`);
+};
+
+export const addBlog = async (data: any) => {
+  return await api.post(API_PATHS.BLOG, data, {
+    headers: {
+      "Content-Type": "multipart/form-data", // Because images
+    },
+  });
+};
+
+export const updateBlog = async (id: number | string, data: FormData) => {
+  return await api.post(`/api/blog/update/${id}`, data, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const deleteBlog = async (id: number) => {
+  return await api.delete(`${API_PATHS.BLOG}/${id}`);
+};

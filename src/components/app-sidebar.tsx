@@ -1,6 +1,6 @@
-import * as React from "react"
-import { ChevronRight } from "lucide-react"
-import { VersionSwitcher } from "@/components/version-switcher"
+import * as React from "react";
+import { ChevronRight } from "lucide-react";
+import { VersionSwitcher } from "@/components/version-switcher";
 import {
     Sidebar,
     SidebarContent,
@@ -12,9 +12,9 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
     SidebarRail,
-} from "@/components/ui/sidebar"
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
-import { Link, useLocation } from "react-router-dom"
+} from "@/components/ui/sidebar";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible";
+import { Link, useLocation } from "react-router-dom";
 
 const initialData = [
     {
@@ -55,7 +55,15 @@ const initialData = [
         title: "Manage Terms/Condition",
         url: "#",
     },
-]
+    {
+        title: "Blogs",
+        url: "/admin/blogs",
+    },
+    {
+        title: "Add Media",
+        url: "/admin/addmedia",
+    },
+];
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const location = useLocation();
@@ -69,7 +77,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <VersionSwitcher />
             </SidebarHeader>
 
-            <SidebarContent className="gap-0 bg-[#152259]">
+            <SidebarContent className="gap-0 bg-[#152259] sidebar-no-scrollbar overflow-y-auto">
                 {initialData.map((item) =>
                     item.items ? (
                         <Collapsible
@@ -97,11 +105,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                                     <SidebarMenuButton
                                                         asChild
                                                         isActive={isActive(child.url)}
-                                                        className={
-                                                            isActive(child.url)
-                                                                ? "!bg-[#509CDB] !text-white"
-                                                                : "text-white"
-                                                        }
+                                                        className={`py-1 px-2 text-sm ${isActive(child.url)
+                                                            ? "!bg-[#509CDB] !text-white"
+                                                            : "text-white"
+                                                            }`}
                                                     >
                                                         <Link
                                                             to={child.url}
@@ -144,5 +151,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 
             <SidebarRail />
         </Sidebar>
-    )
+    );
 }

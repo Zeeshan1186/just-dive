@@ -23,9 +23,13 @@ import AddPackage from './components/Package/AddPackage';
 import PackagePage from './Pages/admin/PackagePage';
 import EditPackage from './components/Package/EditPackage';
 import ItineraryCardPage from './Pages/ItineraryCardPage';
-import BlogDetailPage from './components/BlogDetailPage';
 import EditCoupon from './components/Coupon/EditCoupon';
 import AdminBookingPage from './Pages/admin/BookingPage';
+import BlogDetailPage from './Pages/BlogDetailPage';
+import Blogs from './Pages/Blogs';
+import Media from './Pages/Media';
+import AdminBlogs from './Pages/admin/AdminBlogs';
+import AddBlog from './Pages/admin/BlogForm';
 
 const App: React.FC = () => {
   return (
@@ -52,10 +56,15 @@ const App: React.FC = () => {
           <Route path="package/edit/:id" element={<EditPackage />} />
           {/* Booking Url */}
           <Route path="booking" element={<AdminBookingPage />} />
+          <Route path="blogs" element={<AdminBlogs />} />
+          <Route path="/admin/add-blog" element={<AddBlog />} />
+          <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
         </Route>
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
-        <Route path="/blogdetail" element={<BlogDetailPage />} />
+        <Route path="/blog/:id" element={<BlogDetailPage />} />
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/media" element={<Media />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />
