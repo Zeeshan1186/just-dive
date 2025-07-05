@@ -142,3 +142,19 @@ export const updateBlog = async (id: number | string, data: FormData) => {
 export const deleteBlog = async (id: number) => {
   return await api.delete(`${API_PATHS.BLOG}/${id}`);
 };
+
+export const addMedia = async (formData: FormData) => {
+  return await api.post("/api/media", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+
+export const getMedia = async () => {
+  return await api.get("/api/media");
+};
+
+export const deleteMedia = async (id: number) => {
+  return await api.delete(`/api/media/${id}`);
+};
