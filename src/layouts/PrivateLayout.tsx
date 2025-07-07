@@ -10,8 +10,7 @@ export default function PrivateLayout() {
         <SidebarProvider>
             <AppSidebar />
             <SidebarInset>
-                <header className="bg-background sticky top-0 flex  border border-gray-300 h-16 shrink-0 items-center gap-2 border-b px-4">
-                    <SidebarTrigger className="-ml-1" />
+                <header className="sticky top-0 z-40 bg-background border-b border-gray-300 h-16 flex items-center px-4">                    <SidebarTrigger className="-ml-1" />
                     <Separator orientation="vertical" className="mr-2 h-4 " />
                     <div className="w-full flex justify-end">
                         <div className="flex items-center gap-2">

@@ -84,7 +84,11 @@ export const getactivePackagesByLocation = async (location: string) => {
 
 // Booking
 export const postBooking = async (formData: any) => {
-  return await api.post(API_PATHS.BOOKING, formData);
+  return await api.post(API_PATHS.BOOKING, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export const getActiveBooking = async (status: string) => {

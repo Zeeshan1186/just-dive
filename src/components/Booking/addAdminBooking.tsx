@@ -1,9 +1,9 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { z } from 'zod'
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
-import { getactivePackages, getPackageSlotsByDate } from '@/services/apiService';
+import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form';
+import { applyCoupon, getactivePackages, getPackageById, getPackageSlotsByDate, postBooking } from '@/services/apiService';
 import { HttpStatusCode } from 'axios';
 import type { IPackage } from '@/interface/package';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -13,7 +13,9 @@ import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import { Calendar } from '../ui/calendar';
 import { Input } from '../ui/input';
-import { Check, File, Mail, Phone, ThumbsUp, User } from 'lucide-react';
+import { Check, Loader2, Mail, Phone, ThumbsUp, User } from 'lucide-react';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
 const schema = z.object({
     fullName: z.string().min(1, "Name is required"),
@@ -46,11 +48,80 @@ export default function AddAdminBooking() {
     });
 
     type FormData = z.infer<typeof schema>
+    const navigate = useNavigate();
     const [packages, setPackages] = useState<IPackage[]>([]);
     const [dynamicSlots, setDynamicSlots] = useState<any[]>([]);
     const [documentFile, setDocumentFile] = useState<File | null>(null);
-    const selectedPackage = form.watch('package_id');
+    const [subtotal, setSubtotal] = useState("0.00");
+    const [discount, setDiscount] = useState("0.00");
+    const [couponCode, setCouponCode] = useState("");
+    const [grandTotal, setGrandTotal] = useState("0.00");
+    const [couponId, setCouponId] = useState<Number | undefined>(undefined);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [applyingCoupon, setApplyingCoupon] = useState(false);
+    const [couponError, setCouponError] = useState("");
     const date = form.watch('dateOfScuba');
+    const selectedPackage = form.watch('package_id');
+    const participants = form.watch('numberOfParticipants');
+
+    const summaryData = [
+        { label: "Subtotal", value: subtotal },
+        { label: "Convenience fee", value: "0.00" },
+        { label: "GST", value: "0.00" },
+        { label: "Discount", value: discount },
+        { label: "Grand Total", value: grandTotal },
+    ];
+
+    useEffect(() => {
+        if (!selectedPackage) return;
+
+        const selectedPackageData = packages.find(pkg => pkg.id === selectedPackage);
+        if (!selectedPackageData) return;
+
+        const pricePerPerson = Number(selectedPackageData.price) || 0;
+        const total = pricePerPerson * participants;
+
+        setSubtotal(total.toFixed(2));
+        setDiscount("0.00");
+        setGrandTotal(total.toFixed(2));
+    }, [selectedPackage, packages, participants]);
+
+    // apply coupon
+    const handleApplyCoupon = () => {
+
+        if (!selectedPackage || !participants || !couponCode) {
+            console.warn("Missing data to apply coupon");
+            return;
+        }
+
+        const packageId = Number(selectedPackage);
+        const participantCount = participants;
+
+        getPackageById(packageId).then((res) => {
+            const pricePerPerson = Number(res.data?.data?.price || 0);
+            const total = pricePerPerson * participantCount;
+
+            // Set subtotal regardless of coupon
+            setSubtotal(total.toFixed(2));
+
+            applyCoupon(packageId, couponCode, participantCount)
+                .then((couponRes) => {
+                    const discountedPrice = Number(couponRes?.data?.discounted_price || total);
+                    const discountAmount = total - discountedPrice;
+
+                    setDiscount(discountAmount.toFixed(2));
+                    setGrandTotal(discountedPrice.toFixed(2));
+                    setCouponId(couponRes?.data?.data?.id);
+                    setCouponError("");
+                })
+                .catch((err) => {
+                    console.error("Coupon apply failed:", err);
+                    setCouponError("Invalid or expired coupon code.");
+                    setDiscount("0.00");
+                    setGrandTotal(total.toFixed(2));
+                });
+        });
+    };
 
     const packageAPI = async () => {
         try {
@@ -87,11 +158,41 @@ export default function AddAdminBooking() {
                 type: "manual",
                 message: `Only ${selectedSlot.available} participant(s) allowed for this slot.`,
             });
-            return; // ⛔ Stop here if validation fails
+            return;
         }
-
-        // ✅ Proceed with API submission
-        // console.log("Validated successfully:", data);
+        setIsLoading(true);
+        try {
+            // ✅ Proceed with API submission
+            const formData = new FormData();
+            formData.append("fullName", data.fullName);
+            formData.append("package_id", data.package_id.toString());
+            formData.append("whatsappNo", data.whatsappNo);
+            formData.append("email", data.email);
+            formData.append("age", data.age.toString());
+            formData.append("gender", data.gender);
+            formData.append("nationality", data.nationality);
+            if (documentFile) {
+                formData.append("document", documentFile);
+            }
+            if (couponId) {
+                formData.append("coupon_id", couponId.toString());
+            }
+            const originalDate = new Date(data.dateOfScuba);
+            const dateOfScubaFormattedDate = format(originalDate, "d/M/yyyy");
+            formData.append("dateOfScuba", dateOfScubaFormattedDate);
+            formData.append("slot", data.slot.toString());
+            formData.append("numberOfParticipants", data.numberOfParticipants.toString());
+            formData.append("price", grandTotal);
+            const response = await postBooking(formData);
+            if (response?.data.status === HttpStatusCode.Ok) {
+                toast.success(response?.data.message);
+                navigate('/admin/booking');
+            }
+        } catch (error) {
+            console.log('error occur in booking', error);
+        } finally {
+            setIsLoading(false);
+        }
     }
 
     useEffect(() => {
@@ -307,7 +408,7 @@ export default function AddAdminBooking() {
                         )}
                     />
 
-                    {/* Name */}
+                    {/* Email */}
                     <FormField
                         control={form.control}
                         name="email"
@@ -456,10 +557,69 @@ export default function AddAdminBooking() {
                         )}
                     />
 
+                    <div>
+                        <div className="flex justify-center bg-gradient-to-r from-[#c5f5fa33] to-[#93e7ef33] items-center border-1 border-[#8DD5DC33] rounded-md p-3">
+                            <input
+                                type="text"
+                                placeholder="Promo Code"
+                                value={couponCode}
+                                onChange={(e) => setCouponCode(e.target.value)}
+                                className="w-full placeholder:text-[#a2a2a2] focus:outline-none focus:ring-0 focus:border-transparent"
+                                disabled={applyingCoupon}
+                            />
 
-                    <Button type='submit'>
-                        Submit
-                    </Button>
+                            {applyingCoupon ? (
+                                <div className="ml-3 w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                                <button
+                                    className="text-sm font-bold cursor-pointer text-[#058EBA] Poppins ml-3"
+                                    type="button"
+                                    onClick={handleApplyCoupon}
+                                >
+                                    Apply
+                                </button>
+                            )}
+                        </div>
+
+                        {couponError && (
+                            <p className="text-sm text-red-500 mt-1">{couponError}</p>
+                        )}
+                    </div>
+
+                    {(selectedPackage && participants) &&
+                        <div className="w-full mx-auto border border-gray-200 rounded-lg overflow-hidden p-4 bg-white">
+                            <div className="grid grid-cols-3 font-semibold text-sm text-gray-700 border-b pb-2 mb-2">
+                                <span>Pakage Details</span>
+                                <span className="text-center"></span>
+                                <span className="text-right">Amount</span>
+                            </div>
+
+                            {summaryData.map((item, index) => (
+                                <div key={index} className="grid grid-cols-3 py-1 text-sm text-gray-600">
+                                    <span>{item.label}</span>
+                                    <span className="text-center">—</span>
+                                    <span className="text-right">{item.value}</span>
+                                </div>
+                            ))}
+                        </div>
+                    }
+
+                    <div className=''>
+                        <Button type="submit" disabled={isLoading} className="mr-4 bg-[#509CDB] hover:bg-[#509CDB]">
+                            {isLoading ? (
+                                <div className="flex items-center">
+                                    Submitting
+                                    <Loader2 className="h-4 w-4 animate-spin ml-2" />
+                                </div>
+                            ) : (
+                                "Submit"
+                            )}
+                        </Button>
+                        <Button type="button" disabled={isLoading} onClick={() => { navigate('/admin/booking') }}
+                            className="bg-[#152259] hover:bg-[#152259] text-white">
+                            Cancel
+                        </Button>
+                    </div>
                 </form>
             </Form>
         </div>

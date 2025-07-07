@@ -38,8 +38,6 @@ const BookingForm = () => {
     const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
     const [applyingCoupon, setApplyingCoupon] = useState(false);
 
-
-
     // ✅ Move summaryData here so it's available in JSX
     const summaryData = [
         { label: "Subtotal", value: subtotal },
