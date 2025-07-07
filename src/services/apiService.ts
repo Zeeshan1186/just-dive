@@ -158,3 +158,19 @@ export const getMedia = async () => {
 export const deleteMedia = async (id: number) => {
   return await api.delete(`/api/media/${id}`);
 };
+
+export const getTermscondition = async () => {
+  return await api.get(`${API_PATHS.TERMSCONDITION}`);
+};
+
+export const addTermscondition = async (payload: any) => {
+  return await api.post(`${API_PATHS.TERMSCONDITION}`, payload);
+};
+
+export const updateTermscondition = async (id: number, payload: any) => {
+  return await api.put(`${API_PATHS.TERMSCONDITION}/${id}`, payload);
+};
+
+export const deleteTermscondition = async (id: number) => {
+  return await api.delete(`${API_PATHS.TERMSCONDITION}/${id}`);
+};

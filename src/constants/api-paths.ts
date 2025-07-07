@@ -17,4 +17,5 @@ export const API_PATHS = {
   BLOGS: "api/blogs",
   BLOG: "/api/blog",
   ADDMEDIA: "/api/media",
+  TERMSCONDITION: "/api/terms-condition",
 };

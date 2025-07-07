@@ -31,6 +31,9 @@ import Media from './Pages/Media';
 import AdminBlogs from './Pages/admin/AdminBlogs';
 import AddBlog from './Pages/admin/BlogForm';
 import AdminMedia from './Pages/admin/AdminMedia';
+import AdminTermsCondition from './Pages/admin/AdminTermsCondition';
+import TermsAndConditions from './Pages/TermsAndConditions';
+import TermsCondition from './Pages/admin/TermsCondition';
 
 const App: React.FC = () => {
   return (
@@ -60,7 +63,9 @@ const App: React.FC = () => {
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="/admin/add-blog" element={<AddBlog />} />
           <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
-          <Route path="/admin/media" element={<AdminMedia />} />
+          <Route path="/admin/Addmedia" element={<AdminMedia />} />
+          <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
+          <Route path="/admin/Termscondition" element={<TermsCondition />} />
         </Route>
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
@@ -69,6 +74,7 @@ const App: React.FC = () => {
         <Route path="/media" element={<Media />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
+        <Route path="/termsandcondition" element={<TermsAndConditions />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
