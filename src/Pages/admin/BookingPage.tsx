@@ -1,16 +1,18 @@
 import BookingRowActions from '@/components/Booking/bookingRowActions';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { BOOKING_STATUS, PAGINATION_COUNT } from '@/constants/const-variables';
 import type { IBooking } from '@/interface/booking';
-import { getActiveBooking } from '@/services/apiService';
+import type { IPackage } from '@/interface/package';
+import { getActiveBooking, getactivePackages } from '@/services/apiService';
 import { bookingDateFormat } from '@/utils/date-format';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { HttpStatusCode } from 'axios';
 import { format, parseISO } from 'date-fns';
-import { ArrowUpDown, Loader2, Plus, Search } from 'lucide-react';
+import { ArrowUpDown, Loader2, Plus, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -22,7 +24,9 @@ export default function AdminBookingPage() {
     const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
     const [searchValue, setSearchValue] = useState("");
     const [rowSelection, setRowSelection] = useState({});
+    const [packages, setPackages] = useState<IPackage[]>([]);
     const [globalFilter, setGlobalFilter] = useState<unknown>([]);
+    const [selectedPackage, setSelectedPackage] = useState<string>("");
     const [pagination, setPagination] = useState({
         pageIndex: 0,
         pageSize: PAGINATION_COUNT,
@@ -35,13 +39,17 @@ export default function AdminBookingPage() {
         return format(parsedDate, 'd MMMM yyyy');
     }
 
+    const refreshBookings = () => {
+        booking();
+    }
+
     const columns: ColumnDef<IBooking>[] = [
         {
             accessorKey: "booking_id",
             header: "Booking ID",
             cell: ({ row }) => (
                 <div className={`${row.original?.status === BOOKING_STATUS.CANCEL && "text-destructive"} font-medium`} >
-                    {/* {row.original?.order_id} */} J8K5G
+                    {row.original?.booking_id ? row.original?.booking_id : "J8K5G"}
                 </div>
             ),
         },
@@ -74,11 +82,11 @@ export default function AdminBookingPage() {
             },
         },
         {
-            accessorKey: "created_at",
+            accessorKey: "date_of_scuba",
             header: "Date Of Scuba",
             cell: ({ row }) => (
                 <div className={`font-medium`} >
-                    {bookingCreatedAtFormat(row.original?.created_at)}
+                    {bookingDateFormat(row.original?.date_of_scuba)}
                 </div>
             ),
         },
@@ -92,12 +100,12 @@ export default function AdminBookingPage() {
             ),
         },
         {
-            accessorKey: "date_of_scuba",
+            accessorKey: "created_at",
             header: "Date Of Booking",
             cell: ({ row }) => {
                 return (
-                    <div className={` font-medium`} >
-                        {bookingDateFormat(row.original?.date_of_scuba)}
+                    <div className={` font-medium`}  >
+                        {bookingCreatedAtFormat(row.original?.created_at)}
                     </div>
                 )
             },
@@ -121,6 +129,8 @@ export default function AdminBookingPage() {
                 return (
                     <BookingRowActions
                         row={row}
+                        refreshBookings={refreshBookings}
+                        statusData={activeBooking}
                     />
                 );
             },
@@ -152,7 +162,7 @@ export default function AdminBookingPage() {
     const booking = async () => {
         setIsLoading(true);
         try {
-            const res = await getActiveBooking(activeBooking);
+            const res = await getActiveBooking(activeBooking, selectedPackage);
             if (res.data.status === HttpStatusCode.Ok) {
                 setBooking(res.data.data);
             }
@@ -163,13 +173,25 @@ export default function AdminBookingPage() {
         }
     }
 
+    const packageAPI = async () => {
+        try {
+            const res = await getactivePackages();
+            if (res.data.status === HttpStatusCode.Ok) {
+                setPackages(res.data.data);
+            }
+        } catch (error) {
+            console.log('error occur in package:', error);
+        }
+    }
+
     useEffect(() => {
         booking();
+        packageAPI();
     }, []);
 
     useEffect(() => {
         booking();
-    }, [activeBooking]);
+    }, [activeBooking, selectedPackage]);
 
     const renderTable = () => {
         return (
@@ -244,10 +266,31 @@ export default function AdminBookingPage() {
                             className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
                         />
                     </div>
-                    <div className='ml-4'>
+                    <div className='ml-2'>
                         <Button onClick={() => { navigate('/admin/booking/add') }}>
                             <Plus /> Add Booking
                         </Button>
+                    </div>
+                    <div className='ml-2 flex'>
+                        <Select value={selectedPackage} onValueChange={setSelectedPackage}>
+                            <SelectTrigger className="w-[180px] bg-white">
+                                <SelectValue placeholder="Search by package" />
+                            </SelectTrigger>
+                            <SelectContent className='border-gray-300'>
+                                <SelectGroup className='border-gray-300'>
+                                    {packages?.map((packageData, index) => (
+                                        <SelectItem key={index} value={packageData.id.toString()}>{packageData.name}</SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                        <div className='flex items-center justify-center ml-2'>
+                            {selectedPackage &&
+                                <Button size={'icon'} onClick={() => setSelectedPackage("")} className='bg-destructive hover:bg-destructive'>
+                                    <X className='h-5 w-5' />
+                                </Button>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>

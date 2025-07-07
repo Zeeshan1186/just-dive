@@ -19,4 +19,5 @@ export interface IBooking {
   nationality: string;
   document?: string;
   slot: Slot;
+  booking_id: string;
 }

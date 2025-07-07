@@ -17,7 +17,7 @@ import { toast } from "sonner"
 
 const schema = z.object({
     name: z.string().min(1, "Name is required"),
-    package_id: z.number().min(1, "Package is required"),
+    package_id: z.string().min(1, "Package is required"),
     discount: z.number().min(1, "Discount is required").max(100, 'Discount cannot more than 100'),
     validity: z.string().min(1, "Duration is required"),
     times_use: z.string().min(1, "Validity is requried"),
@@ -36,7 +36,7 @@ export default function AddCoupon() {
         resolver: zodResolver(schema),
         defaultValues: {
             name: "",
-            package_id: undefined,
+            package_id: "",
             discount: undefined,
             validity: "",
             times_use: "",
@@ -105,14 +105,16 @@ export default function AddCoupon() {
                                     </FormLabel>
                                     <div className="col-span-12 md:col-span-6">
                                         <Select
-                                            onValueChange={(value) => field.onChange(Number(value))}
-                                            value={field.value ? field.value.toString() : ""}
+                                            onValueChange={(value) => field.onChange(value)}
+                                            value={field.value ?? ""}
                                         >
                                             <SelectTrigger className="w-full bg-white">
                                                 <SelectValue className="Poppins" placeholder="Select a category" />
                                             </SelectTrigger>
+
                                             <SelectContent className="border Poppins border-gray-200 bg-white">
                                                 <SelectGroup>
+                                                    <SelectItem value="0">All</SelectItem>
                                                     {packages?.map((item) => (
                                                         <SelectItem key={item.id} value={item.id.toString()}>
                                                             {item.name}
@@ -208,7 +210,7 @@ export default function AddCoupon() {
                         render={() => (
                             <FormItem>
                                 <div className="grid grid-cols-12 gap-4">
-                                    <FormLabel className="col-span-12 md:col-span-3">Duration *</FormLabel>
+                                    <FormLabel className="col-span-12 md:col-span-3">Valid Until *</FormLabel>
                                     <div className="col-span-12 md:col-span-6">
                                         <FormControl>
                                             <RadioGroup
@@ -271,7 +273,7 @@ export default function AddCoupon() {
                         render={({ field }) => (
                             <FormItem>
                                 <div className="grid grid-cols-12 gap-4">
-                                    <FormLabel className="col-span-12 md:col-span-3">Validity *</FormLabel>
+                                    <FormLabel className="col-span-12 md:col-span-3">Usage Count *</FormLabel>
                                     <div className="col-span-12 md:col-span-6">
                                         <FormControl>
                                             <RadioGroup

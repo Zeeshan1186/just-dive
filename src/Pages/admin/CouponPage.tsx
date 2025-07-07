@@ -56,7 +56,11 @@ export default function CouponPage() {
                 const packageName = row.original?.package?.name;
                 return (
                     <div className="capitalize" >
-                        {packageName?.length > 30 ? `${packageName.slice(0, 30)}...` : packageName}
+                        {
+                            packageName ?
+                                packageName?.length > 30 ? `${packageName.slice(0, 30)}...` : packageName :
+                                'All'
+                        }
                     </div >
                 )
             },

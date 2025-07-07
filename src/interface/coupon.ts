@@ -14,5 +14,5 @@ export interface IPayloadCoupon {
   discount: number;
   validity: string;
   times_use: string;
-  package_id: number;
+  package_id: string;
 }

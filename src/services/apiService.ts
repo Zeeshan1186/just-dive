@@ -91,8 +91,25 @@ export const postBooking = async (formData: any) => {
   });
 };
 
-export const getActiveBooking = async (status: string) => {
-  return await api.get(`${API_PATHS.CONFIRM_BOOKING}?status=${status}`);
+export const updateBookingStatus = async (id: number, status: string) => {
+  return await api.get(`${API_PATHS.BOOKING_STATUS(id)}?status=${status}`);
+};
+
+export const deleteBooking = async (id: number) => {
+  return await api.delete(`${API_PATHS.BOOKING}/${id}`);
+};
+
+export const getBookingById = async (id: number) => {
+  return await api.get(`${API_PATHS.BOOKING}/${id}`);
+};
+
+export const getActiveBooking = async (
+  status: string,
+  packageData?: string
+) => {
+  return await api.get(
+    `${API_PATHS.CONFIRM_BOOKING}?status=${status}&package=${packageData}`
+  );
 };
 
 // If API accepts coupon code or package ID as query:
