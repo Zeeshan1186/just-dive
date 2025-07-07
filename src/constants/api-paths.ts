@@ -16,4 +16,5 @@ export const API_PATHS = {
   CONFIRM_BOOKING: "api/confirm-booking",
   BLOGS: "api/blogs",
   BLOG: "/api/blog",
+  ADDMEDIA: "/api/media",
 };

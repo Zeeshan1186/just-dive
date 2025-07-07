@@ -31,6 +31,7 @@ import Media from './Pages/Media';
 import AdminBlogs from './Pages/admin/AdminBlogs';
 import AddBlog from './Pages/admin/BlogForm';
 import AddAdminBooking from './components/Booking/addAdminBooking';
+import AdminMedia from './Pages/admin/AdminMedia';
 
 const App: React.FC = () => {
   return (
@@ -63,7 +64,12 @@ const App: React.FC = () => {
           <Route path="blogs" element={<AdminBlogs />} />
           <Route path="add-blog" element={<AddBlog />} />
           <Route path="edit-blog/:id" element={<AddBlog />} />
-        </Route>
+          <Route path="/admin/add-blog" element={<AddBlog />} />
+          <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
+
+          {/* Media Url */}
+          <Route path="/admin/media" element={<AdminMedia />} />
+        </Route >
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
         <Route path="/scubapackages" element={<ScubaPackages />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
@@ -73,8 +79,8 @@ const App: React.FC = () => {
         <Route path="/contactus" element={<ContactUsPage />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </RootLayout>
+      </Routes >
+    </RootLayout >
   );
 };
 
