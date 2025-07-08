@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
-import logo from "../assets/images/Justdive.png";
+import logo from "../assets/images/JustDiveLogo.jpeg";
 import { NavLink } from 'react-router-dom';
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -25,16 +25,16 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="w-full shadow-sm bg-white sticky top-0 z-50">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 flex items-center justify-between py-4">
+        <header className="w-full shadow-sm bg-white sticky top-0 z-50 py-2">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-16 flex items-center justify-between">
                 <div>
                     <Link to="/">
-                        <div className="flex items-center space-x-2">
-                            <img src={logo} alt="Logo" className="h-12 w-auto" />
-                            <div className="leading-tight">
+                        <div className="flex items-center">
+                            <img src={logo} alt="Logo" className="w-50" />
+                            {/* <div className="leading-tight">
                                 <h1 className="text-2xl font-bold Trirong textgolden">JUST DIVE</h1>
                                 <p className="text-sm font-normal Poppins text-[#072F49]">By Eesha Adventure</p>
-                            </div>
+                            </div> */}
                         </div>
                     </Link>
                 </div>
