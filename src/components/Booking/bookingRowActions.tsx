@@ -1,14 +1,13 @@
 import { Button } from '../ui/button';
-import { Check, Eye, Loader, Loader2, MoreHorizontal, Pen, RotateCcw, ThumbsUp, X } from 'lucide-react';
+import { Check, Eye, Loader2, MoreHorizontal, RotateCcw, ThumbsUp, X } from 'lucide-react';
 import type { Row } from '@tanstack/react-table';
-import { useNavigate } from 'react-router-dom';
 import type { IBooking } from '@/interface/booking';
 import { useEffect, useState } from 'react';
 import BookingView from './bookingView';
 import { ConfirmationDialog } from '../ConfirmationDialog';
 import { toast } from 'sonner';
 import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
-import { getPackageSlotsByDate, updateBookingStatus } from '@/services/apiService';
+import { getPackageSlotsByDate, rescheduleBooking, updateBookingStatus } from '@/services/apiService';
 import { HTTP_CODE } from '@/constants/http-codes';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '../ui/dialog';
@@ -18,10 +17,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { Calendar } from '../ui/calendar';
 import { Label } from '@radix-ui/react-label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
+import { HttpStatusCode } from 'axios';
 
 const schema = z.object({
     slot: z.number().min(1, 'Slot is required'),
@@ -37,11 +37,12 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
     const form = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
         defaultValues: {
-            dateOfScuba: "",
+            dateOfScuba: '',
+            slot: undefined
         },
     });
 
-    const navigate = useNavigate();
+    const data = row.original;
     const bookingId = row.original.id;
     const selectedPackage = row.original?.package?.id;
     const date = row.original?.date_of_scuba;
@@ -50,7 +51,8 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
     const [status, setStatus] = useState<string>("");
     const [dynamicSlots, setDynamicSlots] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [errMessage, setErrMessage] = useState<string>("");
 
     // messages
     const getLabel = () => (status === "cancel" ? "Cancel" : "Confirm");
@@ -74,28 +76,65 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
     }
 
     const onSubmit = async (data: any) => {
-        // console.log('data', data);
-    }
+        const numberOfPerson = row.original.number_of_participants;
 
-    const fetchSlotsAndSeats = async () => {
-        if (selectedPackage && date) {
-            try {
-                const formattedDate = format(date, 'd/M/yyyy');
-                const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
+        // Find the selected slot
+        const selectedSlot = dynamicSlots?.find((slot) => slot.slot_id === data.slot);
 
-                // ✅ Ensure it's always an array before setting
-                const slots = Array.isArray(res?.data?.data) ? res.data.data : [];
-                setDynamicSlots(slots);
+        if (!selectedSlot) {
+            console.log("Selected slot not found.");
+            return;
+        }
 
-            } catch (error) {
-                console.error("Failed to fetch slots", error);
+        if (selectedSlot.available >= numberOfPerson) {
+            const formattedDate = format(new Date(data.dateOfScuba), "d/M/yyyy");
+            const payload = {
+                ...data,
+                dateOfScuba: formattedDate,
+            };
+            const res = await rescheduleBooking(bookingId, payload);
+            if (res.data.status === HttpStatusCode.Ok) {
+                toast.success("Booking rescheduled successfully");
+                setOpen(false);
+                refreshBookings();
             }
+        } else {
+            setErrMessage("Not enough availability for all participants");
+        }
+    };
+
+    const fetchSlotsAndSeats = async (date: string) => {
+        try {
+            const parsedDate = parse(date, "d/M/yyyy", new Date());
+            const formattedDate = format(parsedDate, 'd/M/yyyy');
+            const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
+
+            // ✅ Ensure it's always an array before setting
+            const slots = Array.isArray(res?.data?.data) ? res.data.data : [];
+            setDynamicSlots(slots);
+
+        } catch (error) {
+            console.error("Failed to fetch slots", error);
         }
     };
 
     useEffect(() => {
-        fetchSlotsAndSeats();
-    }, [selectedPackage, date]);
+        if (data && data.date_of_scuba) {
+            const parsedDate = parse(data.date_of_scuba, "d/M/yyyy", new Date());
+
+            form.reset({
+                dateOfScuba: parsedDate.toISOString(),
+                slot: data.slot?.id
+            });
+        }
+    }, [data]);
+
+
+    useEffect(() => {
+        if (open) {
+            fetchSlotsAndSeats(date);
+        }
+    }, [selectedPackage, date, open]);
 
     return (
         <>
@@ -140,12 +179,12 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
                                                             <Button
                                                                 variant="outline"
                                                                 className={cn(
-                                                                    "w-full justify-start text-left font-normal bg-white",
+                                                                    "w-full justify-start text-left font-normal bg-white text-black",
                                                                     !field.value && "text-muted-foreground"
                                                                 )}
                                                             >
                                                                 {field.value ? (
-                                                                    format(field.value, "dd MMMM yyyy")
+                                                                    format(new Date(field.value), "dd MMMM yyyy")
                                                                 ) : (
                                                                     <span>Select Date</span>
                                                                 )}
@@ -155,7 +194,16 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
                                                             <Calendar
                                                                 mode="single"
                                                                 selected={field.value ? new Date(field.value) : undefined}
-                                                                onSelect={(date) => field.onChange(date ? date.toISOString() : "")}
+                                                                onSelect={(date) => {
+                                                                    if (!date) return;
+
+                                                                    const selected = date.toISOString();
+                                                                    field.onChange(selected);
+                                                                    form.setValue("slot", 0);
+
+                                                                    const formattedDate = format(date, "d/M/yyyy");
+                                                                    fetchSlotsAndSeats(formattedDate);
+                                                                }}
                                                                 initialFocus
                                                                 className="bg-white border-gray-300"
                                                             />
@@ -184,26 +232,26 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
                                                                     disabled={!row.original?.package?.id && !row.original?.date_of_scuba}
                                                                 >
                                                                     <SelectTrigger className="w-full bg-white pl-10">
-                                                                        <SelectValue className="Poppins" placeholder="Select Slot">
-                                                                            {
-                                                                                dynamicSlots?.find(s => s.slot_id === Number(field.value))?.slot_time || "Select Slot"
-                                                                            }
-                                                                        </SelectValue>
-
+                                                                        <SelectValue className="Poppins" placeholder="Select Slot" />
                                                                     </SelectTrigger>
-                                                                    <SelectContent className="border Poppins border-gray-200 bg-white">
+                                                                    <SelectContent className="border Poppins border-gray-200 bg-white text-black">
                                                                         <SelectGroup>
                                                                             {dynamicSlots?.map((slot) => (
                                                                                 <SelectItem key={slot.slot_id} value={slot.slot_id.toString()}>
-                                                                                    {slot.slot_time} - Avaialbility ({slot.available})
+                                                                                    {slot.slot_time} - Availability ({slot.available})
                                                                                 </SelectItem>
                                                                             ))}
                                                                         </SelectGroup>
                                                                     </SelectContent>
                                                                 </Select>
+
                                                             </FormControl>
                                                         </div>
                                                         <FormMessage />
+                                                        {errMessage ?
+                                                            <div className='text-red-500'>{errMessage}</div>
+                                                            : ''
+                                                        }
                                                     </div>
                                                 </div>
                                             </FormItem>

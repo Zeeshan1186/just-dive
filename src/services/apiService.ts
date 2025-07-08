@@ -91,6 +91,10 @@ export const postBooking = async (formData: any) => {
   });
 };
 
+export const rescheduleBooking = async (id: number, formData: any) => {
+  return await api.post(`${API_PATHS.BOOKING}/reschedule/${id}`, formData);
+};
+
 export const updateBookingStatus = async (id: number, status: string) => {
   return await api.get(`${API_PATHS.BOOKING_STATUS(id)}?status=${status}`);
 };
