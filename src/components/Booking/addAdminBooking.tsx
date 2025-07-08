@@ -181,6 +181,7 @@ export default function AddAdminBooking() {
             const dateOfScubaFormattedDate = format(originalDate, "d/M/yyyy");
             formData.append("dateOfScuba", dateOfScubaFormattedDate);
             formData.append("slot", data.slot.toString());
+            formData.append("is_admin_booking", "1");
             formData.append("numberOfParticipants", data.numberOfParticipants.toString());
             formData.append("price", grandTotal);
             const response = await postBooking(formData);

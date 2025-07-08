@@ -24,7 +24,6 @@ export default function TermsCondition() {
             setLoading(true);
             try {
                 const res = await getTermscondition();
-                console.log("Response is:", res);
                 if (res.data.status === 200 && Array.isArray(res.data.data)) {
                     setTerms(res.data.data);
                 } else {

@@ -1,7 +1,7 @@
 import { API_PATHS } from "@/constants/api-paths";
 import api from "./api";
 import type { IUser } from "@/interface/user";
-import type { ICoupon, IPayloadCoupon } from "@/interface/coupon";
+import type { IPayloadCoupon } from "@/interface/coupon";
 
 const token = localStorage.getItem("token");
 
@@ -198,4 +198,15 @@ export const updateTermscondition = async (id: number, payload: any) => {
 
 export const deleteTermscondition = async (id: number) => {
   return await api.delete(`${API_PATHS.TERMSCONDITION}/${id}`);
+};
+
+// Dashboard API
+export const getDashboard = async (
+  mode?: string,
+  startDate?: string,
+  endDate?: string
+) => {
+  return await api.get(
+    `${API_PATHS.DASHBOARD}?mode=${mode}&startDate=${startDate}&endDate=${endDate}`
+  );
 };

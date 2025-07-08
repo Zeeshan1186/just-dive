@@ -19,4 +19,5 @@ export const API_PATHS = {
   ADDMEDIA: "/api/media",
   BOOKING_STATUS: (id: number) => `api/enable-disable/booking/${id}`,
   TERMSCONDITION: "/api/terms-condition",
+  DASHBOARD: "api/dashboard",
 };
