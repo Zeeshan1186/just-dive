@@ -59,7 +59,7 @@ export default function TermsAndConditions() {
                         </span>
                     </div>
                     <h1 className="text-4xl sm:text-5xl Trirong md:text-5xl font-normal leading-tight mb-6">
-                        Terms And Conditions
+                        Terms And Conditio
                     </h1>
                 </div>
             </div>
