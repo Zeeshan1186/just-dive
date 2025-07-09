@@ -133,7 +133,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                 case 'today':
                     from.setHours(0, 0, 0, 0)
                     to.setHours(23, 59, 59, 999)
-                    break
+                    break;
                 case 'thisWeek':
                     from.setDate(from.getDate() - from.getDay() + 1); // Monday
                     to.setDate(from.getDate() + 6); // Sunday
@@ -539,7 +539,7 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
                                     !areRangesEqual(rangeCompare, openedRangeCompareRef.current)
                                 ) {
                                     onUpdate?.({
-                                        range, rangeCompare, data: presetData !== "" ? presetData : "",
+                                        range, rangeCompare, data: selectedPreset !== undefined ? presetData : "",
                                     })
                                 }
                             }}

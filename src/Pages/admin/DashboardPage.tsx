@@ -1,8 +1,20 @@
+import BookingChart from '@/components/BookingChart';
+import CustomerChart from '@/components/CustomerChart';
+import TopPackage from '@/components/TopPackage';
 import { DateRangePicker } from '@/components/ui/date-range-picker';
 import { getDashboard } from '@/services/apiService';
 import { HttpStatusCode } from 'axios';
 import { BookmarkX, Check, HandCoins, Loader2, Users } from 'lucide-react'
 import { useEffect, useState } from 'react';
+
+type CustomerWeekData = {
+    local: number;
+    international: number;
+    online: number;
+    offline: number;
+};
+
+type CustomersWise = Record<string, CustomerWeekData>;
 
 export default function DashboardPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -12,6 +24,9 @@ export default function DashboardPage() {
     const [totalRevenue, setTotalRevenue] = useState<number | undefined>(undefined);
     const [startDate, setStartDate] = useState<Date | undefined>(undefined);
     const [endDate, setEndDate] = useState<Date | undefined>(undefined);
+    const [chartData, setChartData] = useState<any>();
+    const [LineChartData, setLineChartData] = useState<any>();
+    const [topPackages, setTopPackage] = useState<any[]>([]);
 
     const dashboard = async (mode?: string, startDate?: string, endDate?: string) => {
         setIsLoading(true);
@@ -23,6 +38,23 @@ export default function DashboardPage() {
                 setCancelBooking(data.cancel_booking);
                 setConfirmBooking(data.confirm_package);
                 setTotalRevenue(data.total_revenue);
+
+                const customersWise: CustomersWise = data.customers_wise;
+                const transformedData = Object.entries(customersWise).map(([key, value]) => ({
+                    month: key,
+                    online: value.online,
+                    offline: value.offline
+                }));
+                setChartData(transformedData);
+
+                const transformedLineData = Object.entries(customersWise).map(([key, value]) => ({
+                    month: key,
+                    local: value.local,
+                    international: value.international
+                }));
+                setLineChartData(transformedLineData);
+
+                setTopPackage(data.top_packages);
             }
         } catch (error) {
             console.log('error occur in dashboard api: ', error);
@@ -71,10 +103,11 @@ export default function DashboardPage() {
             setStartDate(data.range.from);
             setEndDate(data.range.to);
         }
-        const formatDateForAPI = (date: Date) =>
-            date.toISOString().split('T')[0];
-        await dashboard(data.data, formatDateForAPI(data.range.from), formatDateForAPI(data.range.to));
-
+        const formatDate = (date: Date) =>
+            `${date.getFullYear()}-${(date.getMonth() + 1)
+                .toString()
+                .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+        await dashboard(data.data, formatDate(data.range.from), formatDate(data.range.to));
     }
 
     useEffect(() => {
@@ -123,6 +156,21 @@ export default function DashboardPage() {
                         </div>
                     </div>
                 ))}
+            </div>
+
+            <div className='flex flex-col gap-3'>
+                <BookingChart
+                    chartData={chartData}
+                    isLoading={isLoading}
+                />
+                <CustomerChart
+                    chartData={LineChartData}
+                    isLoading={isLoading}
+                />
+                <TopPackage
+                    packages={topPackages}
+                    isLoading={isLoading}
+                />
             </div>
         </div>
     )
