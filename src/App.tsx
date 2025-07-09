@@ -35,6 +35,7 @@ import AdminMedia from './Pages/admin/AdminMedia';
 import AdminTermsCondition from './Pages/admin/AdminTermsCondition';
 import TermsAndConditions from './Pages/TermsAndConditions';
 import TermsCondition from './Pages/admin/TermsCondition';
+import ReportPage from './Pages/admin/ReportPage';
 
 const App: React.FC = () => {
   return (
@@ -62,6 +63,9 @@ const App: React.FC = () => {
           {/* Booking Url */}
           <Route path="booking" element={<AdminBookingPage />} />
           <Route path="booking/add" element={<AddAdminBooking />} />
+
+          {/* Report Url */}
+          <Route path="report" element={<ReportPage />} />
 
           {/* Blog Url */}
           <Route path="blogs" element={<AdminBlogs />} />

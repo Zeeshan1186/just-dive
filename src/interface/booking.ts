@@ -1,3 +1,4 @@
+import type { ICoupon } from "./coupon";
 import type { ILocation } from "./location";
 import type { IPackage } from "./package";
 import type { Slot } from "./slot";
@@ -20,4 +21,7 @@ export interface IBooking {
   document?: string;
   slot: Slot;
   booking_id: string;
+  is_admin_booking: boolean;
+  coupon_id?: number;
+  coupon?: ICoupon;
 }

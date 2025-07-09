@@ -230,19 +230,19 @@ export const DateRangePicker: FC<DateRangePickerProps> & {
         }
 
         const resetValues = (): void => {
-            setRange({
-                from:
-                    typeof initialDateFrom === 'string'
-                        ? getDateAdjustedForTimezone(initialDateFrom)
-                        : initialDateFrom,
-                to: initialDateTo
-                    ? typeof initialDateTo === 'string'
-                        ? getDateAdjustedForTimezone(initialDateTo)
-                        : initialDateTo
-                    : typeof initialDateFrom === 'string'
-                        ? getDateAdjustedForTimezone(initialDateFrom)
-                        : initialDateFrom
-            })
+            // setRange({
+            //     from:
+            //         typeof initialDateFrom === 'string'
+            //             ? getDateAdjustedForTimezone(initialDateFrom)
+            //             : initialDateFrom,
+            //     to: initialDateTo
+            //         ? typeof initialDateTo === 'string'
+            //             ? getDateAdjustedForTimezone(initialDateTo)
+            //             : initialDateTo
+            //         : typeof initialDateFrom === 'string'
+            //             ? getDateAdjustedForTimezone(initialDateFrom)
+            //             : initialDateFrom
+            // })
             setRangeCompare(
                 initialCompareFrom
                     ? {

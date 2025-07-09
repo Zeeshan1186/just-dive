@@ -49,7 +49,7 @@ const initialData = [
     },
     {
         title: "Reports",
-        url: "#",
+        url: "/admin/report",
     },
     {
         title: "Manage Terms/Condition",

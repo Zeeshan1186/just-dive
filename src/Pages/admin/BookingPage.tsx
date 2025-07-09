@@ -4,15 +4,17 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { BOOKING_STATUS, PAGINATION_COUNT } from '@/constants/const-variables';
 import type { IBooking } from '@/interface/booking';
 import type { IPackage } from '@/interface/package';
 import { getActiveBooking, getactivePackages } from '@/services/apiService';
 import { bookingDateFormat } from '@/utils/date-format';
+import { exportToExcel } from '@/utils/exportToExcel';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { HttpStatusCode } from 'axios';
 import { format, parseISO } from 'date-fns';
-import { ArrowUpDown, Loader2, Plus, Search, X } from 'lucide-react';
+import { ArrowUpDown, FileSpreadsheet, Loader2, Plus, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -193,6 +195,39 @@ export default function AdminBookingPage() {
         booking();
     }, [activeBooking, selectedPackage]);
 
+    const handleDownload = async () => {
+        const bookings = table.getRowModel().rows;
+        const rows = bookings?.map((booking, i) => {
+            const baseRow = {
+                "Sr No": i + 1,
+                "Booking ID": booking?.original?.booking_id,
+                "Package": booking?.original?.package?.name,
+                "Date Of Scuba": booking?.original?.date_of_scuba,
+                "Location": booking?.original?.package?.location?.location_name,
+                "Customer Name": booking?.original?.full_name,
+                "Customer Gender": booking?.original?.gender,
+                "Customer Age": booking?.original?.age,
+                "Customer Email": booking?.original?.email,
+                "Customer No.": booking?.original?.whatsapp_no,
+                "Number Of Participants": booking?.original?.number_of_participants,
+                "Customer Apply Coupon": booking?.original?.coupon_id ? "Yes" : "No",
+                "Price": booking?.original?.price,
+                "Slot Time": booking?.original?.slot?.time,
+                "Booking Status": booking?.original?.status,
+                "Is Booking From Admin": booking?.original?.is_admin_booking ? "Yes" : "No",
+            }
+
+            return {
+                ...baseRow,
+                ...(booking?.original?.coupon_id && {
+                    "Coupon Name": booking?.original?.coupon?.name || "N/A"
+                }),
+            };
+        });
+
+        exportToExcel(rows);
+    }
+
     const renderTable = () => {
         return (
             <Table className="border border-gray-200">
@@ -291,6 +326,23 @@ export default function AdminBookingPage() {
                                 </Button>
                             }
                         </div>
+                    </div>
+                    <div className="ml-2">
+                        <Tooltip>
+                            <TooltipTrigger asChild>
+                                <Button
+                                    size="icon"
+                                    className="bg-white border border-gray-200 hover:bg-white hover:cursor-pointer"
+                                    aria-label="Export to Excel"
+                                    onClick={handleDownload}
+                                >
+                                    <FileSpreadsheet className="text-green-500" />
+                                </Button>
+                            </TooltipTrigger>
+                            <TooltipContent>
+                                <p>Download Excel</p>
+                            </TooltipContent>
+                        </Tooltip>
                     </div>
                 </div>
             </div>
