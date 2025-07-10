@@ -109,7 +109,7 @@ export default function AdminTermsCondition() {
 
     return (
         <div className="p-6 bg-white rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">Add Terms And Condition</h2>
+            <h2 className="text-2xl font-bold mb-4">Add Terms And Conditions</h2>
 
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
