@@ -53,6 +53,7 @@ export default function AdminTermsCondition() {
     useEffect(() => {
         if (existingTerm) {
             form.reset({
+                id: existingTerm.id, // 👈 include id
                 title: existingTerm.title,
                 descriptions: Array.isArray(existingTerm.descriptions)
                     ? existingTerm.descriptions.map((desc) =>
