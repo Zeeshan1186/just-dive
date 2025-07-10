@@ -45,4 +45,5 @@ export interface IPackage {
   mustReads: IMustRead[];
   whyChooseUs: IWhyChooseUs[];
   notes: INote[];
+  package_id: number;
 }

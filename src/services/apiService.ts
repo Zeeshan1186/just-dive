@@ -210,3 +210,15 @@ export const getDashboard = async (
     `${API_PATHS.DASHBOARD}?mode=${mode}&startDate=${startDate}&endDate=${endDate}`
   );
 };
+
+// Report API
+export const getReport = async (
+  mode?: string,
+  startDate?: string,
+  endDate?: string,
+  packageId?: string
+) => {
+  return await api.get(
+    `${API_PATHS.REPORT}?mode=${mode}&startDate=${startDate}&endDate=${endDate}&package_id=${packageId}`
+  );
+};
