@@ -87,7 +87,6 @@ const packageSchema = z.object({
         .optional()
         .or(z.literal(undefined)),
     services: z.string().optional(),
-    vehicle: z.string().optional(),
     iternary: z.string().optional(),
 });
 
@@ -113,7 +112,7 @@ export default function EditPackage() {
             whyChooseUs: [{ title: "", description: "" }],
             note: [{ title: '' }],
             services: "",
-            vehicle: "",
+            // vehicle: "",
             iternary: "",
         },
     });
@@ -149,7 +148,6 @@ export default function EditPackage() {
             form.setValue('price', packageData.price);
             form.setValue('duration', packageData.duration);
             form.setValue('services', packageData.services);
-            form.setValue('vehicle', packageData.vehicle);
             form.setValue('iternary', packageData.iternary);
             form.setValue('schedule', packageData.schedules.map(schedule => ({ title: schedule.title })));
             const mustRead = packageData.mustReads[0];
@@ -233,6 +231,8 @@ export default function EditPackage() {
         name: "note",
     });
 
+    // console.log('noteFields',noteFields);
+
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
         if (file) {
@@ -282,7 +282,6 @@ export default function EditPackage() {
         formData.append("location", data.location);
         formData.append("duration", data.duration);
         formData.append("services", data.services);
-        formData.append("vehicle", data.vehicle);
         formData.append("iternary", data.iternary);
 
         // Image (single file)
@@ -697,31 +696,6 @@ export default function EditPackage() {
                                         <FormControl>
                                             <Input
                                                 placeholder="Type Service"
-                                                className="rounded-sm bg-white w-full"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </div>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* vehicle */}
-                    <FormField
-                        control={form.control}
-                        name="vehicle"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        vehicle *
-                                    </FormLabel>
-                                    <div className="w-full md:w-[70%]">
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Type vehicle"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
