@@ -472,9 +472,9 @@ export default function AddPackage() {
                                                                     onClick={() => startRefs.current[index]?.showPicker?.()}
                                                                     onChange={(e) => {
                                                                         const start = e.target.value;
-                                                                        const rawEnd = form.getValues(`slots.${index}.time`)?.split(" to ")[1] || "";
+                                                                        const rawEnd = form.getValues(`slots.${index}.time`)?.split(" - ")[1] || "";
                                                                         const formattedEnd = rawEnd.includes("AM") || rawEnd.includes("PM") ? rawEnd : formatTime(rawEnd);
-                                                                        const formatted = formatTime(start) + " to " + formattedEnd;
+                                                                        const formatted = formatTime(start) + " - " + formattedEnd;
                                                                         form.setValue(`slots.${index}.time`, formatted);
                                                                     }}
                                                                     className="w-[45%] bg-white"
@@ -489,9 +489,9 @@ export default function AddPackage() {
                                                                     onClick={() => endRefs.current[index]?.showPicker?.()}
                                                                     onChange={(e) => {
                                                                         const end = e.target.value;
-                                                                        const rawStart = form.getValues(`slots.${index}.time`)?.split(" to ")[0] || "";
+                                                                        const rawStart = form.getValues(`slots.${index}.time`)?.split(" - ")[0] || "";
                                                                         const formattedStart = rawStart.includes("AM") || rawStart.includes("PM") ? rawStart : formatTime(rawStart);
-                                                                        const formatted = formattedStart + " to " + formatTime(end);
+                                                                        const formatted = formattedStart + " - " + formatTime(end);
                                                                         form.setValue(`slots.${index}.time`, formatted);
                                                                     }}
                                                                     className="w-[45%] bg-white"
@@ -973,21 +973,22 @@ export default function AddPackage() {
 
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         {noteFields.map((fieldItem, index) => (
-                                            <div key={fieldItem.id} className="flex flex-col gap-2  border-gray-200 rounded-md">
+                                            <div key={fieldItem.id} className="flex gap-2 items-start">
                                                 {/* Title Input */}
-                                                <FormField
-                                                    control={form.control}
-                                                    name={`note.${index}.title`}
-                                                    render={({ field, fieldState }) => (
-                                                        <FormItem>
-                                                            <FormControl>
-                                                                <Input {...field} placeholder="Enter note" className="bg-white" />
-                                                            </FormControl>
-                                                            <FormMessage>{fieldState.error?.message}</FormMessage>
-                                                        </FormItem>
-                                                    )}
-                                                />
-
+                                                <div className='w-full'>
+                                                    <FormField
+                                                        control={form.control}
+                                                        name={`note.${index}.title`}
+                                                        render={({ field, fieldState }) => (
+                                                            <FormItem>
+                                                                <FormControl>
+                                                                    <Input {...field} placeholder="Enter note" className="bg-white" />
+                                                                </FormControl>
+                                                                <FormMessage>{fieldState.error?.message}</FormMessage>
+                                                            </FormItem>
+                                                        )}
+                                                    />
+                                                </div>
                                                 {/* Remove Button */}
                                                 {index !== 0 && (
                                                     <div className="flex justify-end">

@@ -129,6 +129,8 @@ export default function EditPackage() {
         return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
     };
 
+    console.log('packageData', packageData);
+    console.log('form', form.getValues());
     useEffect(() => {
         if (packageData) {
             // slots
@@ -151,12 +153,12 @@ export default function EditPackage() {
             form.setValue('iternary', packageData.iternary);
             form.setValue('schedule', packageData.schedules.map(schedule => ({ title: schedule.title })));
             const mustRead = packageData.mustReads[0];
-            form.reset({
-                ...form.getValues(),
-                mustReads: [{
-                    description: mustRead?.description || ""
-                }]
-            })
+            // form.reset({
+            //     ...form.getValues(),
+            //     mustReads: [{
+            //         description: mustRead?.description || ""
+            //     }]
+            // })
             form.setValue('mustReads', [{
                 description: mustRead?.description || "",
             }]);
@@ -230,8 +232,6 @@ export default function EditPackage() {
         control,
         name: "note",
     });
-
-    // console.log('noteFields',noteFields);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
