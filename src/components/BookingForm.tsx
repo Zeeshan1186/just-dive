@@ -37,16 +37,15 @@ const BookingForm = () => {
     const [nationality, setNationality] = useState("");
     const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
     const [applyingCoupon, setApplyingCoupon] = useState(false);
+    const [gst, setGst] = useState("0.00");
 
     // ✅ Move summaryData here so it's available in JSX
     const summaryData = [
         { label: "Subtotal", value: subtotal },
-        { label: "Convenience fee", value: "0.00" },
-        { label: "GST", value: "0.00" },
+        { label: "GST (11.5%)", value: gst },
         { label: "Discount", value: discount },
         { label: "Grand Total", value: grandTotal },
     ];
-
 
     useEffect(() => {
         const storedPackageId = localStorage.getItem("selectedPackageId");
@@ -68,9 +67,15 @@ const BookingForm = () => {
                 .then((res) => {
                     const pricePerPerson = Number(res.data?.data?.price) || 0;
                     const total = pricePerPerson * participantCount;
+
+                    // 🧮 GST and Grand Total
+                    const gstAmount = total * 0.18; // 18% GST
+                    const grandTotalValue = total + gstAmount;
+
                     setSubtotal(total.toFixed(2));
-                    setDiscount("0.00");
-                    setGrandTotal(total.toFixed(2));
+                    setGst(gstAmount.toFixed(2));
+                    setDiscount("0.00"); // No discount yet
+                    setGrandTotal(grandTotalValue.toFixed(2));
                 })
                 .catch((err) => {
                     console.error("Error fetching package:", err);
@@ -102,8 +107,13 @@ const BookingForm = () => {
                     const discountedPrice = Number(couponRes?.data?.discounted_price || total);
                     const discountAmount = total - discountedPrice;
 
+                    // 🧮 GST and Grand Total after discount
+                    const gstAmount = discountedPrice * 0.18;
+                    const grandTotalValue = discountedPrice + gstAmount;
+
                     setDiscount(discountAmount.toFixed(2));
-                    setGrandTotal(discountedPrice.toFixed(2));
+                    setGst(gstAmount.toFixed(2));
+                    setGrandTotal(grandTotalValue.toFixed(2));
                     setCouponError("");
                 })
                 .catch((err) => {
@@ -366,8 +376,8 @@ const BookingForm = () => {
                             }
                             onClick={handleBookingSubmit}
                             className={`flex items-center justify-center gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
-                                ? "bg-[#b89d53] opacity-50 cursor-not-allowed"
-                                : "bg-[#b89d53] hover:opacity-90 cursor-pointer"
+                                ? "bg-[#0191e9] opacity-50 cursor-not-allowed"
+                                : "bg-[#0191e9] hover:opacity-90 cursor-pointer"
                                 } rounded-full text-sm px-4 py-3`}
                         >
                             Make Payment <ChevronRight size={18} />

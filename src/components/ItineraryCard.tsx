@@ -38,7 +38,7 @@ const ItineraryCard = () => {
                     {/* Table */}
                     <div className="overflow-x-auto">
                         <table className="min-w-full border-collapse rounded-md overflow-hidden">
-                            <thead className="bg-[#b89d53] text-white">
+                            <thead className="bg-[#0191e9] text-white">
                                 <tr>
                                     <th className="px-4 py-2 text-left font-normal">Services</th>
                                     <th className="px-4 py-2 text-left font-normal">Duration</th>
@@ -59,7 +59,7 @@ const ItineraryCard = () => {
 
                     {/* Vehicle Info */}
                     <div>
-                        <div className="bg-[#b89d53] flex justify-start text-white px-4 py-2 font-medium">Vehicle</div>
+                        <div className="bg-[#0191e9] flex justify-start text-white px-4 py-2 font-medium">Vehicle</div>
                         <p className="py-4 px-4 pb-0 bg-white text-lg text-gray-800">{data.vehicle}</p>
                     </div>
 

@@ -80,7 +80,7 @@ function ItineraryCardPage() {
                             {/* Service Table */}
                             <div className="overflow-x-auto">
                                 <table className="min-w-full border-collapse rounded-md overflow-hidden">
-                                    <thead className="bg-[#b89d53] text-white">
+                                    <thead className="bg-[#0191e9] text-white">
                                         <tr>
                                             <th className="px-4 py-2 text-left font-normal">Services</th>
                                             <th className="px-4 py-2 text-left font-normal">Duration</th>
@@ -99,7 +99,7 @@ function ItineraryCardPage() {
 
                             {/* Vehicle Info */}
                             <div>
-                                <div className="bg-[#b89d53] text-white px-4 py-2 font-medium">Vehicle</div>
+                                <div className="bg-[#0191e9] text-white px-4 py-2 font-medium">Vehicle</div>
                                 <p className="py-4 px-4 pb-0 bg-white text-lg text-gray-800 whitespace-pre-line">
                                     {packageData.vehicle}
                                 </p>
@@ -122,7 +122,7 @@ function ItineraryCardPage() {
                     <div className="max-w-7xl mx-auto py-5 Poppins space-y-10">
                         {/* Schedule */}
                         <div>
-                            <div className="flex gap-2 bg-[#b89d53] text-white px-4 py-2 mb-4">
+                            <div className="flex gap-2 bg-[#0191e9] text-white px-4 py-2 mb-4">
                                 <Timer />
                                 <h2 className="text-md Poppins font-normal">Schedule</h2>
                             </div>
@@ -152,7 +152,7 @@ function ItineraryCardPage() {
 
                                 {/* Must Read Description */}
                                 <div className="w-full md:w-100">
-                                    <div className="flex gap-2 bg-[#b89d53] text-white px-4 py-2 mb-4">
+                                    <div className="flex gap-2 bg-[#0191e9] text-white px-4 py-2 mb-4">
                                         <Pencil className="w-5" />
                                         <h2 className=" text-md Poppins font-normal">Must Read</h2>
                                     </div>
@@ -175,7 +175,7 @@ function ItineraryCardPage() {
                             {packageData.whyChooseUs?.map((item: any, idx: number) => {
                                 const isOpen = openIndex === idx;
                                 return (
-                                    <div key={idx} className="border rounded bg-[#c3a95b] text-white overflow-hidden">
+                                    <div key={idx} className="border rounded bg-[#0191e9] text-white overflow-hidden">
                                         <button
                                             onClick={() => toggleAccordion(idx)}
                                             className="w-full flex items-center justify-between px-4 py-3 text-left font-semibold"

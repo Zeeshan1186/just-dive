@@ -54,11 +54,11 @@ export function TestimonialCarousel() {
   return (
     <>
       <div className="flex justify-center items-center mt-5">
-        <span className="w-80 border-t border-dotted border-[#C3A357]"></span>
+        <span className="w-80 border-t border-dotted border-[#0191e9]"></span>
         <span className="relative z-10 p-4 text-black text-4xl font-normal Trirong">
           Our Guests Speak For Us
         </span>
-        <span className="w-80 border-t border-dotted border-[#C3A357]"></span>
+        <span className="w-80 border-t border-dotted border-[#0191e9]"></span>
       </div>
       <section className="relative font-inter antialiase flex items-center justify-center px-4 py-10">
         <div className="w-full max-w-6xl mx-auto">
@@ -119,7 +119,7 @@ export function TestimonialCarousel() {
                   <button
                     key={index}
                     className={`inline-flex items-center whitespace-nowrap rounded-full px-3 py-1.5 m-1.5 text-xs shadow-sm transition-colors duration-150 ${index === active
-                      ? "bg-[#C3A357] text-white shadow-indigo-950/10"
+                      ? "bg-[#0191e9] text-white shadow-indigo-950/10"
                       : "bg-white hover:bg-indigo-100 text-slate-900"
                       }`}
                     onClick={() => setActive(index)}

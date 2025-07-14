@@ -65,7 +65,7 @@ const BlogSection = () => {
             <div className="flex justify-center items-center mt-6">
                 <Button
                     onClick={() => navigate("/blogs")}
-                    className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2"
+                    className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2"
                 >
                     View More Blogs
                 </Button>

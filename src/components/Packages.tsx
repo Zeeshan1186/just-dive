@@ -70,7 +70,7 @@ export default function Packages() {
                                     />
                                 </div>
 
-                                <div className="absolute bottom-31 right-2 bg-[#b89d53] text-white font-normal text-sm px-5 py-1.5 rounded-full flex items-center gap-1">
+                                <div className="absolute bottom-31 right-2 bg-[#0191e9] text-white font-normal text-sm px-5 py-1.5 rounded-full flex items-center gap-1">
                                     {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""}
                                     <Clock3 size={18} strokeWidth={1.5} />
                                 </div>
@@ -87,7 +87,7 @@ export default function Packages() {
                                         <Link to={`/itinerary/${pkg.id}`}>
                                             <Button
                                                 variant="outline"
-                                                className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-sm px-4 py-2"
                                             >
                                                 Know More
                                             </Button>
@@ -101,12 +101,12 @@ export default function Packages() {
                     {/* View More Card */}
                     <CarouselItem className="pl-4 pb-6 basis-1/1 sm:basis-1/2 md:basis-1/3 lg:basis-1/4">
                         <div className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-8 group bg-white cursor-pointer">
-                            <p className="text-lg font-normal Poppins text-[#b89d53] group-hover:underline">
+                            <p className="text-lg font-normal Poppins text-[#0191e9] group-hover:underline">
                                 View More Packages
                             </p>
                             <Button
                                 variant="outline"
-                                className="mt-4 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                className="mt-4 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-sm px-4 py-2"
                             >
                                 Explore All
                             </Button>
@@ -117,13 +117,13 @@ export default function Packages() {
                 {/* Custom Arrows */}
                 <button
                     onClick={() => api?.scrollPrev()}
-                    className="absolute left-[-60px] text-[#b89d53] top-[220px] -translate-y-1/2 z-10 p-2 hover:scale-110 transition-transform duration-300"
+                    className="absolute left-[-60px] text-[#0191e9] top-[220px] -translate-y-1/2 z-10 p-2 hover:scale-110 transition-transform duration-300"
                 >
                     <ChevronLeft size={55} strokeWidth={0.5} />
                 </button>
                 <button
                     onClick={() => api?.scrollNext()}
-                    className="absolute right-[-60px] text-[#b89d53] top-[220px] -translate-y-1/2 z-10 p-2 hover:scale-110 transition-transform duration-300"
+                    className="absolute right-[-60px] text-[#0191e9] top-[220px] -translate-y-1/2 z-10 p-2 hover:scale-110 transition-transform duration-300"
                 >
                     <ChevronRight size={55} strokeWidth={0.5} />
                 </button>

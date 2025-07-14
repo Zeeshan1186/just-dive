@@ -108,7 +108,7 @@ const BlogDetailPage = () => {
                     <div>
                         <h4 className="text-lg font-semibold Poppins mb-3">Categories</h4>
                         <ul className="space-y-2">
-                            <li className="text-sm text-gray-600 hover:text-[#b89d53] cursor-pointer">Blog</li>
+                            <li className="text-sm text-gray-600 hover:text-[#0191e9] cursor-pointer">Blog</li>
                             {/* You can make this dynamic if needed */}
                         </ul>
                     </div>

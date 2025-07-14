@@ -68,7 +68,7 @@ const ContactUsPage = () => {
                 </div>
                 {/* Left Section */}
                 <div className="flex flex-col md:flex-row mt-4">
-                    <div className="w-full md:w-1/3 Poppins bg-gradient-to-b from-[#a0822d] to-[#dabc6b] p-8 text-white">
+                    <div className="w-full md:w-1/3 Poppins bg-gradient-to-b from-[#017ecc] to-[#2fafff] p-8 text-white">
                         <h2 className="text-2xl font-semibold mb-4">Get in touch</h2>
 
                         <div className="mb-6">
@@ -168,8 +168,8 @@ const ContactUsPage = () => {
                                 type="submit"
                                 disabled={!isValid || loading} // 👈 disables if form is invalid or submitting
                                 className={`w-34 font-normal text-sm px-4 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
-                                    ? "bg-[#b89d53] text-white cursor-not-allowed"
-                                    : "bg-[#b89d53] text-white hover:text-[#b89d53] hover:bg-transparent border-[#b89d53]"
+                                    ? "bg-[#0191e9] text-white cursor-not-allowed"
+                                    : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border-[#0191e9]"
                                     }`}
                             >
                                 {loading ? (

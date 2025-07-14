@@ -16,13 +16,13 @@ const ThankYouMessage = () => {
 
                 <div className="flex flex-col sm:flex-row justify-center gap-4">
                     <Button
-                        className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] transition hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-10 py-2"
+                        className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-10 py-2"
                         onClick={() => window.location.reload()}
                     >
                         Close
                     </Button>
                     <Button
-                        className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] transition hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2"
+                        className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2"
                         onClick={() => (window.location.href = "/")}
                     >
                         Back To Website
