@@ -130,13 +130,13 @@ export default function BookingComponent() {
                                             buttonVariants({ variant: "ghost" }),
                                             "size-8 p-0 font-normal aria-selected:opacity-100"
                                         ),
-                                        day_selected: "bg-[#b89d53] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
+                                        day_selected: "bg-[#0191e9] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
                                     }}
                                 />
                             </div>
                             <div className="Poppins">
                                 <div className="flex flex-col items-start">
-                                    <h3 className="text-sm mb-1">Availablity on <span className="text-lg font-bold text-[#b89d53]">
+                                    <h3 className="text-sm mb-1">Availablity on <span className="text-lg font-bold text-[#0191e9]">
                                         {date ? format(date, "dd MMMM yyyy") : "No date selected"}
                                     </span>
                                     </h3>
@@ -172,10 +172,10 @@ export default function BookingComponent() {
                                     )}
 
 
-                                    <hr className="w-[100%] border-t border-1 border-[#b89d53] mb-2" />
+                                    <hr className="w-[100%] border-t border-1 border-[#0191e9] mb-2" />
                                     <h2 className="text-lg font-bold">
                                         Available -{" "}
-                                        <span className="text-lg font-bold text-[#b89d53]">
+                                        <span className="text-lg font-bold text-[#0191e9]">
                                             {availableSeats ?? "N/A"}
                                         </span>
                                     </h2>
@@ -192,7 +192,7 @@ export default function BookingComponent() {
                                     alert("Please select date and slot");
                                 }
                             }}
-                            className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-6 py-2 mt-8"
+                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-6 py-2 mt-8"
                         >
                             Next
                         </Button>
@@ -223,13 +223,13 @@ export default function BookingComponent() {
                                 <div className="flex justify-between">
                                     <Button
                                         onClick={() => setPopupStep(0)}
-                                        className="w-1/2 mr-2 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 mr-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         onClick={handleNext}
-                                        className="w-1/2 ml-2 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 ml-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Next
                                     </Button>
@@ -251,13 +251,13 @@ export default function BookingComponent() {
                                 <div className="flex justify-between">
                                     <Button
                                         onClick={() => setPopupStep(0)}
-                                        className="w-1/2 mr-2 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 mr-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         onClick={handleNext}
-                                        className="w-1/2 ml-2 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 ml-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Next
                                     </Button>

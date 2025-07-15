@@ -19,7 +19,7 @@ function CTA() {
                     </h2>
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">
-                        <Button className="text-white font-normal bg-[#b89d53] hover:text-white hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal bg-[#0191e9] hover:text-white hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                             Contact Us
                         </Button>
                     </div>

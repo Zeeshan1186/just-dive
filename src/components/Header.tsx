@@ -41,12 +41,12 @@ export default function Header() {
 
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex space-x-6 Poppins text-md font-400 text-[#303030] items-center">
-                    <NavLink to="/" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'}>Home</NavLink>
+                    <NavLink to="/" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#0191e9]'}>Home</NavLink>
 
-                    <NavLink to="/aboutus" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'}>About Us</NavLink>
+                    <NavLink to="/aboutus" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#0191e9]'}>About Us</NavLink>
 
                     <div className="relative group" onMouseEnter={() => setIsDropdownOpen(true)} onMouseLeave={() => setIsDropdownOpen(false)}>
-                        <NavLink to="/scubapackages" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium flex items-center' : 'text-[#303030] hover:font-medium hover:text-[#C3A357] flex items-center'}>
+                        <NavLink to="/scubapackages" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium flex items-center' : 'text-[#303030] hover:font-medium hover:text-[#0191e9] flex items-center'}>
                             Scuba Packages <ChevronDown size={16} className="ml-1" />
                         </NavLink>
                         {isDropdownOpen && (
@@ -56,7 +56,7 @@ export default function Header() {
                                         <NavLink
                                             key={pkg.id}
                                             to={`/itinerary/${pkg.id}`}
-                                            className={({ isActive }) => isActive ? 'block px-4 py-2 text-[#C3A357] font-medium' : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#C3A357]'}
+                                            className={({ isActive }) => isActive ? 'block px-4 py-2 text-[#0191e9] font-medium' : 'block px-4 py-2 text-[#303030] hover:font-medium hover:text-[#0191e9]'}
                                         >
                                             {pkg.name}
                                         </NavLink>
@@ -68,11 +68,11 @@ export default function Header() {
                         )}
                     </div>
 
-                    <NavLink to="/media" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'}>Media</NavLink>
+                    <NavLink to="/media" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#0191e9]'}>Media</NavLink>
 
-                    <NavLink to="/faq" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'}>FAQ</NavLink>
+                    <NavLink to="/faq" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#0191e9]'}>FAQ</NavLink>
 
-                    <NavLink to="/contactus" className={({ isActive }) => isActive ? 'text-[#C3A357] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#C3A357]'}>Contact Us</NavLink>
+                    <NavLink to="/contactus" className={({ isActive }) => isActive ? 'text-[#0191e9] font-medium' : 'text-[#303030] hover:font-medium hover:text-[#0191e9]'}>Contact Us</NavLink>
                 </nav>
 
                 {/* Right side icons */}
@@ -81,7 +81,7 @@ export default function Header() {
                         <Phone className="textgolden cursor-pointer" size={20} />
                     </a>
                     <Link to="/booking">
-                        <Button className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                             Book Now
                         </Button>
                     </Link>
@@ -155,7 +155,7 @@ export default function Header() {
                         </a>
 
                         <Link to="/booking">
-                            <Button className="bggolden text-white Poppins font-normal px-4 py-2 rounded-full text-sm hover:bg-yellow-500" aria-label="Book your scuba diving adventure">
+                            <Button className="bg-[#0191e9] text-white Poppins font-normal px-4 py-2 rounded-full text-sm hover:bg-yellow-500" aria-label="Book your scuba diving adventure">
                                 Book Now
                             </Button>
                         </Link>

@@ -7,6 +7,7 @@ import {
     ChevronDown,
     ChevronRight,
     File,
+    Loader2,
     Mail,
     Phone,
     User,
@@ -28,7 +29,7 @@ const BookingForm = () => {
     const [discount, setDiscount] = useState("0.00");
     const [grandTotal, setGrandTotal] = useState("0.00");
     const [couponCode, setCouponCode] = useState("");
-    const [couponError, setCouponError] = useState(""); // optional for error messages
+    const [couponError, setCouponError] = useState("");
     const [fullName, setFullName] = useState("");
     const [whatsapp, setWhatsapp] = useState("");
     const [email, setEmail] = useState("");
@@ -37,16 +38,15 @@ const BookingForm = () => {
     const [nationality, setNationality] = useState("");
     const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
     const [applyingCoupon, setApplyingCoupon] = useState(false);
+    const [gst, setGst] = useState("0.00");
 
     // ✅ Move summaryData here so it's available in JSX
     const summaryData = [
         { label: "Subtotal", value: subtotal },
-        { label: "Convenience fee", value: "0.00" },
-        { label: "GST", value: "0.00" },
+        { label: "GST (18%)", value: gst },
         { label: "Discount", value: discount },
         { label: "Grand Total", value: grandTotal },
     ];
-
 
     useEffect(() => {
         const storedPackageId = localStorage.getItem("selectedPackageId");
@@ -68,9 +68,15 @@ const BookingForm = () => {
                 .then((res) => {
                     const pricePerPerson = Number(res.data?.data?.price) || 0;
                     const total = pricePerPerson * participantCount;
+
+                    // GST and Grand Total Amount
+                    const gstAmount = total * 0.18; // 18% GST
+                    const grandTotalValue = total + gstAmount;
+
                     setSubtotal(total.toFixed(2));
+                    setGst(gstAmount.toFixed(2));
                     setDiscount("0.00");
-                    setGrandTotal(total.toFixed(2));
+                    setGrandTotal(grandTotalValue.toFixed(2));
                 })
                 .catch((err) => {
                     console.error("Error fetching package:", err);
@@ -87,32 +93,52 @@ const BookingForm = () => {
             return;
         }
 
+        setApplyingCoupon(true);
+
         const packageId = Number(storedPackageId);
         const participantCount = parseInt(storedParticipants, 10);
 
-        getPackageById(packageId).then((res) => {
-            const pricePerPerson = Number(res.data?.data?.price || 0);
-            const total = pricePerPerson * participantCount;
+        getPackageById(packageId)
+            .then((res) => {
+                const pricePerPerson = Number(res.data?.data?.price || 0);
+                const total = pricePerPerson * participantCount;
 
-            // Set subtotal regardless of coupon
-            setSubtotal(total.toFixed(2));
+                // Set subtotal regardless of coupon
+                setSubtotal(total.toFixed(2));
 
-            applyCoupon(packageId, couponCode, participantCount)
-                .then((couponRes) => {
-                    const discountedPrice = Number(couponRes?.data?.discounted_price || total);
-                    const discountAmount = total - discountedPrice;
+                return applyCoupon(packageId, couponCode, participantCount)
+                    .then((couponRes) => {
+                        const discountedPrice = Number(couponRes?.data?.discounted_price || total);
+                        const discountAmount = total - discountedPrice;
 
-                    setDiscount(discountAmount.toFixed(2));
-                    setGrandTotal(discountedPrice.toFixed(2));
-                    setCouponError("");
-                })
-                .catch((err) => {
-                    console.error("Coupon apply failed:", err);
-                    setCouponError("Invalid or expired coupon code.");
-                    setDiscount("0.00");
-                    setGrandTotal(total.toFixed(2));
-                });
-        });
+                        // GST and Grand Total after discount
+                        const gstAmount = discountedPrice * 0.18;
+                        const grandTotalValue = discountedPrice + gstAmount;
+
+                        setDiscount(discountAmount.toFixed(2));
+                        setGst(gstAmount.toFixed(2));
+                        setGrandTotal(grandTotalValue.toFixed(2));
+                        setCouponError("");
+                    })
+                    .catch((err) => {
+                        console.error("Coupon apply failed:", err);
+                        setCouponError("Invalid or expired coupon code.");
+                        setDiscount("0.00");
+
+                        // Restore original totals without discount
+                        const gstAmount = total * 0.18;
+                        const grandTotalValue = total + gstAmount;
+                        setGst(gstAmount.toFixed(2));
+                        setGrandTotal(grandTotalValue.toFixed(2));
+                    })
+                    .finally(() => {
+                        setApplyingCoupon(false);
+                    });
+            })
+            .catch((err) => {
+                console.error("Error fetching package:", err);
+                setApplyingCoupon(false);
+            });
     };
 
     const handleBookingSubmit = async () => {
@@ -134,6 +160,7 @@ const BookingForm = () => {
             formData.append("price", grandTotal);
 
             const response = await postBooking(formData);
+            console.log("Response is:", response);
             alert("Booking submitted successfully!");
         } catch (error) {
             console.error("Booking failed:", error);
@@ -323,17 +350,22 @@ const BookingForm = () => {
                                 disabled={applyingCoupon}
                             />
 
-                            {applyingCoupon ? (
-                                <div className="ml-3 w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                            ) : (
-                                <button
-                                    className="text-sm font-bold cursor-pointer text-[#058EBA] Poppins ml-3"
-                                    type="button"
-                                    onClick={handleApplyCoupon}
-                                >
-                                    Apply
-                                </button>
-                            )}
+                            <button
+                                className={`text-sm font-bold cursor-pointer text-[#058EBA] Poppins ml-3 flex items-center`}
+                                type="button"
+                                onClick={handleApplyCoupon}
+                                disabled={applyingCoupon}
+                            >
+                                {applyingCoupon ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                                        Applying...
+                                    </>
+                                ) : (
+                                    "Apply"
+                                )}
+                            </button>
+
                         </div>
 
                         {couponError && (
@@ -366,8 +398,8 @@ const BookingForm = () => {
                             }
                             onClick={handleBookingSubmit}
                             className={`flex items-center justify-center gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
-                                ? "bg-[#b89d53] opacity-50 cursor-not-allowed"
-                                : "bg-[#b89d53] hover:opacity-90 cursor-pointer"
+                                ? "bg-[#0191e9] opacity-50 cursor-not-allowed"
+                                : "bg-[#0191e9] hover:opacity-90 cursor-pointer"
                                 } rounded-full text-sm px-4 py-3`}
                         >
                             Make Payment <ChevronRight size={18} />

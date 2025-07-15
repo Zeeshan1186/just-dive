@@ -68,7 +68,7 @@ export default function ScubaPackages() {
                                 />
                             </div>
 
-                            <div className="absolute bottom-31 right-2 bg-[#b89d53] text-white font-normal text-sm px-5 py-1.5 rounded-full flex items-center gap-1">
+                            <div className="absolute bottom-31 right-2 bg-[#0191e9] text-white font-normal text-sm px-5 py-1.5 rounded-full flex items-center gap-1">
                                 {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""}
                                 <Clock3 size={18} strokeWidth={1.5} />
                             </div>
@@ -85,7 +85,7 @@ export default function ScubaPackages() {
                                     <Link to={`/itinerary/${pkg.id}`}>
                                         <Button
                                             variant="outline"
-                                            className="text-white font-normal bg-[#b89d53] hover:text-[#b89d53] hover:bg-white border-[#b89d53] rounded-full text-sm px-4 py-2"
+                                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-sm px-4 py-2"
                                         >
                                             Know More
                                         </Button>

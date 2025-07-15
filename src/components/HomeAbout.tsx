@@ -44,26 +44,26 @@ const HomeAbout = () => {
                 </p>
                 <div className="flex flex-col items-center sm:flex-row justify-around text-center gap-6 sm:gap-0">
                     <div>
-                        <button className="w-28 text-white font-normal bg-[#b89d53] hover:text-[#b89d53] transition hover:bg-transparent hover:border-1 border-[#b89d53] rounded-full text-sm px-4 py-2">
+                        <button className="w-28 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                             Read More
                         </button>
                     </div>
 
                     {/* Counters */}
                     <div>
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
+                        <h3 className="text-[#0191e9] text-4xl Trirong  font-bold">
                             <CountUp end={25} duration={2} />+
                         </h3>
                         <p className="mt-1 text-black font-medium Poppins">Years Of Experience</p>
                     </div>
                     <div className="border-l border-gray-300 px-6">
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
+                        <h3 className="text-[#0191e9] text-4xl Trirong  font-bold">
                             <CountUp end={3000} duration={3} />+
                         </h3>
                         <p className="mt-1 text-black font-medium Poppins">Happy Customers</p>
                     </div>
                     <div className="border-l border-gray-300 px-6">
-                        <h3 className="text-[#b89d53] text-4xl Trirong  font-bold">
+                        <h3 className="text-[#0191e9] text-4xl Trirong  font-bold">
                             <CountUp end={100} duration={2} />%
                         </h3>
                         <p className="mt-1 text-black font-medium Poppins">Top Rated Service</p>

@@ -93,7 +93,7 @@ export default function Banner() {
             <div className="absolute inset-0 bg-black/50" />
             <div className="relative z-10 flex flex-col justify-center items-start h-full max-w-6xl mx-auto px-4 text-white">
                 <div className="mb-4">
-                    <span className="text-xl text-yellow-300">
+                    <span className="text-xl text-[#0191e9]">
                         <img src={waves} alt="" />
                     </span>
                 </div>
@@ -189,7 +189,7 @@ export default function Banner() {
                                                     "size-8 p-0 font-normal aria-selected:opacity-100"
                                                 ),
                                                 day_selected:
-                                                    "bg-[#b89d53] text-white rounded-md hover:bg-yellow-500 focus:bg-yellow-500",
+                                                    "bg-[#0191e9] text-white rounded-md hover:bg-[#0191e9] focus:bg-[#0191e9]",
                                             }}
                                         />
                                     </motion.div>
@@ -203,7 +203,7 @@ export default function Banner() {
                         disabled={!selectedLocation || !date}
                         className={cn(
                             "text-white font-normal rounded-full text-sm px-4 py-2 transition",
-                            "bg-[#b89d53] hover:text-[#b89d53] hover:bg-transparent hover:border border-[#b89d53]",
+                            "bg-[#0191e9] hover:text-[#fff] hover:bg-transparent hover:border border-[#fff]",
                             (!selectedLocation || !date) && "opacity-50 cursor-not-allowed"
                         )}
                         onClick={() => {
