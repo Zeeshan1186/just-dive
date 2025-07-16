@@ -1,61 +1,60 @@
-
 import { Facebook, Instagram } from "lucide-react";
-import logo from "../assets/images/Justdive.png";
+import logo from "../assets/images/JustDiveBlack.png";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
     return (
-        <footer className="bg-[#1B1B19] text-white px-36  py-10 md:pt-26">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+        <footer className="bg-[#1B1B19] text-white px-6 sm:px-10 lg:px-20 xl:px-36 py-10 md:pt-26">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 {/* Column 1 - Menu 1 */}
                 <div className="Poppins">
                     <h4 className="font-semibold mb-3 text-lg">Home</h4>
                     <ul className="space-y-3 text-sm text-gray-300">
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Dive</a></li>
-                        <li><a href="#">Packages</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Media</a></li>
+                        <li><Link to="/aboutus">About Us</Link></li>
+                        <li><Link to="/scubapackages">Packages</Link></li>
+                        <li><Link to="/blogs">Blog</Link></li>
+                        <li><Link to="/media">Media</Link></li>
                     </ul>
                 </div>
 
                 {/* Column 2 - Menu 2 */}
-                <div className="mt-2 Poppins">
-                    <ul className="space-y-3 text-sm text-gray-300">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Testimony</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">FAQ</a></li>
+                <div className="Poppins">
+                    <ul className="space-y-3 text-sm text-gray-300 mt-0 md:mt-2">
+                        <li><Link to="/contactus">Contact Us</Link></li>
+                        <li><Link to="/testimony">Testimony</Link></li>
+                        <li><Link to="/termsandcondition">Terms & Condition</Link></li>
+                        <li><Link to="/contactus">Help Center</Link></li>
+                        <li><Link to="/faq">FAQ</Link></li>
                     </ul>
                 </div>
 
                 {/* Column 3 - Logo & Description */}
-                <div className="md:col-span-2 flex flex-col pl-10 items-start md:items-start">
-                    <div className="flex items-center mb-4">
-                        <img src={logo} alt="JUST DIVE" className="w-12 h-12 mr-2" />
-                        <span className="text-xl font-semibold">JUST DIVE</span>
+                <div className="md:col-span-2 flex flex-col sm:items-start md:items-start">
+                    <div className="flex justify-center sm:justify-start mb-4">
+                        <Link to="/">
+                            <img src={logo} alt="JUST DIVE" className="w-40 sm:w-32 md:w-36" />
+                        </Link>
                     </div>
-                    <p className="text-sm text-gray-300 Poopins mb-4 max-w-md">
+                    <p className="text-sm text-gray-300 Poppins mb-4 max-w-md text-center sm:text-left">
                         Experience incredible emotions discovering new amazing underwater worlds with our diving.
                     </p>
-                    <div>
-                        <p className="font-medium mb-2">Follow Us</p>
-                        <div className="flex space-x-3">
-                            <a href="#" className="p-1 bg-white text-[#C3A357] rounded-md">
-                                <Instagram />
-                            </a>
-                            <a href="#" className="p-1 bg-white text-[#C3A357] rounded-md">
-                                <Facebook />
-                            </a>
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                        <p className="font-medium mb-2 sm:mb-0">Follow Us</p>
+                        <div className="flex justify-center sm:justify-start space-x-3 ml-4">
+                            <Link to="https://instagram.com" target="_blank" className="p-1 bg-white text-[#C3A357] rounded-md">
+                                <Instagram size={20} />
+                            </Link>
+                            <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#C3A357] rounded-md">
+                                <Facebook size={20} />
+                            </Link>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Bottom Bar */}
-            <div className="Poppins border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center text-sm text-gray-400">
-                <p>Copyright ©2025 JUST DIVE. All rights reserved.</p>
+            <div className="Poppins border-t border-gray-700 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400 text-center sm:text-left">
+                <p className="mb-2 sm:mb-0">Copyright ©2025 JUST DIVE. All rights reserved.</p>
                 <p>Design by Excit Systems</p>
             </div>
         </footer>

@@ -6,8 +6,7 @@ import waves from "../assets/images/Waves.png";
 import bluewaves from "../assets/images/Bluewave.png";
 import { Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { sendContactForm } from "../services/apiService"; // ✅ import this
-// import { toast } from "react-hot-toast"; // ✅ ensure toast is installed
+import { sendContactForm } from "../services/apiService";
 import { useState } from "react";
 import { toast } from "sonner";
 
@@ -18,58 +17,59 @@ const ContactUsPage = () => {
         formState: { errors, isValid },
         reset,
     } = useForm({
-        mode: "onChange", // 👈 very important for real-time validation
+        mode: "onChange",
     });
 
-     
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data: any) => {
         try {
-            setLoading(true); // 🔄 Start loader
-            const res = await sendContactForm(data);
+            setLoading(true);
+            await sendContactForm(data);
             toast.success("Message sent successfully!");
             reset();
         } catch (error) {
             console.error("Submit Error:", error);
             toast.error("Failed to send message. Please try again.");
         } finally {
-            setLoading(false); // ✅ Stop loader regardless of success or error
+            setLoading(false);
         }
     };
 
     return (
         <>
+            {/* Banner */}
             <div
-                className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-right"
+                className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/50" />
-                <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4 text-white">
+                <div className="relative z-10 text-center max-w-4xl mx-auto px-4 text-white">
                     <div className="mb-4">
-                        <img src={waves} alt="Wave" className="w-10" />
+                        <img src={waves} alt="Wave" className="w-10 mx-auto" />
                     </div>
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl Trirong font-normal leading-tight mb-6">
+                    <h1 className="text-2xl sm:text-4xl md:text-5xl Trirong font-normal leading-tight mb-6">
                         Contact Us
                     </h1>
                 </div>
             </div>
 
-            <div className=" px-12 py-12  bg-gray-100">
-                <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4">
+            {/* Main Content */}
+            <div className="px-4 sm:px-6 md:px-12 py-12 bg-gray-100">
+                <div className="text-center mb-10">
                     <div className="mb-4">
-                        <span className="text-xl text-yellow-300">
-                            <img src={bluewaves} alt="" className="w-10" />
-                        </span>
+                        <img src={bluewaves} alt="Wave" className="w-10 mx-auto" />
                     </div>
-                    <h1 className="text-3xl sm:text-5xl Trirong md:text-4xl font-normal leading-tight mb-6">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl Trirong font-normal leading-tight">
                         We're Here to Help
                     </h1>
                 </div>
-                {/* Left Section */}
-                <div className="flex flex-col md:flex-row mt-4">
-                    <div className="w-full md:w-1/3 Poppins bg-gradient-to-b from-[#017ecc] to-[#2fafff] p-8 text-white">
-                        <h2 className="text-2xl font-semibold mb-4">Get in touch</h2>
+
+                {/* Contact Info + Form */}
+                <div className="flex flex-col md:flex-row gap-6 md:gap-0">
+                    {/* Left Section - Contact Info */}
+                    <div className="w-full md:w-1/3 Poppins bg-gradient-to-b from-[#017ecc] to-[#2fafff] p-6 sm:p-8 text-white rounded-t-lg md:rounded-t-none md:rounded-l-lg">
+                        <h2 className="text-xl sm:text-2xl font-semibold mb-4">Get in touch</h2>
 
                         <div className="mb-6">
                             <h3 className="text-lg font-medium">Visit us</h3>
@@ -91,16 +91,20 @@ const ContactUsPage = () => {
 
                         <div>
                             <h3 className="text-lg font-medium mb-2">Social media</h3>
-                            <div className="flex space-x-4">
+                            <div className="flex gap-4">
                                 <Instagram className="cursor-pointer" />
                                 <Facebook className="cursor-pointer" />
                             </div>
                         </div>
                     </div>
 
-                    {/* Right Section - Form */}
-                    <div className="w-full md:w-2/3 p-6 sm:p-8 bg-white rounded-r-lg">
-                        <form className="space-y-6 Poppins" onSubmit={handleSubmit(onSubmit)}>
+                    {/* Right Section - Contact Form */}
+                    <div className="w-full md:w-2/3 bg-white rounded-b-lg md:rounded-b-none md:rounded-r-lg p-4 sm:p-6 lg:p-8">
+                        <form
+                            className="space-y-6 Poppins"
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
+                            {/* Name & Email */}
                             <div className="flex flex-col sm:flex-row gap-4">
                                 <div className="w-full">
                                     <input
@@ -115,10 +119,10 @@ const ContactUsPage = () => {
                                 </div>
                                 <div className="w-full">
                                     <input
-                                        type="text"
+                                        type="email"
                                         placeholder="Email Address"
                                         {...register("EmailAddress", { required: true })}
-                                        className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm  rounded-md"
+                                        className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                     />
                                     {errors.EmailAddress && (
                                         <span className="text-red-500 text-sm">Email Address is required</span>
@@ -126,36 +130,39 @@ const ContactUsPage = () => {
                                 </div>
                             </div>
 
-                            <div className="flex items-center border border-[#dedede] shadow-sm  rounded-md p-3">
+                            {/* Phone */}
+                            <div>
                                 <input
                                     type="tel"
                                     placeholder="(+91) 5555-5555-55"
                                     {...register("phone", { required: true })}
-                                    className="w-full border-none placeholder:text-[#bbb] outline-none"
+                                    className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                 />
+                                {errors.phone && (
+                                    <span className="text-red-500 text-sm">Phone number is required</span>
+                                )}
                             </div>
-                            {errors.phone && (
-                                <span className="text-red-500 text-sm">Phone number is required</span>
-                            )}
 
+                            {/* Message */}
                             <div>
                                 <textarea
                                     placeholder="Tell us what we can help you with"
                                     {...register("message", { required: true })}
-                                    className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm  rounded-md h-32"
+                                    className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md h-32"
                                 ></textarea>
                                 {errors.message && (
                                     <span className="text-red-500 text-sm">Message is required</span>
                                 )}
                             </div>
 
+                            {/* Checkbox */}
                             <div className="flex items-start gap-2">
                                 <input
                                     type="checkbox"
                                     {...register("policy", { required: true })}
                                     className="w-4 h-4 mt-1"
                                 />
-                                <label className="text-[13px] pt-1 item-center text-gray-600">
+                                <label className="text-sm text-gray-600">
                                     I’d like to receive more information about the company. I understand and agree to the
                                     <a href="#" className="text-blue-500"> Privacy Policy</a>.
                                 </label>
@@ -164,12 +171,13 @@ const ContactUsPage = () => {
                                 <span className="text-red-500 text-sm">Please accept the privacy policy</span>
                             )}
 
+                            {/* Submit Button */}
                             <Button
                                 type="submit"
-                                disabled={!isValid || loading} // 👈 disables if form is invalid or submitting
-                                className={`w-34 font-normal text-sm px-4 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
-                                    ? "bg-[#0191e9] text-white cursor-not-allowed"
-                                    : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border-[#0191e9]"
+                                disabled={!isValid || loading}
+                                className={`w-full sm:w-auto font-normal text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
+                                    ? "bg-[#0191e9] text-white opacity-70 cursor-not-allowed"
+                                    : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border border-[#0191e9]"
                                     }`}
                             >
                                 {loading ? (

@@ -5,8 +5,7 @@ import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import CTA from "@/components/CTA";
 
-function Faq() {
-
+function FaqPage() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
     const toggleAccordion = (index: number) => {
         setOpenIndex((prev) => (prev === index ? null : index));
@@ -39,56 +38,67 @@ function Faq() {
                 "Curious about safety, requirements, or what to expect? Check out our Scuba Diving FAQ section for everything you need to know before your dive.",
         },
     ];
-    
+
     return (
         <>
+            {/* Hero Banner */}
             <div
-                className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
+                className="relative flex justify-center items-center h-[45vh] sm:h-[55vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/50" />
                 <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4 text-white">
-                    <div className="mb-4">
-                        <span className="text-xl text-yellow-300">
-                            <img src={waves} alt="" />
-                        </span>
+                    <div className="mb-2">
+                        <img src={waves} alt="waves" className="w-8 sm:w-10" />
                     </div>
-                    <h1 className="text-4xl sm:text-5xl Trirong md:text-6xl font-normal leading-tight mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl Trirong font-normal leading-tight mb-4 text-center">
                         FAQ
                     </h1>
                 </div>
             </div>
-            <div className="space-y-4 px-16 py-10">
-                <div className="flex flex-col justify-center items-center pb-2 px-4">
-                    <img src={bluewaves} alt="waves" className="mx-auto mb-2 w-10 pb-2" />
-                    <h2 className="text-3xl sm:text-4xl Trirong font-normal text-gray-800 mb-4">
+
+            {/* FAQ Section */}
+            <div className="space-y-4 px-4 sm:px-8 md:px-16 py-8 sm:py-10">
+                <div className="flex flex-col justify-center items-center pb-2 px-2">
+                    <img
+                        src={bluewaves}
+                        alt="waves"
+                        className="mx-auto mb-2 w-8 sm:w-10 md:w-12 pb-2"
+                    />
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl Trirong font-normal text-gray-800 mb-4 text-center">
                         Essential Info, Instantly
                     </h2>
                 </div>
+
+                {/* Accordions */}
                 {whyChooseData.map((item, idx) => {
                     const isOpen = openIndex === idx;
                     return (
-                        <div key={idx} className="border rounded bg-[#c3a95b] text-white overflow-hidden">
+                        <div
+                            key={idx}
+                            className="border rounded bg-[#0392ea] text-white overflow-hidden"
+                        >
                             <button
                                 onClick={() => toggleAccordion(idx)}
-                                className="w-full flex items-center justify-between px-4 py-3 text-left font-semibold"
+                                className="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-sm sm:text-base"
                             >
                                 <span>{item.title}</span>
-                                {isOpen ? <ChevronUp /> : <ChevronDown />}
+                                {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                             </button>
                             <div
-                                className={`bg-white text-gray-700 px-4 overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-[300px] py-4" : "max-h-0 py-0"
+                                className={`bg-white text-gray-700 px-3 sm:px-4 overflow-hidden transition-all duration-500 ease-in-out ${isOpen ? "max-h-[300px] py-3" : "max-h-0 py-0"
                                     }`}
                             >
-                                <p>{item.content}</p>
+                                <p className="text-sm sm:text-base">{item.content}</p>
                             </div>
                         </div>
                     );
                 })}
             </div>
+
             <CTA />
         </>
     );
 }
 
-export default Faq;
+export default FaqPage;

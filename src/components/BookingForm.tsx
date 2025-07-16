@@ -170,7 +170,7 @@ const BookingForm = () => {
 
     return (
         <>
-            <div className="max-w-3xl mx-auto bg-white px-6 sm:p-8 shadow-md border-1 border-[#d8d8d8] rounded-md">
+            <div className="max-w-3xl mx-auto bg-white px-6 sm:p-8 py-3 shadow-md border-1 border-[#d8d8d8] rounded-md">
                 <form className="space-y-4 Poppins text-[#a2a2a2]">
                     {/* Package Selection */}
                     <div>

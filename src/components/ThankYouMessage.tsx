@@ -31,7 +31,7 @@ const ThankYouMessage = () => {
             </div>
             <div className="bg-white px-4 py-3 text-center text-xs sm:text-sm text-gray-600 rounded-b-xl">
                 *If you have any questions or queries then feel free to <br /> Whatsapp on
-                <a href="https://wa.me/8482944483" className="text-blue-600 text-[#3578EA] pl-1 font-medium">
+                <a href="https://wa.me/8482944483" className="text-[#3578EA] pl-1 font-medium">
                     +91 8482944483
                 </a>
             </div>
