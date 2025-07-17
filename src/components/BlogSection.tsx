@@ -45,7 +45,7 @@ const BlogSection = () => {
                     <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
                         <Link
                             to={`/blog/${blog.id}`}
-                            className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
+                            className="rounded-md overflow-hidden hover:border-1 border-[#dbdbdb] transition block"
                         >
                             <img
                                 src={blog.blog_image}

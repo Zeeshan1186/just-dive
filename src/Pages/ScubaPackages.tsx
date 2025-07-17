@@ -70,7 +70,7 @@ export default function ScubaPackages() {
                                 </p>
                                 <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out overflow-hidden flex justify-center gap-2 mt-4">
                                     {/* Book Now Button */}
-                                    <Link to={`/itinerary/${pkg.id}`}>
+                                    <Link to={`/booking/${pkg.id}`}>
                                         <Button
                                             variant="outline"
                                             className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"

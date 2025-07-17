@@ -10,7 +10,7 @@ import { ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
 import { useCarousel } from "../components/ui/use-carousel";
 import wave from "../assets/images/Bluewave.png";
 import { Link, useNavigate } from "react-router-dom";
-import { FancyButton } from "../components/FancyButton";
+// import { FancyButton } from "../components/FancyButton";
 import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
@@ -92,9 +92,18 @@ export default function Packages() {
                                         {pkg.name}
                                     </p>
                                     <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out overflow-hidden flex justify-center gap-2 mt-3 sm:mt-4">
-                                        <div className="flex items-center justify-center">
+                                        {/* <div className="flex items-center justify-center">
                                             <FancyButton />
-                                        </div>
+                                        </div> */}
+
+                                        <Link to={`/booking/${pkg.id}`}>
+                                            <Button
+                                                variant="outline"
+                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                            >
+                                                Book Now
+                                            </Button>
+                                        </Link>
 
                                         <Link to={`/itinerary/${pkg.id}`}>
                                             <Button

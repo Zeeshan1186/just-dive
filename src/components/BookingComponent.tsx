@@ -9,6 +9,8 @@ import { buttonVariants } from "@/components/ui/button";
 import banner from "../assets/images/booking.png";
 import BookingForm from "./BookingForm";
 import { getPackageSlotsByDate, getactivePackages, getactivePackagesByLocation } from "../services/apiService";
+import { ChevronDown } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 type Slot = {
     slot_id: number;
@@ -17,6 +19,14 @@ type Slot = {
     available: number;
     time: string;
 };
+type Package = {
+    id: number;
+    name: string;
+    package_image: string;
+    duration: number;
+    // Add more fields if your API returns them
+};
+
 
 export default function BookingComponent() {
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -24,10 +34,11 @@ export default function BookingComponent() {
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
     const [selectedSlot, setSelectedSlot] = useState("");
-    const [packages, setPackages] = useState<any[]>([]);
+    const [packages, setPackages] = useState<Package[]>([]);
     const [availableSeats, setAvailableSeats] = useState<number | null>(null);
     const [showBookingForm, setShowBookingForm] = useState(false);
     const [dynamicSlots, setDynamicSlots] = useState<Slot[]>([]);
+    const { id } = useParams();
 
     useEffect(() => {
         const fetchPackages = async () => {
@@ -36,13 +47,24 @@ export default function BookingComponent() {
                 const res = location
                     ? await getactivePackagesByLocation(location)
                     : await getactivePackages();
-                setPackages(res?.data?.data || []);
+
+                const fetchedPackages = res?.data?.data || [];
+                setPackages(fetchedPackages);
+
+                // 👉 Preselect package if id is present in URL
+                if (id) {
+                    const matchedPackage = fetchedPackages.find((pkg: any) => pkg.id === Number(id));
+                    if (matchedPackage) {
+                        setSelectedPackage(matchedPackage.id);
+                    }
+                }
             } catch (err) {
                 console.error("Failed to fetch packages", err);
             }
         };
         fetchPackages();
-    }, []);
+    }, [id]);
+
 
     useEffect(() => {
         const fetchSlotsAndSeats = async () => {
@@ -180,9 +202,9 @@ export default function BookingComponent() {
                                     <hr className="w-60 border-t border-[#0191e9] mb-2" />
 
                                     <h2 className="text-base sm:text-lg font-bold">
-                                        Available -{" "}
+                                        Available - {" "}
                                         <span className="text-[#0191e9]">
-                                            {availableSeats !== null ? availableSeats : "N/A"}
+                                            {availableSeats !== null ? availableSeats : "Please Select Slot"}
                                         </span>
                                     </h2>
                                 </div>
@@ -212,19 +234,28 @@ export default function BookingComponent() {
                         {popupStep === 1 && (
                             <>
                                 <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">Select Your Package</h3>
-                                <select
-                                    className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
-                                    value={selectedPackage}
-                                    onChange={(e) => {
-                                        const value = e.target.value;
-                                        setSelectedPackage(value === "" ? "" : Number(value));
-                                    }}
-                                >
-                                    <option value="">Select a package</option>
-                                    {packages.map(pkg => (
-                                        <option key={pkg.id} value={pkg.id}>{pkg.name}</option>
-                                    ))}
-                                </select>
+                                <div className="flex justify-center items-center border-1 border-[#63636333] rounded-md p-2 mb-4 pl-0">
+                                    <div className="relative w-full">
+                                        <select
+                                            className="w-full text-[#2e2e2e] bg-white pl-2 rounded-md appearance-none focus:outline-none"
+                                            value={selectedPackage}
+                                            onChange={(e) => {
+                                                const value = e.target.value;
+                                                setSelectedPackage(value === "" ? "" : Number(value));
+                                            }}
+                                        >
+                                            <option value="">Select a package</option>
+                                            {packages.map((pkg) => (
+                                                <option key={pkg.id} value={pkg.id}>
+                                                    {pkg.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-400">
+                                            <ChevronDown />
+                                        </div>
+                                    </div>
+                                </div>
                                 <div className="flex justify-between gap-2">
                                     <Button
                                         onClick={() => setPopupStep(0)}
