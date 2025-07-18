@@ -2,6 +2,8 @@ import CountUp from "react-countup";
 import diver from "../assets/images/diver.png";
 import diverbg from "../assets/images/diverbg.png";
 import waves from "../assets/images/Bluewave.png";
+import { Link } from "react-router-dom";
+import { Button } from "./ui/button";
 
 const HomeAbout = () => {
     return (
@@ -35,7 +37,7 @@ const HomeAbout = () => {
             <div className="w-full md:w-[50%] text-center md:text-left">
                 <img src={waves} alt="" className="w-12 mb-5" />
                 <h2 className="text-3xl md:text-5xl Trirong font-normal mb-4">About Us</h2>
-                <p className="text-gray-600 mb-6 Poppins text-[#3C3C3C] leading-relaxed">
+                <p className="mb-6 Poppins text-[#3C3C3C] leading-relaxed">
                     Just Dive Murdeshwar is a premier PADI-certified scuba diving center
                     offering world-class diving experiences and professional PADI courses
                     at Netrani Island, Karnataka. Established in 2023, the company quickly
@@ -44,9 +46,11 @@ const HomeAbout = () => {
                 </p>
                 <div className="flex flex-col items-center sm:flex-row justify-around text-center gap-6 sm:gap-0">
                     <div>
-                        <button className="w-28 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
-                            Read More
-                        </button>
+                        <Link to={`/aboutus`}>
+                            <Button className="w-28 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
+                                Read More
+                            </Button>
+                        </Link>
                     </div>
 
                     {/* Counters */}

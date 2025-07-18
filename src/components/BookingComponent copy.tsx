@@ -55,6 +55,7 @@ export default function BookingComponent() {
                     const formattedDate = date ? format(date, 'd/M/yyyy') : "";
                     const res = await getPackageSlotsByDate(Number(selectedPackage), formattedDate);
                     const slots = Array.isArray(res?.data) ? res.data : [];
+                    slots
                     setDynamicSlots(res.data.data);
                     setSelectedSlot("");
                     setAvailableSeats(null);
@@ -85,8 +86,8 @@ export default function BookingComponent() {
         } else if (popupStep === 2 && participants) {
             const pkg = packages.find((p) => String(p.id) === selectedPackage);
             if (pkg) {
-                localStorage.setItem("selectedPackageId", String(pkg.id));   // ✅ store ID
-                localStorage.setItem("selectedPackageName", pkg.name);       // ✅ store name
+                localStorage.setItem("selectedPackageId", String(pkg.id));
+                localStorage.setItem("selectedPackageName", pkg.name);
                 localStorage.setItem("participants", participants);
             }
             setPopupStep(0); // close popup
@@ -176,7 +177,7 @@ export default function BookingComponent() {
                                     <h2 className="text-lg font-bold">
                                         Available -{" "}
                                         <span className="text-lg font-bold text-[#0191e9]">
-                                            {availableSeats ?? "N/A"}
+                                            {availableSeats ?? "Please Select Slot"}
                                         </span>
                                     </h2>
 

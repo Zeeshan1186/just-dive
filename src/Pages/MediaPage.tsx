@@ -4,7 +4,7 @@ import waves from "../assets/images/Waves.png";
 import { getMedia } from "../services/apiService"; // your API call
 import { toast } from "sonner";
 
-const Media = () => {
+const MediaPage = () => {
     const [activeTab, setActiveTab] = useState<"images" | "videos">("images");
     const [popupImage, setPopupImage] = useState<string | null>(null);
     const [uploadedImages, setUploadedImages] = useState<any[]>([]);
@@ -43,30 +43,30 @@ const Media = () => {
         <>
             {/* Hero Banner */}
             <div
-                className="relative flex justify-center items-center h-[85vh] bg-cover bg-no-repeat bg-right"
+                className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[85vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/30" />
                 <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4 text-white">
                     <div className="mb-4">
-                        <span className="text-xl text-yellow-300">
-                            <img src={waves} alt="" />
-                        </span>
+                        <img src={waves} alt="" className="w-10 sm:w-12" />
                     </div>
-                    <h1 className="text-4xl sm:text-5xl Trirong font-normal mb-6">Media</h1>
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl Trirong font-normal mb-6 text-center">
+                        Media
+                    </h1>
                 </div>
             </div>
 
-            <section className="max-w-7xl mx-auto px-4 py-10">
+            <section className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-10">
                 {/* Tabs */}
-                <div className="flex justify-center mb-6 space-x-4">
+                <div className="flex justify-center mb-6 flex-wrap gap-3">
                     {["images", "videos"].map((tab) => (
                         <button
                             key={tab}
-                            className={`px-6 py-2 rounded-full font-medium transition ${activeTab === tab
+                            className={`px-4 sm:px-6 py-2 rounded-full font-medium transition text-sm sm:text-base ${activeTab === tab
                                 ? "bg-[#0191e9] text-white"
-                                : "bg-transparent text-[#0191e9] border border-[#0191e9]"}`
-                            }
+                                : "bg-transparent text-[#0191e9] border border-[#0191e9]"
+                                }`}
                             onClick={() => setActiveTab(tab as "images" | "videos")}
                         >
                             {tab.charAt(0).toUpperCase() + tab.slice(1)}
@@ -74,7 +74,7 @@ const Media = () => {
                     ))}
                 </div>
 
-                <h2 className="text-center text-3xl font-semibold Trirong mb-10">
+                <h2 className="text-center text-2xl sm:text-3xl md:text-4xl font-semibold Trirong mb-10">
                     Some Beautiful Snapshoots
                 </h2>
 
@@ -82,15 +82,15 @@ const Media = () => {
                 {isLoading ? (
                     <div className="text-center text-lg">Loading media...</div>
                 ) : (
-                    <div className={`columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-2 space-y-2`}>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                         {activeTab === "images" &&
                             uploadedImages.map((src, i) => (
                                 <img
                                     key={i}
                                     src={src.images}
                                     alt={`Image ${i}`}
-                                    className="w-full shadow-md cursor-pointer hover:opacity-90 transition"
-                                    onClick={() => setPopupImage(src)}
+                                    className="w-full rounded-md shadow-md cursor-pointer hover:opacity-90 transition"
+                                    onClick={() => setPopupImage(src.images)}
                                 />
                             ))}
 
@@ -100,7 +100,7 @@ const Media = () => {
                                     key={index}
                                     controls
                                     src={src}
-                                    className="w-full h-auto rounded-md shadow-md mb-4"
+                                    className="w-full h-auto rounded-md shadow-md"
                                 />
                             ))}
                     </div>
@@ -110,11 +110,11 @@ const Media = () => {
             {/* Image Popup */}
             {popupImage && (
                 <div
-                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
+                    className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 px-4"
                     onClick={() => setPopupImage(null)}
                 >
                     <button
-                        className="absolute top-2 right-4 text-white text-4xl font-bold hover:text-[#0191e9] transition z-50"
+                        className="absolute top-2 right-4 text-white text-3xl sm:text-4xl font-bold hover:text-[#0191e9] transition z-50"
                         onClick={(e) => {
                             e.stopPropagation();
                             setPopupImage(null);
@@ -126,7 +126,7 @@ const Media = () => {
                     <img
                         src={popupImage}
                         alt="Popup"
-                        className="max-w-full max-h-[90vh] rounded-lg shadow-lg"
+                        className="max-w-full max-h-[80vh] rounded-lg shadow-lg"
                         onClick={(e) => e.stopPropagation()}
                     />
                 </div>
@@ -135,4 +135,4 @@ const Media = () => {
     );
 };
 
-export default Media;
+export default MediaPage;

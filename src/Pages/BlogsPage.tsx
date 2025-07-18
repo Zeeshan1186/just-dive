@@ -3,10 +3,17 @@ import { getBlogs } from "@/services/apiService";
 import banner from "../assets/images/blog2.png";
 import waves from "../assets/images/Waves.png";
 import { Link } from "react-router-dom";
-import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination";
 
-
-const Blogs = () => {
+const BlogsPage = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const blogsPerPage = 9;
@@ -33,7 +40,7 @@ const Blogs = () => {
     const handlePageChange = (page: number) => {
         if (page >= 1 && page <= totalPages) {
             setCurrentPage(page);
-            window.scrollTo(0, 0); // scroll to top on page change
+            window.scrollTo(0, 0); // Scroll to top on page change
         }
     };
 
@@ -41,25 +48,23 @@ const Blogs = () => {
         <>
             {/* Hero Banner */}
             <div
-                className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
+                className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/50" />
-                <div className="relative z-10 flex flex-col justify-center items-center h-full max-w-6xl mx-auto px-4 text-white">
+                <div className="relative z-10 text-center max-w-4xl mx-auto px-4 text-white">
                     <div className="mb-4">
-                        <span className="text-xl text-yellow-300">
-                            <img src={waves} alt="" />
-                        </span>
+                        <img src={waves} alt="Wave" className="w-10 mx-auto" />
                     </div>
-                    <h1 className="text-4xl sm:text-5xl Trirong md:text-5xl font-normal leading-tight mb-6">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl Trirong font-normal leading-tight mb-6">
                         Blogs
                     </h1>
                 </div>
             </div>
 
             {/* Blogs Grid */}
-            <section className="px-4 py-4 max-w-7xl mx-auto my-8">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-20">
+            <section className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {displayedBlogs.map((blog) => (
                         <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
                             <Link
@@ -68,14 +73,14 @@ const Blogs = () => {
                             >
                                 <img
                                     src={blog.blog_image}
-                                    alt="Related Post"
-                                    className="h-40 w-full object-cover"
+                                    alt={blog.title}
+                                    className="h-48 sm:h-52 md:h-56 w-full object-cover"
                                 />
-                                <div className="p-4 pl-0">
-                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2">
+                                <div className="p-4">
+                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2">
                                         {blog.title}
                                     </h4>
-                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-2">
+                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
                                         {blog.description}
                                     </p>
                                     <p className="text-sm text-gray-500">{blog.creation_date}</p>
@@ -89,7 +94,8 @@ const Blogs = () => {
                 {totalPages > 1 && (
                     <div className="mt-10 flex justify-center">
                         <Pagination>
-                            <PaginationContent>
+                            <PaginationContent className="flex flex-wrap gap-2 justify-center">
+                                {/* Previous */}
                                 <PaginationItem>
                                     <PaginationPrevious
                                         href="#"
@@ -100,6 +106,7 @@ const Blogs = () => {
                                     />
                                 </PaginationItem>
 
+                                {/* Page Numbers */}
                                 {[...Array(totalPages)].map((_, i) => (
                                     <PaginationItem key={i}>
                                         <PaginationLink
@@ -115,12 +122,14 @@ const Blogs = () => {
                                     </PaginationItem>
                                 ))}
 
+                                {/* Ellipsis */}
                                 {totalPages > 4 && currentPage < totalPages - 2 && (
                                     <PaginationItem>
                                         <PaginationEllipsis />
                                     </PaginationItem>
                                 )}
 
+                                {/* Next */}
                                 <PaginationItem>
                                     <PaginationNext
                                         href="#"
@@ -139,4 +148,4 @@ const Blogs = () => {
     );
 };
 
-export default Blogs;
+export default BlogsPage;
