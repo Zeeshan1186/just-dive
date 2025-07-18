@@ -615,7 +615,7 @@ export default function AddPackage() {
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Services *
+                                        Services 
                                     </FormLabel>
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>

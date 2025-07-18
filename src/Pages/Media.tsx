@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const Media = () => {
     const [activeTab, setActiveTab] = useState<"images" | "videos">("images");
     const [popupImage, setPopupImage] = useState<string | null>(null);
-    const [uploadedImages, setUploadedImages] = useState<string[]>([]);
+    const [uploadedImages, setUploadedImages] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 
     const videos = [
@@ -34,7 +34,6 @@ const Media = () => {
             setIsLoading(false);
         }
     };
-    console.log("Uploded",uploadedImages)
 
     useEffect(() => {
         fetchUploadedImages();

@@ -352,8 +352,8 @@ export default function AdminBookingPage() {
                     className="w-full"
                 >
                     <TabsList className="bg-transparent mb-4">
-                        <TabsTrigger value="confirm">Confirm Bookings</TabsTrigger>
-                        <TabsTrigger value="cancel">Cancel Bookings</TabsTrigger>
+                        <TabsTrigger value="confirm">Confirmed Bookings</TabsTrigger>
+                        <TabsTrigger value="cancel">Canceled Bookings</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value={activeBooking}>

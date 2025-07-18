@@ -129,8 +129,6 @@ export default function EditPackage() {
         return `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`;
     };
 
-    console.log('packageData', packageData);
-    console.log('form', form.getValues());
     useEffect(() => {
         if (packageData) {
             // slots
@@ -690,7 +688,7 @@ export default function EditPackage() {
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Services *
+                                        Services 
                                     </FormLabel>
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>

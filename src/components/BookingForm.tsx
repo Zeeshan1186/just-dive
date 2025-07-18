@@ -160,7 +160,6 @@ const BookingForm = () => {
             formData.append("price", grandTotal);
 
             const response = await postBooking(formData);
-            console.log("Response is:", response);
             alert("Booking submitted successfully!");
         } catch (error) {
             console.error("Booking failed:", error);
