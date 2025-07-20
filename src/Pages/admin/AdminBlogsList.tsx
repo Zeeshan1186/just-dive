@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import type { IBlog } from '../../interface/blog';
 import BlogRowActions from './BlogRowActions';
 
-export default function AdminBlogs() {
+export default function AdminBlogsList() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [blogs, setBlogs] = useState<IBlog[]>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -136,7 +136,7 @@ export default function AdminBlogs() {
     }, [searchValue]);
 
     return (
-        <div className='p-4'>
+        <div className='p-4 Poppins'>
             <div className='flex justify-between'>
                 <div className='text-[#181E4B] font-semibold text-xl Poppins'>Blogs</div>
                 <div className='flex'>

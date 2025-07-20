@@ -72,7 +72,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         currentPath === url || currentPath.startsWith(`${url}/`);
 
     return (
-        <Sidebar {...props} className="">
+        <Sidebar {...props} className="Poppins">
             <SidebarHeader className="bg-[#152259] border-gray-200">
                 <VersionSwitcher />
             </SidebarHeader>

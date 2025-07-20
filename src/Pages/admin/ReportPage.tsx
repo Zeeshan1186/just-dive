@@ -54,7 +54,7 @@ export default function ReportPage() {
                 .toString()
                 .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
         await report(data.data, formatDate(data.range.from), formatDate(data.range.to), selectedPackage);
-    }
+    };
 
     const report = async (mode?: string, startDate?: string, endDate?: string, packageId?: string) => {
         setIsLoading(true);
@@ -101,7 +101,7 @@ export default function ReportPage() {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     // Download Excel 
     const handleDownload = async (title?: string) => {
@@ -133,7 +133,7 @@ export default function ReportPage() {
                     "Slot Time": booking?.slot?.time,
                     "Booking Status": booking?.status,
                     "Is Booking From Admin": booking?.is_admin_booking ? "Yes" : "No",
-                }
+                };
                 return {
                     ...baseRow,
                     ...(booking?.coupon_id && {
@@ -153,7 +153,7 @@ export default function ReportPage() {
         }
 
         exportToExcel(rows, await fileName(title ?? ''));
-    }
+    };
 
     const fileName = async (title: string) => {
         let fileName;
@@ -162,12 +162,12 @@ export default function ReportPage() {
         } else if (title === 'cancel') {
             fileName = 'cancel_booking.xlsx';
         } else if (title === 'revenue') {
-            fileName = 'booking_revenue.xlsx'
+            fileName = 'booking_revenue.xlsx';
         } else {
             fileName = 'booking.xlsx';
         }
         return fileName;
-    }
+    };
 
     const summaryData = [
         {
@@ -206,7 +206,7 @@ export default function ReportPage() {
             iconColor: '#347AE2',
             download: () => handleDownload('cancel')
         }
-    ]
+    ];
 
     const handleDownloadPackage = () => {
         const row = [{
@@ -215,9 +215,9 @@ export default function ReportPage() {
             "Confirm Bookings": packageConfirmCount,
             "Cancel Bookings": packageCancelCount,
             "Total Revenue": packageTotalRevenue
-        }]
+        }];
         exportToExcelPackage(row, `${selectedPackageName[0]?.name}.xlsx`);
-    }
+    };
 
     useEffect(() => {
         const packageAPI = async () => {
@@ -300,20 +300,23 @@ export default function ReportPage() {
             {/* Chart */}
             <div className="mt-4">
                 <Card className='border-gray-300'>
-                    <div className=' flex w-full items-center justify-between pr-4'>
-                        <CardHeader>
+                    <div className="flex flex-col md:flex-row w-full items-start px-5 md:items-center justify-between gap-4 md:gap-0 pr-0 md:pr-4">
+                        {/* Header Title */}
+                        <CardHeader className="p-0">
                             <CardTitle className="whitespace-nowrap">Booking Overview</CardTitle>
                         </CardHeader>
 
-                        <div className="flex">
-                            <div className="mr-2">
+                        {/* Actions: Download Button & Select Dropdown */}
+                        <div className="flex flex-col sm:flex-row pr-4 gap-3 md:gap-2 w-full md:w-auto">
+                            {/* Download Button */}
+                            <div>
                                 <Tooltip>
                                     <TooltipTrigger asChild>
                                         <Button
                                             size="icon"
-                                            className="bg-white border border-gray-200 hover:bg-white hover:cursor-pointer"
+                                            className="bg-white border border-gray-200 px-2 py-2 hover:bg-white hover:cursor-pointer w-full sm:w-auto"
                                             aria-label="Export to Excel"
-                                            onClick={() => { handleDownloadPackage() }}
+                                            onClick={handleDownloadPackage}
                                         >
                                             <FileSpreadsheet className="text-green-500" />
                                         </Button>
@@ -323,14 +326,16 @@ export default function ReportPage() {
                                     </TooltipContent>
                                 </Tooltip>
                             </div>
+
+                            {/* Package Select Dropdown */}
                             <Select
                                 value={selectedPackage?.toString()}
                                 onValueChange={(value) => setSelectedPackage(value)}
                             >
-                                <SelectTrigger className="w-[200px] bg-white">
+                                <SelectTrigger className="w-full sm:w-[200px] bg-white">
                                     <SelectValue placeholder="Search by package" />
                                 </SelectTrigger>
-                                <SelectContent className='border-gray-300'>
+                                <SelectContent className="border-gray-300">
                                     <SelectGroup>
                                         {packageData?.map((item) => (
                                             <SelectItem key={item.id} value={item.id.toString()}>
@@ -356,5 +361,5 @@ export default function ReportPage() {
                 </Card>
             </div>
         </div>
-    )
+    );
 }

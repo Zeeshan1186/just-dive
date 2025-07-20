@@ -38,20 +38,18 @@ export default function AdminBookingPage() {
     const bookingCreatedAtFormat = (dateString: string | undefined): string => {
         if (!dateString) return '';
         const parsedDate = parseISO(dateString);
-        return format(parsedDate, 'd MMMM yyyy');
+        return format(parsedDate, 'd MMM yyyy');
     }
 
-    const refreshBookings = () => {
-        booking();
-    }
+    const refreshBookings = () => booking();
 
     const columns: ColumnDef<IBooking>[] = [
         {
             accessorKey: "booking_id",
             header: "Booking ID",
             cell: ({ row }) => (
-                <div className={`${row.original?.status === BOOKING_STATUS.CANCEL && "text-destructive"} font-medium`} >
-                    {row.original?.booking_id ? row.original?.booking_id : "J8K5G"}
+                <div className={`${row.original?.status === BOOKING_STATUS.CANCEL && "text-destructive"} font-medium`}>
+                    {row.original?.booking_id || "J8K5G"}
                 </div>
             ),
         },
@@ -63,31 +61,24 @@ export default function AdminBookingPage() {
                     <Button
                         variant="ghost"
                         className="hover:text-primary hover:cursor-pointer hover:bg-transparent"
-                        onClick={() =>
-                            column.toggleSorting(isSorted === "asc")
-                        }
+                        onClick={() => column.toggleSorting(isSorted === "asc")}
                     >
                         <ArrowUpDown className="mr-2 h-4 w-4" />
                         Booking Package
                     </Button>
                 );
             },
-            cell: ({ row }) => {
-                const packageName = row.original?.package?.name;
-                return (
-                    <div
-                        className={` ml-6 font-medium`}
-                    >
-                        {packageName}
-                    </div>
-                );
-            },
+            cell: ({ row }) => (
+                <div className="ml-2 md:ml-6 font-medium">
+                    {row.original?.package?.name}
+                </div>
+            ),
         },
         {
             accessorKey: "date_of_scuba",
             header: "Date Of Scuba",
             cell: ({ row }) => (
-                <div className={`font-medium`} >
+                <div className="font-medium">
                     {bookingDateFormat(row.original?.date_of_scuba)}
                 </div>
             ),
@@ -96,7 +87,7 @@ export default function AdminBookingPage() {
             accessorKey: "full_name",
             header: "Name",
             cell: ({ row }) => (
-                <div className={` font-medium`} >
+                <div className="font-medium">
                     {row.original?.full_name}
                 </div>
             ),
@@ -104,38 +95,32 @@ export default function AdminBookingPage() {
         {
             accessorKey: "created_at",
             header: "Date Of Booking",
-            cell: ({ row }) => {
-                return (
-                    <div className={` font-medium`}  >
-                        {bookingCreatedAtFormat(row.original?.created_at)}
-                    </div>
-                )
-            },
+            cell: ({ row }) => (
+                <div className="font-medium">
+                    {bookingCreatedAtFormat(row.original?.created_at)}
+                </div>
+            ),
         },
         {
             accessorKey: "package.location.location_name",
             header: "Location",
-            cell: ({ row }) => {
-                return (
-                    <div className={` font-medium`} >
-                        {row.original?.package?.location?.location_name}
-                    </div>
-                )
-            },
+            cell: ({ row }) => (
+                <div className="font-medium">
+                    {row.original?.package?.location?.location_name}
+                </div>
+            ),
         },
         {
             id: "actions",
             header: "Actions",
             enableHiding: false,
-            cell: ({ row }: { row: any }) => {
-                return (
-                    <BookingRowActions
-                        row={row}
-                        refreshBookings={refreshBookings}
-                        statusData={activeBooking}
-                    />
-                );
-            },
+            cell: ({ row }) => (
+                <BookingRowActions
+                    row={row}
+                    refreshBookings={refreshBookings}
+                    statusData={activeBooking}
+                />
+            ),
         }
     ];
 
@@ -150,13 +135,7 @@ export default function AdminBookingPage() {
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         globalFilterFn: "includesString",
-        state: {
-            sorting,
-            columnVisibility,
-            rowSelection,
-            pagination,
-            globalFilter
-        },
+        state: { sorting, columnVisibility, rowSelection, pagination, globalFilter },
         onGlobalFilterChange: setGlobalFilter,
         onPaginationChange: setPagination,
     });
@@ -169,7 +148,7 @@ export default function AdminBookingPage() {
                 setBooking(res.data.data);
             }
         } catch (error) {
-            console.log('error occur during get active booking:', error);
+            console.error('Error fetching bookings:', error);
         } finally {
             setIsLoading(false);
         }
@@ -182,7 +161,7 @@ export default function AdminBookingPage() {
                 setPackages(res.data.data);
             }
         } catch (error) {
-            console.log('error occur in package:', error);
+            console.error('Error fetching packages:', error);
         }
     }
 
@@ -195,77 +174,55 @@ export default function AdminBookingPage() {
         booking();
     }, [activeBooking, selectedPackage]);
 
-    const handleDownload = async () => {
-        const bookings = table.getRowModel().rows;
-        const rows = bookings?.map((booking, i) => {
-            const baseRow = {
-                "Sr No": i + 1,
-                "Booking ID": booking?.original?.booking_id,
-                "Package": booking?.original?.package?.name,
-                "Date Of Scuba": booking?.original?.date_of_scuba,
-                "Location": booking?.original?.package?.location?.location_name,
-                "Customer Name": booking?.original?.full_name,
-                "Customer Gender": booking?.original?.gender,
-                "Customer Age": booking?.original?.age,
-                "Customer Email": booking?.original?.email,
-                "Customer No.": booking?.original?.whatsapp_no,
-                "Number Of Participants": booking?.original?.number_of_participants,
-                "Customer Apply Coupon": booking?.original?.coupon_id ? "Yes" : "No",
-                "Price": booking?.original?.price,
-                "Slot Time": booking?.original?.slot?.time,
-                "Booking Status": booking?.original?.status,
-                "Is Booking From Admin": booking?.original?.is_admin_booking ? "Yes" : "No",
-            }
-
-            return {
-                ...baseRow,
-                ...(booking?.original?.coupon_id && {
-                    "Coupon Name": booking?.original?.coupon?.name || "N/A"
-                }),
-            };
-        });
-
+    const handleDownload = () => {
+        const rows = table.getRowModel().rows.map((booking, i) => ({
+            "Sr No": i + 1,
+            "Booking ID": booking.original.booking_id,
+            "Package": booking.original.package?.name,
+            "Date Of Scuba": booking.original.date_of_scuba,
+            "Location": booking.original.package?.location?.location_name,
+            "Customer Name": booking.original.full_name,
+            "Customer Gender": booking.original.gender,
+            "Customer Age": booking.original.age,
+            "Customer Email": booking.original.email,
+            "Customer No.": booking.original.whatsapp_no,
+            "Number Of Participants": booking.original.number_of_participants,
+            "Customer Apply Coupon": booking.original.coupon_id ? "Yes" : "No",
+            "Price": booking.original.price,
+            "Slot Time": booking.original.slot?.time,
+            "Booking Status": booking.original.status,
+            "Is Booking From Admin": booking.original.is_admin_booking ? "Yes" : "No",
+            ...(booking.original.coupon_id && { "Coupon Name": booking.original.coupon?.name || "N/A" })
+        }));
         exportToExcel(rows);
     }
 
-    const renderTable = () => {
-        return (
-            <Table className="border border-gray-200">
-                <TableHeader className='bg-[#FFF6E2]'>
+    const renderTable = () => (
+        <div className="overflow-x-auto">
+            <Table className="border border-gray-200 min-w-[800px]">
+                <TableHeader className="bg-[#FFF6E2]">
                     {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id} className="border-b border-gray-200">
+                        <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id} className="text-black">
-                                    {header.isPlaceholder
-                                        ? null
-                                        : flexRender(header.column.columnDef.header, header.getContext())}
+                                <TableHead key={header.id}>
+                                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                                 </TableHead>
                             ))}
                         </TableRow>
                     ))}
                 </TableHeader>
-                <TableBody className='border border-gray-200'>
+                <TableBody>
                     {isLoading ? (
                         <TableRow>
-                            <TableCell colSpan={columns.length} className="py-6 text-center">
-                                <div className="flex justify-center">
-                                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                </div>
+                            <TableCell colSpan={columns.length} className="text-center">
+                                <Loader2 className="animate-spin mx-auto" />
                             </TableCell>
                         </TableRow>
-                    ) : table.getRowModel().rows.length > 0 ? (
-                        table.getRowModel().rows.map((row, index) => (
-                            <TableRow
-                                key={row.id}
-                                className={`border border-gray-200 Poppins ${index % 2 === 0
-                                    ? 'bg-[#FAFAFC]'
-                                    : ''
-                                    }`}>
-                                {row.getVisibleCells().map((cell, cellIndex) => (
-                                    <TableCell key={cell.id} className="relative py-2">
-                                        {cellIndex === 0 && row.original.status === BOOKING_STATUS.CANCEL && (
-                                            <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[90%] w-[3px] bg-red-500 rounded" />
-                                        )}
+                    ) : table.getRowModel().rows.length ? (
+                        table.getRowModel().rows.map((row, i) => (
+                            <TableRow key={row.id} className={`Poppins ${i % 2 === 0 ? 'bg-[#FAFAFC]' : ''}`}>
+                                {row.getVisibleCells().map((cell) => (
+                                    <TableCell key={cell.id}>
                                         {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                     </TableCell>
                                 ))}
@@ -273,23 +230,24 @@ export default function AdminBookingPage() {
                         ))
                     ) : (
                         <TableRow>
-                            <TableCell colSpan={columns.length} className="text-center text-gray-500 py-4">
-                                No results
+                            <TableCell colSpan={columns.length} className="text-center text-gray-500">
+                                No results found
                             </TableCell>
                         </TableRow>
                     )}
                 </TableBody>
             </Table>
-        )
-    };
+        </div>
+    );
 
     return (
-        <div className='p-4'>
-            <div className='flex justify-between'>
-                <div className='text-[#181E4B] font-semibold text-lg Poppins'>Manage Bookings</div>
-                <div className='flex'>
-                    <div className="border border-gray-200 flex items-center justify-center bg-white rounded-md shadow-md w-full max-w-[200px] md:max-w-[300px]">
-                        <Search className="h-5 w-5 text-gray-500 ml-2 cursor-pointer" />
+        <div className="p-2 sm:p-4">
+            {/* Header */}
+            <div className="flex flex-col lg:flex-row justify-between gap-4 mb-4">
+                <h1 className="text-[#181E4B] font-semibold text-lg Poppins">Manage Bookings</h1>
+                <div className="flex flex-wrap gap-2">
+                    <div className="flex items-center bg-white border rounded-md shadow-md w-full sm:w-auto max-w-[200px] md:max-w-[300px]">
+                        <Search className="h-5 w-5 text-gray-500 ml-2" />
                         <Input
                             type="text"
                             value={searchValue}
@@ -298,69 +256,52 @@ export default function AdminBookingPage() {
                                 table.setGlobalFilter(e.target.value);
                             }}
                             placeholder="Search bookings..."
-                            className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
+                            className="border-none Poppins outline-none focus:ring-0 shadow-none w-full px-2"
                         />
                     </div>
-                    <div className='ml-2'>
-                        <Button onClick={() => { navigate('/admin/booking/add') }}>
-                            <Plus /> Add Booking
+                    <Button onClick={() => navigate('/admin/booking/add')}>
+                        <Plus /> Add Booking
+                    </Button>
+                    <Select value={selectedPackage} onValueChange={setSelectedPackage}>
+                        <SelectTrigger className="w-[150px] sm:w-[180px] bg-white">
+                            <SelectValue placeholder="Search by package" />
+                        </SelectTrigger>
+                        <SelectContent>
+                            <SelectGroup>
+                                {packages.map((pkg) => (
+                                    <SelectItem key={pkg.id} value={pkg.id.toString()}>{pkg.name}</SelectItem>
+                                ))}
+                            </SelectGroup>
+                        </SelectContent>
+                    </Select>
+                    {selectedPackage && (
+                        <Button size="icon" onClick={() => setSelectedPackage("")} className="bg-destructive">
+                            <X className="h-5 w-5" />
                         </Button>
-                    </div>
-                    <div className='ml-2 flex'>
-                        <Select value={selectedPackage} onValueChange={setSelectedPackage}>
-                            <SelectTrigger className="w-[180px] bg-white">
-                                <SelectValue placeholder="Search by package" />
-                            </SelectTrigger>
-                            <SelectContent className='border-gray-300'>
-                                <SelectGroup className='border-gray-300'>
-                                    {packages?.map((packageData, index) => (
-                                        <SelectItem key={index} value={packageData.id.toString()}>{packageData.name}</SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
-                        </Select>
-                        <div className='flex items-center justify-center ml-2'>
-                            {selectedPackage &&
-                                <Button size={'icon'} onClick={() => setSelectedPackage("")} className='bg-destructive hover:bg-destructive'>
-                                    <X className='h-5 w-5' />
-                                </Button>
-                            }
-                        </div>
-                    </div>
-                    <div className="ml-2">
-                        <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    size="icon"
-                                    className="bg-white border border-gray-200 hover:bg-white hover:cursor-pointer"
-                                    aria-label="Export to Excel"
-                                    onClick={handleDownload}
-                                >
-                                    <FileSpreadsheet className="text-green-500" />
-                                </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                                <p>Download Excel</p>
-                            </TooltipContent>
-                        </Tooltip>
-                    </div>
+                    )}
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button size="icon" onClick={handleDownload} className="bg-white border hover:bg-white">
+                                <FileSpreadsheet className="text-green-500" />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Download Excel</p>
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
             </div>
-            <div>
-                <Tabs value={activeBooking}
-                    onValueChange={setActiveBooking}
-                    className="w-full"
-                >
-                    <TabsList className="bg-transparent mb-4">
-                        <TabsTrigger value="confirm">Confirm Bookings</TabsTrigger>
-                        <TabsTrigger value="cancel">Cancel Bookings</TabsTrigger>
-                    </TabsList>
 
-                    <TabsContent value={activeBooking}>
-                        {renderTable()}
-                    </TabsContent>
-                </Tabs>
-            </div>
+            {/* Tabs */}
+            <Tabs value={activeBooking} onValueChange={setActiveBooking}>
+                <TabsList className="bg-transparent mb-2 sm:mb-4">
+                    <TabsTrigger value="confirm">Confirm Bookings</TabsTrigger>
+                    <TabsTrigger value="cancel">Cancel Bookings</TabsTrigger>
+                </TabsList>
+                <TabsContent value={activeBooking}>
+                    {renderTable()}
+                </TabsContent>
+            </Tabs>
         </div>
     )
 }

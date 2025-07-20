@@ -1,7 +1,7 @@
 import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
 import { HTTP_CODE } from '@/constants/http-codes';
 import { getLocations } from '@/services/apiService';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type Row, type SortingState, type VisibilityState } from '@tanstack/react-table';
 import { PAGINATION_COUNT } from '@/constants/const-variables';
@@ -65,7 +65,7 @@ export default function LocationPage() {
             id: "actions",
             header: "Actions",
             enableHiding: false,
-            cell: ({ row }: { row: any }) => {
+            cell: ({ row }: { row: any; }) => {
                 return (
                     <LocationRowActions
                         row={row as Row<ILocation>}
@@ -109,7 +109,7 @@ export default function LocationPage() {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         getCategories();
@@ -121,10 +121,16 @@ export default function LocationPage() {
 
     return (
         <div className='p-4'>
-            <div className='flex justify-between'>
-                <div className='text-[#181E4B] font-semibold text-lg Poppins'>Manage Location</div>
-                <div className='flex'>
-                    <div className="border border-gray-200 flex items-center justify-center bg-white rounded-md shadow-md w-full max-w-[200px] md:max-w-[300px]">
+            <div className="flex flex-col md:flex-row md:justify-between gap-4">
+                {/* Title */}
+                <div className="text-[#181E4B] font-semibold text-lg Poppins">
+                    Manage Location
+                </div>
+
+                {/* Search and Button */}
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4">
+                    {/* Search Box */}
+                    <div className="border border-gray-200 flex items-center bg-white rounded-md shadow-md w-full sm:w-auto max-w-full sm:max-w-[200px] md:max-w-[300px]">
                         <Search className="h-5 w-5 text-gray-500 ml-2 cursor-pointer" />
                         <Input
                             type="text"
@@ -134,12 +140,17 @@ export default function LocationPage() {
                                 table.setGlobalFilter(e.target.value);
                             }}
                             placeholder="Search location..."
-                            className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
+                            className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent shadow-none w-full px-2"
                         />
                     </div>
-                    <div className='ml-4'>
-                        <Button onClick={() => { navigate('/admin/location/add') }}>
-                            <Plus /> Add Location
+
+                    {/* Add Location Button */}
+                    <div className="sm:ml-0">
+                        <Button
+                            className="w-full sm:w-auto"
+                            onClick={() => navigate('/admin/location/add')}
+                        >
+                            <Plus className="mr-1" /> Add Location
                         </Button>
                     </div>
                 </div>
@@ -229,5 +240,5 @@ export default function LocationPage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

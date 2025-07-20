@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
@@ -86,7 +86,7 @@ const packageSchema = z.object({
     iternary: z.string().optional(),
 });
 
-type FormData = z.infer<typeof packageSchema>
+type FormData = z.infer<typeof packageSchema>;
 
 export default function AddPackage() {
     const form = useForm<FormData>({
@@ -288,21 +288,21 @@ export default function AddPackage() {
             const res = await addPackage(formData);
             if (res.data.status === HttpStatusCode.Ok) {
                 toast.success(res.data.message);
-                navigate('/admin/package')
+                navigate('/admin/package');
             }
         } catch (error) {
             console.log('error addnig package', error);
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const getLocation = async () => {
         const res = await getLocations();
         if (res.data.status === HttpStatusCode.Ok) {
             setAddress(res.data.data);
         }
-    }
+    };
 
     function formatTime(time24: string) {
         if (!time24) return "";
@@ -318,26 +318,32 @@ export default function AddPackage() {
     }, []);
 
     return (
-        <div className="py-4 px-8">
-            <div className="text-[#181E4B] font-semibold text-xl Poppins">
+        <div className="py-4 px-4 sm:px-6 lg:px-8">
+            <div className="text-[#181E4B] font-semibold text-lg sm:text-xl Poppins">
                 Add Package
             </div>
             <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 mb-6 mt-6 space-y-6">
-                    <div className="flex w-full">
-                        {/* 30% empty space */}
-                        <div className="w-[30%]"></div>
+                <form
+                    onSubmit={form.handleSubmit(onSubmit)}
+                    className="px-2 sm:px-4 mb-6 mt-6 space-y-6"
+                >
+                    {/* Image Upload */}
+                    <div className="flex flex-col md:flex-row w-full">
+                        {/* Empty space on desktop */}
+                        <div className="hidden md:block w-[30%]"></div>
 
-                        {/* 70% for the image upload */}
-                        <div className="w-[70%] pr-40">
+                        {/* Image upload */}
+                        <div className="w-full md:w-[70%] md:pr-40">
                             <FormField
                                 control={form.control}
                                 name="image"
                                 render={() => (
                                     <FormItem>
-                                        <FormLabel className="Poppins">Select and upload the files with your choice</FormLabel>
+                                        <FormLabel className="Poppins">
+                                            Select and upload the files with your choice
+                                        </FormLabel>
                                         <div
-                                            className=" border border-[#2A85FF] mt-2 h-52 rounded-2xl border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50"
+                                            className="border border-[#2A85FF] mt-2 h-52 rounded-2xl border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50"
                                             onClick={handleClick}
                                         >
                                             <input
@@ -355,18 +361,22 @@ export default function AddPackage() {
                                                 />
                                             ) : (
                                                 <div className="text-center space-y-1 px-4 text-gray-500">
-                                                    <div className="Poppins">File type is JPEG, PNG, JPG</div>
-                                                    <div className="Poppins">Recommended File Size 240 X 350 Pixels</div>
+                                                    <div className="Poppins">
+                                                        File type is JPEG, PNG, JPG
+                                                    </div>
+                                                    <div className="Poppins">
+                                                        Recommended File Size 240 X 350 Pixels
+                                                    </div>
                                                 </div>
                                             )}
                                         </div>
                                         <FormMessage />
-                                        <div className="mt-3 flex items-center justify-center">
+                                        <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-2">
                                             {image && (
                                                 <Button
                                                     type="button"
                                                     variant="outline"
-                                                    className="text-[#152259] mr-4 bg-white tracking-wider border-1 hover:cursor-pointer"
+                                                    className="text-[#152259] bg-white tracking-wider border hover:cursor-pointer"
                                                     onClick={handleRemoveImage}
                                                 >
                                                     Remove
@@ -374,10 +384,10 @@ export default function AddPackage() {
                                             )}
                                             <Button
                                                 type="button"
-                                                className="px-4 py-4 bg-[#509CDB] hover:bg-[#509CDB] font-medium border-1 hover:cursor-pointer"
+                                                className="px-4 py-2 bg-[#509CDB] hover:bg-[#509CDB] font-medium border hover:cursor-pointer"
                                                 onClick={handleClick}
                                             >
-                                                <Plus className="h-4 w-4 Poppins" /> Add Package Image
+                                                <Plus className="h-4 w-4 mr-1" /> Add Package Image
                                             </Button>
                                         </div>
                                     </FormItem>
@@ -385,6 +395,7 @@ export default function AddPackage() {
                             />
                         </div>
                     </div>
+
                     <Separator />
 
                     {/* Package Name */}
@@ -428,12 +439,20 @@ export default function AddPackage() {
                                             value={field.value}
                                         >
                                             <SelectTrigger className="w-full bg-white">
-                                                <SelectValue className='Poppins' placeholder="Select a category" />
+                                                <SelectValue
+                                                    className="Poppins"
+                                                    placeholder="Select a category"
+                                                />
                                             </SelectTrigger>
-                                            <SelectContent className='border Poppins border-gray-200 bg-white'>
-                                                <SelectGroup >
+                                            <SelectContent className="border Poppins border-gray-200 bg-white">
+                                                <SelectGroup>
                                                     {address?.map((addr) => (
-                                                        <SelectItem key={addr.id} value={addr?.id.toString()}>{addr?.location_name}</SelectItem>
+                                                        <SelectItem
+                                                            key={addr.id}
+                                                            value={addr?.id.toString()}
+                                                        >
+                                                            {addr?.location_name}
+                                                        </SelectItem>
                                                     ))}
                                                 </SelectGroup>
                                             </SelectContent>
@@ -451,58 +470,96 @@ export default function AddPackage() {
                         name="slots"
                         render={() => (
                             <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-2">
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
                                         Slots *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-2">
                                         {slotFields.map((slot, index) => (
-                                            <div key={slot.id} className="flex items-center gap-2">
+                                            <div
+                                                key={slot.id}
+                                                className="flex flex-col sm:flex-row items-start sm:items-center gap-2"
+                                            >
                                                 <FormField
                                                     key={slot.id}
                                                     control={form.control}
                                                     name={`slots.${index}.time`}
                                                     render={() => (
                                                         <FormItem>
-                                                            <div className="flex items-center gap-2 w-full">
-                                                                {/* Start Time */}
+                                                            <div className="flex flex-col sm:flex-row items-center gap-2 w-full">
                                                                 <Input
-                                                                    ref={(el) => { startRefs.current[index] = el; }}
+                                                                    ref={(el) => {
+                                                                        startRefs.current[index] = el;
+                                                                    }}
                                                                     type="time"
-                                                                    onClick={() => startRefs.current[index]?.showPicker?.()}
+                                                                    onClick={() =>
+                                                                        startRefs.current[
+                                                                            index
+                                                                        ]?.showPicker?.()
+                                                                    }
                                                                     onChange={(e) => {
                                                                         const start = e.target.value;
-                                                                        const rawEnd = form.getValues(`slots.${index}.time`)?.split(" - ")[1] || "";
-                                                                        const formattedEnd = rawEnd.includes("AM") || rawEnd.includes("PM") ? rawEnd : formatTime(rawEnd);
-                                                                        const formatted = formatTime(start) + " - " + formattedEnd;
-                                                                        form.setValue(`slots.${index}.time`, formatted);
+                                                                        const rawEnd =
+                                                                            form.getValues(
+                                                                                `slots.${index}.time`
+                                                                            )?.split(" - ")[1] || "";
+                                                                        const formattedEnd =
+                                                                            rawEnd.includes("AM") ||
+                                                                                rawEnd.includes("PM")
+                                                                                ? rawEnd
+                                                                                : formatTime(rawEnd);
+                                                                        const formatted =
+                                                                            formatTime(start) +
+                                                                            " - " +
+                                                                            formattedEnd;
+                                                                        form.setValue(
+                                                                            `slots.${index}.time`,
+                                                                            formatted
+                                                                        );
                                                                     }}
-                                                                    className="w-[45%] bg-white"
+                                                                    className="w-full sm:w-[45%] bg-white"
                                                                 />
-
                                                                 <span className="text-sm">to</span>
-
-                                                                {/* End Time */}
                                                                 <Input
-                                                                    ref={(el) => { endRefs.current[index] = el; }}
+                                                                    ref={(el) => {
+                                                                        endRefs.current[index] = el;
+                                                                    }}
                                                                     type="time"
-                                                                    onClick={() => endRefs.current[index]?.showPicker?.()}
+                                                                    onClick={() =>
+                                                                        endRefs.current[
+                                                                            index
+                                                                        ]?.showPicker?.()
+                                                                    }
                                                                     onChange={(e) => {
                                                                         const end = e.target.value;
-                                                                        const rawStart = form.getValues(`slots.${index}.time`)?.split(" - ")[0] || "";
-                                                                        const formattedStart = rawStart.includes("AM") || rawStart.includes("PM") ? rawStart : formatTime(rawStart);
-                                                                        const formatted = formattedStart + " - " + formatTime(end);
-                                                                        form.setValue(`slots.${index}.time`, formatted);
+                                                                        const rawStart =
+                                                                            form.getValues(
+                                                                                `slots.${index}.time`
+                                                                            )?.split(" - ")[0] || "";
+                                                                        const formattedStart =
+                                                                            rawStart.includes("AM") ||
+                                                                                rawStart.includes("PM")
+                                                                                ? rawStart
+                                                                                : formatTime(rawStart);
+                                                                        const formatted =
+                                                                            formattedStart +
+                                                                            " - " +
+                                                                            formatTime(end);
+                                                                        form.setValue(
+                                                                            `slots.${index}.time`,
+                                                                            formatted
+                                                                        );
                                                                     }}
-                                                                    className="w-[45%] bg-white"
+                                                                    className="w-full sm:w-[45%] bg-white"
                                                                 />
-
                                                                 {index !== 0 && (
                                                                     <Button
                                                                         type="button"
                                                                         variant="ghost"
                                                                         size="icon"
-                                                                        onClick={() => removeSlot(index)}
+                                                                        onClick={() =>
+                                                                            removeSlot(index)
+                                                                        }
                                                                         className="text-red-500"
                                                                     >
                                                                         <Trash2 className="w-4 h-4" />
@@ -521,7 +578,7 @@ export default function AddPackage() {
                                             onClick={() => appendSlot({ time: "" })}
                                             className="w-fit mt-1 rounded-md text-[#152259]"
                                         >
-                                            <Plus className='h-3 w-3' /> Add More Slot
+                                            <Plus className="h-3 w-3 mr-1" /> Add More Slot
                                         </Button>
                                     </div>
                                 </div>
@@ -535,14 +592,14 @@ export default function AddPackage() {
                         name="seats"
                         render={({ field }) => (
                             <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start ">
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
                                         Seats *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>
                                             <Input
-                                                type='number'
+                                                type="number"
                                                 placeholder="Type number of seats"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
@@ -555,125 +612,25 @@ export default function AddPackage() {
                         )}
                     />
 
-                    {/* Price */}
-                    <FormField
-                        control={form.control}
-                        name="price"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Price Per Person *
-                                    </FormLabel>
-                                    <div className="w-full md:w-[70%]">
-                                        <FormControl>
-                                            <Input
-                                                type='number'
-                                                placeholder="Price per person"
-                                                className="rounded-sm bg-white w-full"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </div>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* Duration */}
-                    <FormField
-                        control={form.control}
-                        name="duration"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Duration Of Package *
-                                    </FormLabel>
-                                    <div className="w-full md:w-[70%]">
-                                        <FormControl>
-                                            <Input
-                                                type='number'
-                                                placeholder="Enter duration of package"
-                                                className="rounded-sm bg-white w-full"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </div>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* services */}
-                    <FormField
-                        control={form.control}
-                        name="services"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Services *
-                                    </FormLabel>
-                                    <div className="w-full md:w-[70%]">
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Type service"
-                                                className="rounded-sm bg-white w-full"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </div>
-                                </div>
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* vehicle */}
-                    {/* <FormField
-                        control={form.control}
-                        name="vehicle"
-                        render={({ field }) => (
-                            <FormItem>
-                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
-                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        vehicle *
-                                    </FormLabel>
-                                    <div className="w-full md:w-[70%]">
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Type vehicle"
-                                                className="rounded-sm bg-white w-full"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </div>
-                                </div>
-                            </FormItem>
-                        )}
-                    /> */}
-
                     {/* Detail page image */}
-                    <div className="flex w-full">
-                        {/* 30% empty space */}
-                        <div className="w-[30%] mt-6">
+                    <div className="flex flex-col md:flex-row w-full">
+                        {/* 30% Label */}
+                        <div className="w-full md:w-[30%] mt-6 text-base sm:text-lg">
                             Upload Detail Page Image *
                         </div>
 
-                        {/* 70% for the image upload */}
-                        <div className="w-full md:w-[70%] pr-0 md:pr-40">
+                        {/* 70% Image Upload */}
+                        <div className="w-full md:w-[70%] md:pr-40">
                             <FormField
                                 control={form.control}
                                 name="page_image"
                                 render={() => (
                                     <FormItem>
-                                        <FormLabel className="Poppins">Select and upload the files with your choice</FormLabel>
+                                        <FormLabel className="Poppins">
+                                            Select and upload the files with your choice
+                                        </FormLabel>
                                         <div
-                                            className=" border border-[#2A85FF] mt-1 h-52 rounded-2xl border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50"
+                                            className="border border-[#2A85FF] mt-1 h-52 rounded-2xl border-dashed flex items-center justify-center cursor-pointer overflow-hidden bg-gray-50"
                                             onClick={handlePageImageClick}
                                         >
                                             <input
@@ -697,12 +654,12 @@ export default function AddPackage() {
                                             )}
                                         </div>
                                         <FormMessage />
-                                        <div className="mt-3 flex items-center justify-center">
+                                        <div className="mt-3 flex flex-col sm:flex-row items-center justify-center gap-2">
                                             {pageImage && (
                                                 <Button
                                                     type="button"
                                                     variant="outline"
-                                                    className="text-[#152259] mr-4 bg-white tracking-wider border-1 hover:cursor-pointer"
+                                                    className="text-[#152259] bg-white tracking-wider border hover:cursor-pointer"
                                                     onClick={handlePageRemoveImage}
                                                 >
                                                     Remove
@@ -710,10 +667,10 @@ export default function AddPackage() {
                                             )}
                                             <Button
                                                 type="button"
-                                                className="px-4 py-4 bg-[#509CDB] hover:bg-[#509CDB] font-medium border-1 hover:cursor-pointer"
+                                                className="px-4 py-2 bg-[#509CDB] hover:bg-[#509CDB] font-medium border hover:cursor-pointer"
                                                 onClick={handlePageImageClick}
                                             >
-                                                <Plus className="h-4 w-4 Poppins" /> Add Image
+                                                <Plus className="h-4 w-4 mr-1" /> Add Image
                                             </Button>
                                         </div>
                                     </FormItem>
@@ -721,7 +678,7 @@ export default function AddPackage() {
                             />
                         </div>
                     </div>
-
+                    
                     {/* Iternary */}
                     <FormField
                         control={form.control}
@@ -1034,5 +991,5 @@ export default function AddPackage() {
                 </form>
             </Form>
         </div>
-    )
+    );
 }
