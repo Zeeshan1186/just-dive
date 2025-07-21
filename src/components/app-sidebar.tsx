@@ -56,6 +56,10 @@ const initialData = [
         url: "/admin/Termscondition",
     },
     {
+        title: "Blogs Categories",
+        url: "/admin/blogcategories",
+    },
+    {
         title: "Blogs",
         url: "/admin/blogs",
     },

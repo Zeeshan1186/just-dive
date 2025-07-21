@@ -29,13 +29,14 @@ import BlogDetailPage from './Pages/BlogDetailPage';
 import Blogs from './Pages/BlogsPage';
 import Media from './Pages/MediaPage';
 import AdminBlogs from './Pages/admin/AdminBlogsList';
-import AddBlog from './Pages/admin/BlogForm';
+import AddBlog from './Pages/admin/AddBlog';
 import AddAdminBooking from './components/Booking/addAdminBooking';
 import AdminMedia from './Pages/admin/AddMedia';
 import AdminTermsCondition from './Pages/admin/AdminTermsCondition';
 import TermsAndConditions from './Pages/TermsAndConditions';
 import TermsCondition from './Pages/admin/TermsCondition';
 import ReportPage from './Pages/admin/ReportPage';
+import BlogsCategories from './Pages/admin/BlogsCategories';
 
 const App: React.FC = () => {
   return (
@@ -74,6 +75,7 @@ const App: React.FC = () => {
           <Route path="edit-blog/:id" element={<AddBlog />} />
           <Route path="/admin/add-blog" element={<AddBlog />} />
           <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
+          <Route path="/admin/blogcategories" element={<BlogsCategories />} />
           <Route path="/admin/Addmedia" element={<AdminMedia />} />
           <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
           <Route path="/admin/Termscondition" element={<TermsCondition />} />
