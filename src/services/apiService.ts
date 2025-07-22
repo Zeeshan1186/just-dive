@@ -237,3 +237,6 @@ export const updateBlogCategory = async (
 export const getCategories = async () => {
   return await api.get("/your-categories-api-endpoint");
 };
+export const getBlogsByCategoryId = (categoryId: string | number) => {
+  return api.get(`/api/blog/category/${categoryId}`);
+};

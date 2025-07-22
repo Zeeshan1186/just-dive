@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { getBlogs } from "@/services/apiService";
+import { getBlogs, getBlogscategories } from "@/services/apiService"; // 👈 Added getBlogscategories
 import banner from "../assets/images/blog2.png";
 import waves from "../assets/images/Waves.png";
 import { Link } from "react-router-dom";
 import {
     Pagination,
     PaginationContent,
-    PaginationEllipsis,
     PaginationItem,
     PaginationLink,
     PaginationNext,
@@ -15,6 +14,7 @@ import {
 
 const BlogsPage = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
+    const [categories, setCategories] = useState<{ id: number; name: string; }[]>([]); // 👈 Categories state
     const [currentPage, setCurrentPage] = useState(1);
     const blogsPerPage = 9;
 
@@ -28,7 +28,17 @@ const BlogsPage = () => {
             }
         };
 
+        const fetchCategories = async () => {
+            try {
+                const res = await getBlogscategories();
+                setCategories(res.data.data || []);
+            } catch (err) {
+                console.error("Failed to load categories", err);
+            }
+        };
+
         fetchBlogs();
+        fetchCategories();
     }, []);
 
     // Pagination Logic
@@ -65,29 +75,38 @@ const BlogsPage = () => {
             {/* Blogs Grid */}
             <section className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-                    {displayedBlogs.map((blog) => (
-                        <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
-                            <Link
-                                to={`/blog/${blog.id}`}
-                                className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
-                            >
-                                <img
-                                    src={blog.blog_image}
-                                    alt={blog.title}
-                                    className="h-48 sm:h-52 md:h-56 w-full object-cover"
-                                />
-                                <div className="p-4">
-                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2">
-                                        {blog.title}
-                                    </h4>
-                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
-                                        {blog.description}
-                                    </p>
-                                    <p className="text-sm text-gray-500">{blog.creation_date}</p>
-                                </div>
-                            </Link>
-                        </div>
-                    ))}
+                    {displayedBlogs.map((blog) => {
+                        // 👇 Find category name for this blog
+                        const categoryName =
+                            categories.find((c) => c.id === blog.category_id)?.name || "No Category";
+
+                        return (
+                            <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
+                                <Link
+                                    to={`/blog/${blog.id}`}
+                                    className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
+                                >
+                                    <img
+                                        src={blog.blog_image}
+                                        alt={blog.title}
+                                        className="h-48 sm:h-52 md:h-56 w-full object-cover"
+                                    />
+                                    <div className="p-4">
+                                        <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2">
+                                            {blog.title}
+                                        </h4>
+                                        <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
+                                            {blog.description}
+                                        </p>
+                                        <div className="flex justify-between text-sm text-gray-500">
+                                            <span>{blog.creation_date}</span>
+                                            <span className="italic">{categoryName}</span> {/* 👈 Display category */}
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        );
+                    })}
                 </div>
 
                 {/* Pagination */}
@@ -121,13 +140,6 @@ const BlogsPage = () => {
                                         </PaginationLink>
                                     </PaginationItem>
                                 ))}
-
-                                {/* Ellipsis */}
-                                {totalPages > 4 && currentPage < totalPages - 2 && (
-                                    <PaginationItem>
-                                        <PaginationEllipsis />
-                                    </PaginationItem>
-                                )}
 
                                 {/* Next */}
                                 <PaginationItem>

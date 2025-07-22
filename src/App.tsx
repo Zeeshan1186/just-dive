@@ -37,6 +37,7 @@ import TermsAndConditions from './Pages/TermsAndConditions';
 import TermsCondition from './Pages/admin/TermsCondition';
 import ReportPage from './Pages/admin/ReportPage';
 import BlogsCategories from './Pages/admin/BlogsCategories';
+import CategoryBlogsPage from './Pages/CategoryBlogsPage';
 
 const App: React.FC = () => {
   return (
@@ -84,6 +85,7 @@ const App: React.FC = () => {
         <Route path="/scubapackages" element={<ScubaPackages />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/category/:categoryId" element={<CategoryBlogsPage />} />
         <Route path="/media" element={<Media />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
