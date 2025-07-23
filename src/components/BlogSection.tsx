@@ -98,7 +98,7 @@ const BlogSection = () => {
                     onClick={() => navigate("/blogs")}
                     className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm sm:text-base px-4 py-2 sm:px-6 sm:py-2.5"
                 >
-                    View More Blogs
+                    View More Blog
                 </Button>
             </div>
         </section>
