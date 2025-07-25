@@ -80,6 +80,17 @@ localStorage.clear()
         }
     }, []);
 
+    //  useEffect(() => {
+    //     const savedLocation = localStorage.getItem("selectedLocation");
+
+    //     if (savedLocation) {
+    //         setSelectedLocation(savedLocation);
+    //         setPopupStep(1);
+    //     } else {
+    //         setShowLocationModal(true);
+    //     }
+    // }, []);
+
     useEffect(() => {
         const fetchPackages = async () => {
             try {
