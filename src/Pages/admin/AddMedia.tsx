@@ -30,7 +30,7 @@ const imageSchema = z.object({
         }),
 });
 
-export default function AdminMedia({ onMediaUploaded }: { onMediaUploaded?: () => void; }) {
+export default function AddMedia({ onMediaUploaded }: { onMediaUploaded?: () => void; }) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     const [images, setImages] = useState<File[]>([]);
     const [isUploading, setIsUploading] = useState(false);

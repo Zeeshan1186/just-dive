@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Sheet, SheetContent } from '../ui/sheet'
 import type { IBooking } from '@/interface/booking';
 import { format, parse } from 'date-fns';
+import { bookingDateFormat } from '@/utils/date-format';
 
 interface ViewBookingProps {
     sheetOpen: boolean;
@@ -35,7 +36,7 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Date Of Adventure</span>
-                                    <span>{formatProperDate(booking?.date_of_scuba)}</span>
+                                    <span>{bookingDateFormat(booking?.date_of_scuba ?? '')}</span>
                                 </div>
                             </div>
                         </div>

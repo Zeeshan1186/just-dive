@@ -28,14 +28,16 @@ import AdminBookingPage from './Pages/admin/BookingPage';
 import BlogDetailPage from './Pages/BlogDetailPage';
 import Blogs from './Pages/BlogsPage';
 import Media from './Pages/MediaPage';
-import AdminBlogs from './Pages/admin/AdminBlogs';
-import AddBlog from './Pages/admin/BlogForm';
+import AdminBlogs from './Pages/admin/AdminBlogsList';
+import AddBlog from './Pages/admin/AddBlog';
 import AddAdminBooking from './components/Booking/addAdminBooking';
-import AdminMedia from './Pages/admin/AdminMedia';
+import AdminMedia from './Pages/admin/AddMedia';
 import AdminTermsCondition from './Pages/admin/AdminTermsCondition';
 import TermsAndConditions from './Pages/TermsAndConditions';
 import TermsCondition from './Pages/admin/TermsCondition';
 import ReportPage from './Pages/admin/ReportPage';
+import BlogsCategories from './Pages/admin/BlogsCategories';
+import CategoryBlogsPage from './Pages/CategoryBlogsPage';
 
 const App: React.FC = () => {
   return (
@@ -74,6 +76,7 @@ const App: React.FC = () => {
           <Route path="edit-blog/:id" element={<AddBlog />} />
           <Route path="/admin/add-blog" element={<AddBlog />} />
           <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
+          <Route path="/admin/blogcategories" element={<BlogsCategories />} />
           <Route path="/admin/Addmedia" element={<AdminMedia />} />
           <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
           <Route path="/admin/Termscondition" element={<TermsCondition />} />
@@ -82,6 +85,7 @@ const App: React.FC = () => {
         <Route path="/scubapackages" element={<ScubaPackages />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blogs/category/:categoryId" element={<CategoryBlogsPage />} />
         <Route path="/media" element={<Media />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />

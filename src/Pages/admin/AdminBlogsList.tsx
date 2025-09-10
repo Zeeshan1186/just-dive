@@ -1,6 +1,6 @@
 import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
 import { HTTP_CODE } from '@/constants/http-codes';
-import { getBlogs } from '@/services/apiService';
+import { getBlogs, getBlogscategories } from '@/services/apiService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import {
@@ -23,7 +23,7 @@ import { useNavigate } from 'react-router-dom';
 import type { IBlog } from '../../interface/blog';
 import BlogRowActions from './BlogRowActions';
 
-export default function AdminBlogs() {
+export default function AdminBlogsList() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [blogs, setBlogs] = useState<IBlog[]>([]);
     const [sorting, setSorting] = useState<SortingState>([]);
@@ -36,6 +36,7 @@ export default function AdminBlogs() {
     });
     const [searchValue, setSearchValue] = useState("");
     const navigate = useNavigate();
+    const [categories, setCategories] = useState<{ id: number; name: string; }[]>([]);
 
     const columns: ColumnDef<IBlog>[] = [
         {
@@ -53,10 +54,24 @@ export default function AdminBlogs() {
                     </Button>
                 );
             },
-            cell: ({ row }) => (
-                <div>{row.getValue("title")}</div>
-            ),
+            cell: ({ row }) => {
+                const title: string = row.getValue("title") || "";
+                const words = title.split(" ");
+                const shortTitle = words.length > 6 ? words.slice(0, 6).join(" ") + "..." : title;
+
+                return <div>{shortTitle}</div>;
+            }
         },
+        {
+            accessorKey: "category.name", // You can leave this accessorKey or remove it since we're mapping manually
+            header: "Category",
+            cell: ({ row }) => {
+                const categoryId = row.original.category_id;
+                const categoryName = categories.find(c => c.id === categoryId)?.name || "No Category";
+                return <div>{categoryName}</div>;
+            }
+        },
+
         {
             accessorKey: "author_name",
             header: "Author Name",
@@ -85,11 +100,29 @@ export default function AdminBlogs() {
             cell: ({ row }) => (
                 <BlogRowActions
                     row={row}
-                    onDeleted={blogsAPI} // Call blogsAPI to refresh list after delete
+                    onDeleted={blogsAPI} // refresh list after delete
                 />
             ),
         }
     ];
+
+
+    const fetchCategories = async () => {
+        try {
+            const response = await getBlogscategories(); // Your categories API
+            if (response.data.status === HTTP_CODE.SUCCESS_CODE) {
+                setCategories(response.data.data);
+            }
+        } catch (error) {
+            toast.error("Failed to fetch categories");
+        }
+    };
+
+    useEffect(() => {
+        blogsAPI();
+        fetchCategories();
+    }, []);
+
 
     const table = useReactTable({
         data: blogs,
@@ -117,6 +150,8 @@ export default function AdminBlogs() {
         setIsLoading(true);
         try {
             const response = await getBlogs();
+            console.log("Categories API:", response.data.data);
+
             if (response.data.status === HTTP_CODE.SUCCESS_CODE) {
                 setBlogs(response.data.data);
             }
@@ -136,7 +171,7 @@ export default function AdminBlogs() {
     }, [searchValue]);
 
     return (
-        <div className='p-4'>
+        <div className='p-4 Poppins'>
             <div className='flex justify-between'>
                 <div className='text-[#181E4B] font-semibold text-xl Poppins'>Blogs</div>
                 <div className='flex'>

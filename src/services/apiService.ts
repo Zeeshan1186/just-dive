@@ -222,3 +222,21 @@ export const getReport = async (
     `${API_PATHS.REPORT}?mode=${mode}&startDate=${startDate}&endDate=${endDate}&package_id=${packageId}`
   );
 };
+
+export const getBlogscategories = async () => api.get("/api/blog-category");
+export const createBlogCategory = async (data: { name: string }) =>
+  api.post("/api/blog-category", data);
+export const deleteBlogCategory = async (id: number) =>
+  api.delete(`/api/blog-category/${id}`);
+export const updateBlogCategory = async (
+  id: number,
+  payload: { name: string }
+) => {
+  return await api.put(`/api/blog-category/${id}`, payload);
+};
+export const getCategories = async () => {
+  return await api.get("/your-categories-api-endpoint");
+};
+export const getBlogsByCategoryId = (categoryId: string | number) => {
+  return api.get(`/api/blog/category/${categoryId}`);
+};

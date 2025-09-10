@@ -36,7 +36,7 @@ export default function PackagePage() {
                 return (
                     <Button
                         variant="ghost"
-                        className='hover:text-primary'
+                        className="hover:text-primary"
                         onClick={() => column.toggleSorting(isSorted === "asc")}
                     >
                         Name
@@ -45,9 +45,7 @@ export default function PackagePage() {
                 );
             },
             cell: ({ row }) => (
-                <div className="" >
-                    {row.getValue("name")}
-                </div>
+                <div>{row.getValue("name")}</div>
             ),
         },
         {
@@ -57,7 +55,7 @@ export default function PackagePage() {
                 return (
                     <Button
                         variant="ghost"
-                        className='hover:text-primary'
+                        className="hover:text-primary"
                         onClick={() => column.toggleSorting(isSorted === "asc")}
                     >
                         Diving Sight
@@ -76,7 +74,7 @@ export default function PackagePage() {
             header: "Package Price",
             cell: ({ row }) => (
                 <div className="capitalize">
-                    &#8377; {row.getValue('price')}
+                    ₹ {row.getValue('price')}
                 </div>
             ),
         },
@@ -93,13 +91,9 @@ export default function PackagePage() {
             id: "actions",
             header: "Actions",
             enableHiding: false,
-            cell: ({ row }: { row: any }) => {
-                return (
-                    <PackageRowActions
-                        row={row as Row<IPackage>}
-                    />
-                );
-            },
+            cell: ({ row }: { row: any }) => (
+                <PackageRowActions row={row as Row<IPackage>} />
+            ),
         },
     ];
 
@@ -114,15 +108,9 @@ export default function PackagePage() {
         onColumnVisibilityChange: setColumnVisibility,
         onRowSelectionChange: setRowSelection,
         globalFilterFn: "includesString",
-        state: {
-            sorting,
-            columnVisibility,
-            rowSelection,
-            pagination,
-            globalFilter
-        },
+        state: { sorting, columnVisibility, rowSelection, pagination, globalFilter },
         onGlobalFilterChange: setGlobalFilter,
-        onPaginationChange: setPagination
+        onPaginationChange: setPagination,
     });
 
     const packagesAPI = async () => {
@@ -130,7 +118,7 @@ export default function PackagePage() {
         try {
             const response = await getPackages();
             if (response.data.status === HTTP_CODE.SUCCESS_CODE) {
-                setPackages(response?.data?.data);
+                setPackages(response.data.data);
             }
         } catch (error) {
             toast.error(GENERIC_ERROR_MESSAGE);
@@ -148,12 +136,13 @@ export default function PackagePage() {
     }, [searchValue]);
 
     return (
-        <div className='p-4'>
-            <div className='flex justify-between'>
-                <div className='text-[#181E4B] font-semibold text-xl Poppins'>Packages</div>
-                <div className='flex'>
-                    <div className="border border-gray-200 flex items-center justify-center bg-white rounded-md shadow-md w-full max-w-[200px] md:max-w-[300px]">
-                        <Search className="h-5 w-5 text-gray-500 ml-2 cursor-pointer" />
+        <div className="p-2 sm:p-4">
+            {/* Header */}
+            <div className="flex flex-col gap-4 lg:flex-row lg:justify-between lg:items-center">
+                <div className="text-[#181E4B] font-semibold text-lg sm:text-xl Poppins">Packages</div>
+                <div className="flex flex-col gap-2 sm:flex-row sm:gap-4">
+                    <div className="flex items-center border border-gray-200 rounded-md shadow-md bg-white w-full sm:w-auto max-w-[300px]">
+                        <Search className="h-5 w-5 text-gray-500 ml-2" />
                         <Input
                             type="text"
                             value={searchValue}
@@ -162,82 +151,63 @@ export default function PackagePage() {
                                 table.setGlobalFilter(e.target.value);
                             }}
                             placeholder="Search packages..."
-                            className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"
+                            className="border-none Poppins outline-none focus:ring-0 w-full px-2"
                         />
                     </div>
-                    <div className='ml-4'>
-                        <Button onClick={() => { navigate('/admin/add-package') }}>
-                            <Plus /> Add Package
-                        </Button>
-                    </div>
+                    <Button onClick={() => navigate('/admin/add-package')} className="w-full sm:w-auto">
+                        <Plus className="mr-1" /> Add Package
+                    </Button>
                 </div>
             </div>
 
-            <div className="rounded-md border !border-gray-100 mt-4">
-                <Table className='border border-gray-200'>
-                    <TableHeader className='bg-[#FFF6E2]'>
+            {/* Table */}
+            <div className="rounded-md border border-gray-100 mt-4 overflow-x-auto">
+                <Table className="min-w-[800px] border border-gray-200">
+                    <TableHeader className="bg-[#FFF6E2]">
                         {table.getHeaderGroups().map((headerGroup) => (
-                            <TableRow key={headerGroup.id} className="border-b border-gray-200">
-                                {headerGroup.headers.map((header) => {
-                                    return (
-                                        <TableHead key={header.id} className='text-black'>
-                                            {header.isPlaceholder
-                                                ? null
-                                                : flexRender(
-                                                    header.column.columnDef.header,
-                                                    header.getContext()
-                                                )}
-                                        </TableHead>
-                                    );
-                                })}
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id} className="text-black">
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
+                                ))}
                             </TableRow>
                         ))}
                     </TableHeader>
                     <TableBody>
-                        {table && table.getRowModel() && table?.getRowModel()?.rows?.length ? (
+                        {table.getRowModel().rows.length ? (
                             table.getRowModel().rows.map((row, index) => (
                                 <TableRow
-                                    className={`border-b border-gray-200 Poppins ${index % 2 === 0
-                                        ? 'bg-[#FAFAFC]'
-                                        : ''
-                                        }`}
                                     key={row.id}
+                                    className={`Poppins ${index % 2 === 0 ? 'bg-[#FAFAFC]' : ''}`}
                                     data-state={row.getIsSelected() && "selected"}
                                 >
                                     {row.getVisibleCells().map((cell) => (
                                         <TableCell key={cell.id}>
-                                            {flexRender(
-                                                cell.column.columnDef.cell,
-                                                cell.getContext()
-                                            )}
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}
                                 </TableRow>
                             ))
                         ) : (
                             <TableRow>
-                                <TableCell
-                                    colSpan={columns.length}
-                                    className="h-24 text-center"
-                                >
-                                    {!isLoading ? "No results" :
-                                        <div className='flex items-center justify-center'>
-                                            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                                        </div>
-                                    }
+                                <TableCell colSpan={columns.length} className="h-24 text-center">
+                                    {!isLoading ? "No results" : (
+                                        <Loader2 className="animate-spin mx-auto h-6 w-6" />
+                                    )}
                                 </TableCell>
                             </TableRow>
                         )}
                     </TableBody>
                 </Table>
             </div>
-            <div className="flex items-center justify-between mt-4 px-2">
-                <div className="text-sm text-muted-foreground">
-                    Page {table.getState().pagination.pageIndex + 1} of{" "}
-                    {table.getPageCount()}
-                </div>
 
-                <div className="space-x-2">
+            {/* Pagination */}
+            <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2 px-2">
+                <div className="text-sm text-muted-foreground">
+                    Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                </div>
+                <div className="flex gap-2">
                     <Button
                         variant="outline"
                         size="sm"
@@ -257,5 +227,5 @@ export default function PackagePage() {
                 </div>
             </div>
         </div>
-    )
+    );
 }

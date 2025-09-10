@@ -8,7 +8,11 @@ import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
 import banner from "../assets/images/booking.png";
 import BookingForm from "./BookingForm";
-import { getPackageSlotsByDate, getactivePackages, getactivePackagesByLocation } from "../services/apiService";
+import {
+    getPackageSlotsByDate,
+    getactivePackages,
+    getactivePackagesByLocation,
+} from "../services/apiService";
 import { ChevronDown } from "lucide-react";
 import { useParams } from "react-router-dom";
 
@@ -19,18 +23,19 @@ type Slot = {
     available: number;
     time: string;
 };
-type Package = {
-    id: number;
-    name: string;
-    package_image: string;
-    duration: number;
-    // Add more fields if your API returns them
-};
 
+export interface Package {
+    id: number;
+    title: string;
+    description: string;
+    price: number;
+    location_id: number;
+    name: string;
+}
 
 export default function BookingComponent() {
-    const [date, setDate] = useState<Date | undefined>(undefined);
-    const [popupStep, setPopupStep] = useState(1);
+    const [date, setDate] = useState<Date | undefined>();
+    const [popupStep, setPopupStep] = useState(0);
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
     const [selectedSlot, setSelectedSlot] = useState("");
@@ -39,19 +44,48 @@ export default function BookingComponent() {
     const [showBookingForm, setShowBookingForm] = useState(false);
     const [dynamicSlots, setDynamicSlots] = useState<Slot[]>([]);
     const { id } = useParams();
+    const [showLocationModal, setShowLocationModal] = useState(false);
+    const [locations, setLocations] = useState<string[]>([]);
+    const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
+
+    useEffect(() => {
+        const fetchLocations = async () => {
+            try {
+                const res = await getactivePackages();
+                const packages = res?.data?.data || [];
+
+                const uniqueLocations = Array.from(
+                    new Set(packages.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
+                );
+
+                setLocations(uniqueLocations as string[]);
+            } catch (err) {
+                console.error("Failed to fetch locations", err);
+            }
+        };
+
+        fetchLocations();
+    }, []);
+
+    useEffect(() => {
+        const savedLocation = localStorage.getItem("selectedLocation");
+
+        if (savedLocation) {
+            setSelectedLocation(savedLocation);
+            setPopupStep(1);
+        } else {
+            setShowLocationModal(true);
+        }
+    }, []);
 
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const location = localStorage.getItem("selectedLocation");
-                const res = location
-                    ? await getactivePackagesByLocation(location)
+                const res = selectedLocation
+                    ? await getactivePackagesByLocation(selectedLocation)
                     : await getactivePackages();
-
                 const fetchedPackages = res?.data?.data || [];
                 setPackages(fetchedPackages);
-
-                // 👉 Preselect package if id is present in URL
                 if (id) {
                     const matchedPackage = fetchedPackages.find((pkg: any) => pkg.id === Number(id));
                     if (matchedPackage) {
@@ -62,9 +96,11 @@ export default function BookingComponent() {
                 console.error("Failed to fetch packages", err);
             }
         };
-        fetchPackages();
-    }, [id]);
 
+        if (selectedLocation) {
+            fetchPackages();
+        }
+    }, [id, selectedLocation]);
 
     useEffect(() => {
         const fetchSlotsAndSeats = async () => {
@@ -106,12 +142,12 @@ export default function BookingComponent() {
                 localStorage.setItem("participants", participants);
             }
             setPopupStep(0);
+            // setShowBookingForm(true); // Immediately show form
         }
     };
 
     return (
         <section className="w-full pb-5">
-            {/* Banner */}
             <div
                 className="relative h-[50vh] sm:h-[60vh] md:h-[75vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
@@ -129,8 +165,7 @@ export default function BookingComponent() {
 
                 {!showBookingForm && (
                     <>
-                        <div className="flex flex-col lg:flex-row justify-center items-center gap-6 sm:gap-7 overflow-x-hidden w-full">
-                            {/* Calendar */}
+                        <div className="flex flex-col lg:flex-row justify-center items-center gap-6 sm:gap-7 w-full">
                             <div className="shadow-md rounded-md mb-4 lg:mb-0 w-full max-w-xs sm:w-auto">
                                 <Calendar
                                     mode="single"
@@ -154,7 +189,6 @@ export default function BookingComponent() {
                                 />
                             </div>
 
-                            {/* Slot Selection */}
                             <div className="Poppins w-full sm:w-[70%]">
                                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
                                     <h3 className="text-sm mb-1">
@@ -175,7 +209,9 @@ export default function BookingComponent() {
                                                         const selected = e.target.value;
                                                         setSelectedSlot(selected);
                                                         localStorage.setItem("selectedSlot", selected);
-                                                        const selectedSlotData = dynamicSlots.find(slot => slot.slot_time === selected);
+                                                        const selectedSlotData = dynamicSlots.find(
+                                                            (slot) => slot.slot_time === selected
+                                                        );
                                                         setAvailableSeats(selectedSlotData?.available ?? null);
                                                     }}
                                                     className="w-full sm:w-auto px-2 py-1 rounded"
@@ -200,9 +236,8 @@ export default function BookingComponent() {
                                     )}
 
                                     <hr className="w-60 border-t border-[#0191e9] mb-2" />
-
                                     <h2 className="text-base sm:text-lg font-bold">
-                                        Available - {" "}
+                                        Available -{" "}
                                         <span className="text-[#0191e9]">
                                             {availableSeats !== null ? availableSeats : "Please Select Slot"}
                                         </span>
@@ -213,6 +248,10 @@ export default function BookingComponent() {
 
                         <Button
                             onClick={() => {
+                                if (!selectedPackage) {
+                                    setPopupStep(1);
+                                    return;
+                                }
                                 if (date && selectedSlot) {
                                     setShowBookingForm(true);
                                 } else {
@@ -227,7 +266,41 @@ export default function BookingComponent() {
                 )}
             </div>
 
-            {/* Popup */}
+            {/* Location Modal */}
+            {showLocationModal && (
+                <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center px-4">
+                    <div className="bg-white p-6 rounded-md shadow-lg w-full max-w-sm text-center">
+                        <h2 className="text-xl font-semibold mb-4 Trirong">Select Your Location</h2>
+                        <select
+                            value={selectedLocation || ""}
+                            onChange={(e) => setSelectedLocation(e.target.value)}
+                            className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+                        >
+                            <option value="">Select location</option>
+                            {locations.map((locName) => (
+                                <option key={locName} value={locName}>
+                                    {locName}
+                                </option>
+                            ))}
+                        </select>
+                        <Button
+                            disabled={!selectedLocation}
+                            className="bg-[#0191e9] text-white w-full"
+                            onClick={() => {
+                                if (selectedLocation) {
+                                    localStorage.setItem("selectedLocation", selectedLocation);
+                                    setShowLocationModal(false);
+                                    setPopupStep(1);
+                                }
+                            }}
+                        >
+                            Continue
+                        </Button>
+                    </div>
+                </div>
+            )}
+
+            {/* Package Selection Popup */}
             {popupStep > 0 && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-2 sm:px-4">
                     <div className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md shadow-lg text-center">
@@ -257,16 +330,10 @@ export default function BookingComponent() {
                                     </div>
                                 </div>
                                 <div className="flex justify-between gap-2">
-                                    <Button
-                                        onClick={() => setPopupStep(0)}
-                                        className="w-1/2 text-sm bg-[#0392ea] hover:bg-[#fff] border hover:text-[#0392ea] hover:border-[#0392ea]"
-                                    >
+                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Cancel
                                     </Button>
-                                    <Button
-                                        onClick={handleNext}
-                                        className="w-1/2 text-sm bg-[#0392ea] hover:bg-[#fff] border hover:text-[#0392ea] hover:border-[#0392ea]"
-                                    >
+                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Next
                                     </Button>
                                 </div>
@@ -275,9 +342,7 @@ export default function BookingComponent() {
 
                         {popupStep === 2 && (
                             <>
-                                <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">
-                                    Enter Number of Participants
-                                </h3>
+                                <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">Enter Number of Participants</h3>
                                 <input
                                     type="number"
                                     min="1"
@@ -287,16 +352,10 @@ export default function BookingComponent() {
                                     onChange={(e) => setParticipants(e.target.value)}
                                 />
                                 <div className="flex justify-between gap-2">
-                                    <Button
-                                        onClick={() => setPopupStep(0)}
-                                        className="w-1/2 text-sm bg-[#0392ea] hover:bg-[#fff] border hover:text-[#0392ea] hover:border-[#0392ea]"
-                                    >
+                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Cancel
                                     </Button>
-                                    <Button
-                                        onClick={handleNext}
-                                        className="w-1/2 text-sm bg-[#0392ea] hover:bg-[#fff] border hover:text-[#0392ea] hover:border-[#0392ea]"
-                                    >
+                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Next
                                     </Button>
                                 </div>

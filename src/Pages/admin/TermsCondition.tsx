@@ -63,7 +63,7 @@ export default function TermsCondition() {
     return (
         <div className="px-4 py-10">
             <div className="flex justify-between items-center">
-                <h1 className="text-3xl sm:text-4xl font-bold mb-4">
+                <h1 className="text-3xl sm:text-4xl Poppins font-bold mb-4">
                     Terms and Conditions
                 </h1>
 
@@ -72,7 +72,7 @@ export default function TermsCondition() {
                 <div className="flex justify-center">
                     <Button
                         onClick={() => navigate('/admin/AddTermscondition')}
-                        className="bg-green-600 hover:bg-green-700 text-white"
+                        className="bg-[#00228c] Poppins hover:[#00228c] text-white"
                     >
                         <Plus className="mr-1" /> Add New Term
                     </Button>
@@ -84,11 +84,11 @@ export default function TermsCondition() {
             ) : (
                 <>
                     {terms.map((term) => (
-                        <div key={term.id} className="mb-8 border p-4 rounded shadow-sm">
+                        <div key={term.id} className="mb-8 border border-[#e7e7e7] p-4 rounded shadow-sm">
                             {/* Last Updated */}
-                            <p className="text-sm text-gray-500 mb-4">
+                            <p className="text-sm text-[#444444] Poppins mb-4">
                                 Last Updated:{" "}
-                                <span className="font-medium text-green-600">
+                                <span className="font-sm Poppins text-[#444444]">
                                     {new Date(term.updated_at).toLocaleDateString("en-GB", {
                                         day: "2-digit",
                                         month: "short",
@@ -98,10 +98,10 @@ export default function TermsCondition() {
                             </p>
 
                             {/* Title */}
-                            <h2 className="text-2xl font-semibold mb-2">{term.title}</h2>
+                            <h2 className="text-2xl font-semibold Poppins mb-2">{term.title}</h2>
 
                             {/* Descriptions */}
-                            <div className="text-gray-700 leading-relaxed space-y-3">
+                            <div className="text-gray-700 Poppins leading-relaxed space-y-3">
                                 {term.descriptions.map((desc, idx) => (
                                     <p key={idx}>{desc}</p>
                                 ))}
@@ -115,7 +115,7 @@ export default function TermsCondition() {
                                             state: term, // Prefill for editing
                                         })
                                     }
-                                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                                    className="bg-blue-600 Poppins hover:bg-blue-700 text-white"
                                 >
                                     <Plus className="mr-1" /> Update This Term
                                 </Button>
@@ -124,10 +124,11 @@ export default function TermsCondition() {
                                     variant="destructive"
                                     onClick={() => handleDelete(term.id)}
                                     disabled={deletingId === term.id}
+                                    className="Poppins"
                                 >
                                     {deletingId === term.id ? (
                                         <>
-                                            <Loader2 className="mr-2 w-4 h-4 animate-spin" />
+                                            <Loader2 className="mr-2 w-4 h-4 Poppins animate-spin" />
                                             Deleting...
                                         </>
                                     ) : (

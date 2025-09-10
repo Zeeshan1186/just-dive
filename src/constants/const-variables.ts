@@ -1,4 +1,4 @@
-export const PAGINATION_COUNT = 10;
+export const PAGINATION_COUNT = 15;
 
 export const BOOKING_STATUS = {
   CONFIRM: "confirm",

@@ -1,4 +1,4 @@
-import { format, parse } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 
 export const simpleDate = (isoDate: Date) => {
   const date = new Date(isoDate);
@@ -12,8 +12,20 @@ export const simpleDate = (isoDate: Date) => {
 };
 
 export const bookingDateFormat = (rawDate: string) => {
-  const parsedDate = parse(rawDate, "d/M/yyyy", new Date());
-  const formattedDate = format(parsedDate, "d MMMM yyyy");
+  if (!rawDate) return "No date selected";
 
-  return formattedDate;
+  // Try different possible formats
+  const possibleFormats = ["yyyy/MM/dd", "yyyy-MM-dd", "d/M/yyyy"];
+
+  let parsedDate: Date | null = null;
+
+  for (const fmt of possibleFormats) {
+    const d = parse(rawDate, fmt, new Date());
+    if (isValid(d)) {
+      parsedDate = d;
+      break;
+    }
+  }
+
+  return parsedDate ? format(parsedDate, "d MMMM yyyy") : rawDate;
 };
