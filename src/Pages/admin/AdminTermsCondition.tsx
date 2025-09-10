@@ -39,8 +39,16 @@ export default function AdminTermsCondition() {
             descriptions: [{ text: "" }],
         },
     });
-
     const { control, handleSubmit, formState } = form;
+    const {
+        fields: descriptionFields,
+        append: appendTermsCondition,
+        remove: removeTermsCondition,
+        replace
+    } = useFieldArray({
+        control,
+        name: "descriptions",
+    });
     const { isSubmitting } = formState;
     // Inside your component
     const location = useLocation();
@@ -52,27 +60,21 @@ export default function AdminTermsCondition() {
     // Prefill form if editing
     useEffect(() => {
         if (existingTerm) {
+            const formattedDescriptions = Array.isArray(existingTerm.descriptions)
+                ? existingTerm.descriptions.map((desc) =>
+                    typeof desc === "string" ? { text: desc } : desc
+                )
+                : [{ text: "" }];
+
             form.reset({
-                id: existingTerm.id, // 👈 include id
+                id: existingTerm.id,
                 title: existingTerm.title,
-                descriptions: Array.isArray(existingTerm.descriptions)
-                    ? existingTerm.descriptions.map((desc) =>
-                        typeof desc === "string" ? { text: desc } : desc
-                    )
-                    : [],
+                descriptions: formattedDescriptions,
             });
+
+            replace(formattedDescriptions);
         }
     }, [existingTerm, form]);
-
-
-    const {
-        fields: descriptionFields,
-        append,
-        remove,
-    } = useFieldArray({
-        control,
-        name: "descriptions",
-    });
 
     const onSubmit = async (data: FormData) => {
         const payload = {
@@ -106,10 +108,9 @@ export default function AdminTermsCondition() {
         }
     };
 
-
     return (
         <div className="p-6 bg-white rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">Add Terms And Conditions</h2>
+            <h2 className="text-2xl font-bold mb-4">{existingTerm ? "Edit" : "Add"} Terms And Conditions</h2>
 
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -150,7 +151,7 @@ export default function AdminTermsCondition() {
                                         type="button"
                                         variant="ghost"
                                         size="icon"
-                                        onClick={() => remove(index)}
+                                        onClick={() => removeTermsCondition(index)}
                                         className="absolute top-2 right-2 text-red-500"
                                     >
                                         <Trash2 className="w-4 h-4" />
@@ -162,7 +163,7 @@ export default function AdminTermsCondition() {
                         <Button
                             type="button"
                             variant="outline"
-                            onClick={() => append({ text: "" })}
+                            onClick={() => appendTermsCondition({ text: "" })}
                             className="mt-3"
                         >
                             <Plus className="h-4 w-4 mr-1" /> Add More
@@ -170,7 +171,7 @@ export default function AdminTermsCondition() {
                     </div>
 
                     {/* Submit Button */}
-                    <div className="flex justify-end">
+                    <div className="flex justify-end gap-4">
                         <Button
                             type="submit"
                             className="bg-blue-600 text-white hover:bg-blue-700"
@@ -183,6 +184,11 @@ export default function AdminTermsCondition() {
                             ) : (
                                 "Submit"
                             )}
+                        </Button>
+
+                        <Button type="button" onClick={() => { navigate('/admin/Termscondition') }}
+                            className="bg-[#152259] text-white">
+                            Cancel
                         </Button>
                     </div>
                 </form>

@@ -3,7 +3,7 @@ import api from "./api";
 import type { IUser } from "@/interface/user";
 import type { IPayloadCoupon } from "@/interface/coupon";
 
-const token = localStorage.getItem("token");
+// const token = localStorage.getItem("token");
 
 export const login = async (body: IUser) => {
   return await api.post(API_PATHS.LOGIN, body);

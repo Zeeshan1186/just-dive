@@ -112,7 +112,7 @@ export default function TermsCondition() {
                                 <Button
                                     onClick={() =>
                                         navigate('/admin/AddTermscondition', {
-                                            state: term, // Prefill for editing
+                                            state: term,
                                         })
                                     }
                                     className="bg-blue-600 Poppins hover:bg-blue-700 text-white"

@@ -36,6 +36,7 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import BlogCategoryRowActions from '../admin/BlogCategoryRowActions';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useDebouncedCallback } from 'use-debounce';
 
 type BlogCategory = {
     id: number;
@@ -202,6 +203,10 @@ export default function BlogsCategories() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     }, [searchValue]);
 
+    const handleFilter = useDebouncedCallback((value: string) => {
+        table.setGlobalFilter(value);
+    }, 300);
+
     return (
         <div className="p-4">
             <div className="flex flex-col md:flex-row md:justify-between gap-4">
@@ -215,7 +220,7 @@ export default function BlogsCategories() {
                             value={searchValue}
                             onChange={(e) => {
                                 setSearchValue(e.target.value);
-                                table.setGlobalFilter(e.target.value);
+                                handleFilter(e.target.value);
                             }}
                             placeholder="Search category..."
                             className="border-none outline-none w-full px-2"

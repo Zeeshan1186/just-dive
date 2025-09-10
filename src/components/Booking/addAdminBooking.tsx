@@ -58,7 +58,7 @@ export default function AddAdminBooking() {
     const [grandTotal, setGrandTotal] = useState("0.00");
     const [couponId, setCouponId] = useState<Number | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [applyingCoupon, setApplyingCoupon] = useState(false);
+    const [applyingCoupon, ] = useState(false);
     const [couponError, setCouponError] = useState("");
     const date = form.watch('dateOfScuba');
     const selectedPackage = form.watch('package_id');

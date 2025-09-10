@@ -5,7 +5,8 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Loader2, Plus, Trash2 } from "lucide-react";
+import { Loader2, Plus } from "lucide-react";
+import type { IBlog } from "@/interface/blog";
 
 type BlogCategory = {
     id: number;
@@ -22,10 +23,16 @@ const AddBlog = () => {
     const handleBlogImageClick = () => blogImageInputRef.current?.click();
     const handleAuthorImageClick = () => authorImageInputRef.current?.click();
 
-    const handleRemoveBlogImage = () =>
-        setForm((prev) => ({ ...prev, blog_image: null }));
-    const handleRemoveAuthorImage = () =>
-        setForm((prev) => ({ ...prev, author_image: null }));
+    // const handleRemoveBlogImage = () => {
+    //     setForm((prev) => ({ ...prev, blog_image: null }));
+    //     setBlog((prev) => prev ? { ...prev, blog_image: "" } : undefined);
+    //     setImage(undefined);
+    // }
+    // const handleRemoveAuthorImage = () => {
+    //     setForm((prev) => ({ ...prev, author_image: null }));
+    //     setBlog((prev) => prev ? { ...prev, author_image: "" } : undefined);
+    //     setAuthorImage(undefined);
+    // }
 
     const [form, setForm] = useState({
         title: "",
@@ -36,7 +43,10 @@ const AddBlog = () => {
         author_image: null as File | null,
     });
     const [categories, setCategories] = useState<BlogCategory[]>([]);
+    const [image, setImage] = useState<File | undefined>(undefined);
+    const [authorImage, setAuthorImage] = useState<File | undefined>(undefined);
     const [loading, setLoading] = useState(false);
+    const [blog, setBlog] = useState<IBlog>();
 
     // 🆕 Fetch all categories for dropdown
     const fetchCategories = async () => {
@@ -62,6 +72,7 @@ const AddBlog = () => {
         try {
             const res = await getBlogById(id!);
             const data = res.data.data;
+            setBlog(data);
             setForm({
                 title: data.title,
                 author_name: data.author_name,
@@ -86,6 +97,19 @@ const AddBlog = () => {
         const { name, files } = e.target;
         if (files && files.length > 0) {
             const file = files[0];
+            setImage(file);
+            setForm((prev) => ({
+                ...prev,
+                [name]: file,
+            }));
+        }
+    };
+
+    const handleAuthorFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, files } = e.target;
+        if (files && files.length > 0) {
+            const file = files[0];
+            setAuthorImage(file);
             setForm((prev) => ({
                 ...prev,
                 [name]: file,
@@ -106,8 +130,8 @@ const AddBlog = () => {
         formData.append("author_name", form.author_name);
         formData.append("description", form.description);
         formData.append("category_id", form.category_id); // 🆕 Add category_id
-        if (form.blog_image) formData.append("blog_image", form.blog_image);
-        if (form.author_image) formData.append("author_image", form.author_image);
+        formData.append("blog_image", form.blog_image ? form.blog_image : "");
+        formData.append("author_image", form.author_image ? form.author_image : "");
 
         setLoading(true);
         try {
@@ -211,9 +235,9 @@ const AddBlog = () => {
                             className="absolute w-0 h-0 opacity-0 pointer-events-none"
                             onChange={handleFileChange}
                         />
-                        {form.blog_image ? (
+                        {image || blog?.blog_image ? (
                             <img
-                                src={URL.createObjectURL(form.blog_image)}
+                                src={image ? URL.createObjectURL(image) : blog?.blog_image}
                                 alt="Selected"
                                 className="h-52 w-full object-contain"
                             />
@@ -231,14 +255,14 @@ const AddBlog = () => {
                     </div>
                     {form.blog_image && (
                         <div className="mt-3 flex justify-center">
-                            <Button
+                            {/* <Button
                                 type="button"
                                 variant="outline"
                                 onClick={handleRemoveBlogImage}
                                 className="text-[#152259] mr-2 bg-white"
                             >
                                 <Trash2 className="h-4 w-4 mr-1" /> Remove
-                            </Button>
+                            </Button> */}
                             <Button
                                 type="button"
                                 className="bg-[#509CDB] hover:bg-[#509CDB] text-white"
@@ -263,11 +287,11 @@ const AddBlog = () => {
                             accept="image/jpeg, image/png, image/jpg"
                             ref={authorImageInputRef}
                             className="absolute w-0 h-0 opacity-0 pointer-events-none"
-                            onChange={handleFileChange}
+                            onChange={handleAuthorFileChange}
                         />
-                        {form.author_image ? (
+                        {authorImage || blog?.author_image ? (
                             <img
-                                src={URL.createObjectURL(form.author_image)}
+                                src={authorImage ? URL.createObjectURL(authorImage) : blog?.author_image}
                                 alt="Selected"
                                 className="h-52 w-full object-contain"
                             />
@@ -285,14 +309,14 @@ const AddBlog = () => {
                     </div>
                     {form.author_image && (
                         <div className="mt-3 flex justify-center">
-                            <Button
+                            {/* <Button
                                 type="button"
                                 variant="outline"
                                 onClick={handleRemoveAuthorImage}
                                 className="text-[#152259] mr-2 bg-white"
                             >
                                 <Trash2 className="h-4 w-4 mr-1" /> Remove
-                            </Button>
+                            </Button> */}
                             <Button
                                 type="button"
                                 className="bg-[#509CDB] hover:bg-[#509CDB] text-white"

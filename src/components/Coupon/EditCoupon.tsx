@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"
 import { Button } from "../ui/button"
 import { ArrowUp, Loader2 } from "lucide-react"
-import { addCoupon, editCoupon, getCoupon, getPackages } from "@/services/apiService"
+import { editCoupon, getCoupon, getPackages } from "@/services/apiService"
 import { HttpStatusCode } from "axios"
 import { useNavigate, useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
@@ -297,7 +297,7 @@ export default function EditCoupon() {
                     <FormField
                         control={form.control}
                         name="times_use"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <div className="grid grid-cols-12 gap-4">
                                     <FormLabel className="col-span-12 md:col-span-3">Usage Count *</FormLabel>

@@ -12,6 +12,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useNavigate } from 'react-router-dom';
 import type { ICoupon } from '@/interface/coupon';
 import CouponRowActions from '@/components/Coupon/CouponRowActions';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function CouponPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -150,6 +151,10 @@ export default function CouponPage() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     }, [searchValue]);
 
+    const handleFilter = useDebouncedCallback((value: string) => {
+        table.setGlobalFilter(value);
+    }, 300);
+
     return (
         <div className='p-4'>
             <div className="flex flex-col md:flex-row md:justify-between gap-4">
@@ -168,7 +173,7 @@ export default function CouponPage() {
                             value={searchValue}
                             onChange={(e) => {
                                 setSearchValue(e.target.value);
-                                table.setGlobalFilter(e.target.value);
+                                handleFilter(e.target.value);
                             }}
                             placeholder="Search coupon..."
                             className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent shadow-none w-full px-2"

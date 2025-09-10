@@ -17,6 +17,7 @@ import { format, parseISO } from 'date-fns';
 import { ArrowUpDown, FileSpreadsheet, Loader2, Plus, Search, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function AdminBookingPage() {
     const [bookingData, setBooking] = useState<IBooking[]>([]);
@@ -45,6 +46,7 @@ export default function AdminBookingPage() {
 
     const columns: ColumnDef<IBooking>[] = [
         {
+            accessorFn: (row) => row.booking_id ?? "",
             accessorKey: "booking_id",
             header: "Booking ID",
             cell: ({ row }) => (
@@ -197,47 +199,55 @@ export default function AdminBookingPage() {
         exportToExcel(rows);
     }
 
+    const handleFilter = useDebouncedCallback((value: string) => {
+        table.setGlobalFilter(value);
+    }, 300);
+
     const renderTable = () => (
-        <div className="overflow-x-auto">
-            <Table className="border border-gray-200 min-w-[800px]">
-                <TableHeader className="bg-[#FFF6E2]">
-                    {table.getHeaderGroups().map((headerGroup) => (
-                        <TableRow key={headerGroup.id}>
-                            {headerGroup.headers.map((header) => (
-                                <TableHead key={header.id}>
-                                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                                </TableHead>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableHeader>
-                <TableBody>
-                    {isLoading ? (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="text-center">
-                                <Loader2 className="animate-spin mx-auto" />
-                            </TableCell>
-                        </TableRow>
-                    ) : table.getRowModel().rows.length ? (
-                        table.getRowModel().rows.map((row, i) => (
-                            <TableRow key={row.id} className={`Poppins ${i % 2 === 0 ? 'bg-[#FAFAFC]' : ''}`}>
-                                {row.getVisibleCells().map((cell) => (
-                                    <TableCell key={cell.id}>
-                                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                                    </TableCell>
+        <>
+            <div className="overflow-x-auto">
+                <Table className="border border-gray-200 min-w-[800px]">
+                    <TableHeader className="bg-[#FFF6E2]">
+                        {table.getHeaderGroups().map((headerGroup) => (
+                            <TableRow key={headerGroup.id}>
+                                {headerGroup.headers.map((header) => (
+                                    <TableHead key={header.id}>
+                                        {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                                    </TableHead>
                                 ))}
                             </TableRow>
-                        ))
-                    ) : (
-                        <TableRow>
-                            <TableCell colSpan={columns.length} className="text-center text-gray-500">
-                                No results found
-                            </TableCell>
-                        </TableRow>
-                    )}
-                </TableBody>
-            </Table>
-        </div>
+                        ))}
+                    </TableHeader>
+                    <TableBody>
+                        {isLoading ? (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} className="text-center">
+                                    <Loader2 className="animate-spin mx-auto" />
+                                </TableCell>
+                            </TableRow>
+                        ) : table.getRowModel().rows.length ? (
+                            table.getRowModel().rows.map((row, i) => (
+                                <TableRow key={row.id} className={`Poppins ${i % 2 === 0 ? 'bg-[#FAFAFC]' : ''}`}>
+                                    {row.getVisibleCells().map((cell) => (
+                                        <TableCell key={cell.id}>
+                                            {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            ))
+                        ) : (
+                            <TableRow>
+                                <TableCell colSpan={columns.length} className="text-center text-gray-500">
+                                    No results found
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </TableBody>
+                </Table>
+            </div>
+
+
+        </>
     );
 
     return (
@@ -253,7 +263,7 @@ export default function AdminBookingPage() {
                             value={searchValue}
                             onChange={(e) => {
                                 setSearchValue(e.target.value);
-                                table.setGlobalFilter(e.target.value);
+                                handleFilter(e.target.value);
                             }}
                             placeholder="Search bookings..."
                             className="border-none Poppins outline-none focus:ring-0 shadow-none w-full px-2"
@@ -300,6 +310,30 @@ export default function AdminBookingPage() {
                 </TabsList>
                 <TabsContent value={activeBooking}>
                     {renderTable()}
+                    {/* Pagination */}
+                    <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2 px-2">
+                        <div className="text-sm text-muted-foreground">
+                            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+                        </div>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.previousPage()}
+                                disabled={!table.getCanPreviousPage()}
+                            >
+                                Previous
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                onClick={() => table.nextPage()}
+                                disabled={!table.getCanNextPage()}
+                            >
+                                Next
+                            </Button>
+                        </div>
+                    </div>
                 </TabsContent>
             </Tabs>
         </div>
