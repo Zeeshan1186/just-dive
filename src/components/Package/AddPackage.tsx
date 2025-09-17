@@ -612,6 +612,108 @@ export default function AddPackage() {
                         )}
                     />
 
+                    {/* Price */}
+                    <FormField
+                        control={form.control}
+                        name="price"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
+                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
+                                        Price Per Person *
+                                    </FormLabel>
+                                    <div className="w-full md:w-[70%]">
+                                        <FormControl>
+                                            <Input
+                                                type='number'
+                                                placeholder="Price per person"
+                                                className="rounded-sm bg-white w-full"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </div>
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* Duration */}
+                    <FormField
+                        control={form.control}
+                        name="duration"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
+                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
+                                        Duration Of Package *
+                                    </FormLabel>
+                                    <div className="w-full md:w-[70%]">
+                                        <FormControl>
+                                            <Input
+                                                type='number'
+                                                placeholder="Enter duration of package"
+                                                className="rounded-sm bg-white w-full"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </div>
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* services */}
+                    <FormField
+                        control={form.control}
+                        name="services"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
+                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
+                                        Services
+                                    </FormLabel>
+                                    <div className="w-full md:w-[70%]">
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Type service"
+                                                className="rounded-sm bg-white w-full"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </div>
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+
+                    {/* vehicle */}
+                    {/* <FormField
+                        control={form.control}
+                        name="vehicle"
+                        render={({ field }) => (
+                            <FormItem>
+                                <div className="flex flex-col md:flex-row md:items-start gap-y-2">
+                                    <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
+                                        vehicle *
+                                    </FormLabel>
+                                    <div className="w-full md:w-[70%]">
+                                        <FormControl>
+                                            <Input
+                                                placeholder="Type vehicle"
+                                                className="rounded-sm bg-white w-full"
+                                                {...field}
+                                            />
+                                        </FormControl>
+                                        <FormMessage />
+                                    </div>
+                                </div>
+                            </FormItem>
+                        )}
+                    /> */}
+
                     {/* Detail page image */}
                     <div className="flex flex-col md:flex-row w-full">
                         {/* 30% Label */}
@@ -678,7 +780,7 @@ export default function AddPackage() {
                             />
                         </div>
                     </div>
-                    
+
                     {/* Iternary */}
                     <FormField
                         control={form.control}

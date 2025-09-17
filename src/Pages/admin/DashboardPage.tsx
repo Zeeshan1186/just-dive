@@ -73,7 +73,7 @@ export default function DashboardPage() {
             iconColor: '#FFFFFF'
         },
         {
-            text: "Confirm Bookings",
+            text: "Confirmed Bookings",
             count: confirmBooking,
             icon: Check,
             bgColor: '#FFF4DE',

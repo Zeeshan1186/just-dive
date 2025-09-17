@@ -48,8 +48,6 @@ export default function BookingComponent() {
     const [locations, setLocations] = useState<string[]>([]);
     const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
 
-    localStorage.clear();
-
     useEffect(() => {
         const fetchLocations = async () => {
             try {
@@ -144,7 +142,7 @@ export default function BookingComponent() {
                 localStorage.setItem("participants", participants);
             }
             setPopupStep(0);
-            setShowBookingForm(true); // Immediately show form
+            // setShowBookingForm(true); // Immediately show form
         }
     };
 
@@ -175,7 +173,7 @@ export default function BookingComponent() {
                                     onSelect={(selectedDate) => {
                                         setDate(selectedDate);
                                         if (selectedDate) {
-                                            localStorage.setItem("selectedDate", format(selectedDate, "yyyy-MM-dd"));
+                                            localStorage.setItem("selectedDate", format(selectedDate, "yyyy/MM/dd"));
                                         }
                                     }}
                                     initialFocus

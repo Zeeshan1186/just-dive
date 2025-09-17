@@ -17,7 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form';
 import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 import { cn } from '@/lib/utils';
-import { format, parse } from 'date-fns';
+import { format, isValid, parse } from 'date-fns';
 import { Calendar } from '../ui/calendar';
 import { Label } from '@radix-ui/react-label';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
@@ -118,13 +118,28 @@ export default function BookingRowActions({ row, refreshBookings, statusData }:
         }
     };
 
+    const parseFlexibleDate = (rawDate: string) => {
+        if (!rawDate) return null;
+
+        const formats = ["d/M/yyyy", "yyyy-MM-dd", "yyyy/MM/dd"];
+
+        for (const fmt of formats) {
+            const parsed = parse(rawDate, fmt, new Date());
+            if (isValid(parsed)) {
+                return parsed;
+            }
+        }
+
+        return null;
+    };
+
     useEffect(() => {
-        if (data && data.date_of_scuba) {
-            const parsedDate = parse(data.date_of_scuba, "d/M/yyyy", new Date());
+        if (data?.date_of_scuba) {
+            const parsedDate = parseFlexibleDate(data.date_of_scuba);
 
             form.reset({
-                dateOfScuba: parsedDate.toISOString(),
-                slot: data.slot?.id
+                dateOfScuba: parsedDate ? parsedDate.toISOString() : "",
+                slot: data.slot?.id ?? "",
             });
         }
     }, [data]);

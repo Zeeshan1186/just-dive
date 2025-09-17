@@ -22,6 +22,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useNavigate } from 'react-router-dom';
 import type { IBlog } from '../../interface/blog';
 import BlogRowActions from './BlogRowActions';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function AdminBlogsList() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -59,7 +60,7 @@ export default function AdminBlogsList() {
                 const words = title.split(" ");
                 const shortTitle = words.length > 6 ? words.slice(0, 6).join(" ") + "..." : title;
 
-                return <div>{shortTitle}</div>;
+                return <div title={title}>{shortTitle}</div>;
             }
         },
         {
@@ -150,7 +151,6 @@ export default function AdminBlogsList() {
         setIsLoading(true);
         try {
             const response = await getBlogs();
-            console.log("Categories API:", response.data.data);
 
             if (response.data.status === HTTP_CODE.SUCCESS_CODE) {
                 setBlogs(response.data.data);
@@ -170,6 +170,10 @@ export default function AdminBlogsList() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     }, [searchValue]);
 
+    const handleFilter = useDebouncedCallback((value: string) => {
+        table.setGlobalFilter(value);
+    }, 300);
+
     return (
         <div className='p-4 Poppins'>
             <div className='flex justify-between'>
@@ -182,7 +186,7 @@ export default function AdminBlogsList() {
                             value={searchValue}
                             onChange={(e) => {
                                 setSearchValue(e.target.value);
-                                table.setGlobalFilter(e.target.value);
+                                handleFilter(e.target.value);
                             }}
                             placeholder="Search blogs..."
                             className="border-none Poppins outline-none focus:outline-none focus:ring-0 focus:border-transparent focus-visible:ring-0 focus-visible:border-transparent shadow-none w-full px-2"

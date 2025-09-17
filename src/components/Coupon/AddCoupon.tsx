@@ -270,7 +270,7 @@ export default function AddCoupon() {
                     <FormField
                         control={form.control}
                         name="times_use"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <div className="grid grid-cols-12 gap-4">
                                     <FormLabel className="col-span-12 md:col-span-3">Usage Count *</FormLabel>

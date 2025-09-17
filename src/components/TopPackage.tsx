@@ -52,7 +52,7 @@ export default function TopPackage({ packages, isLoading }: { packages: any[], i
         <Card className="mx-2 border-gray-300 mb-0">
             <CardContent className="pt-0 pb-0">
                 <div className='mb-1 text-lg font-semibold'>
-                    Top Package
+                    Top 5 Packages
                 </div>
                 <Table className="w-full border-collapse">
                     <TableHeader className="px-12">

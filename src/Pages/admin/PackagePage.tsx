@@ -13,6 +13,7 @@ import { useNavigate } from 'react-router-dom';
 import type { IPackage } from '@/interface/package';
 import { simpleDate } from '@/utils/date-format';
 import PackageRowActions from '@/components/Package/PackageRowActions';
+import { useDebouncedCallback } from 'use-debounce';
 
 export default function PackagePage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -135,6 +136,10 @@ export default function PackagePage() {
         setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     }, [searchValue]);
 
+    const handleFilter = useDebouncedCallback((value: string) => {
+        table.setGlobalFilter(value);
+    }, 300);
+
     return (
         <div className="p-2 sm:p-4">
             {/* Header */}
@@ -148,7 +153,7 @@ export default function PackagePage() {
                             value={searchValue}
                             onChange={(e) => {
                                 setSearchValue(e.target.value);
-                                table.setGlobalFilter(e.target.value);
+                                handleFilter(e.target.value);
                             }}
                             placeholder="Search packages..."
                             className="border-none Poppins outline-none focus:ring-0 w-full px-2"

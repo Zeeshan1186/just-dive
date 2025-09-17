@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Sheet, SheetContent } from '../ui/sheet'
 import type { IBooking } from '@/interface/booking';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
+import { bookingDateFormat } from '@/utils/date-format';
 
 interface ViewBookingProps {
     sheetOpen: boolean;
@@ -13,12 +14,6 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
     const tabs = ['Personal Info', 'Payment Detail'];
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
-    const formatProperDate = (rawDate?: string) => {
-        if (!rawDate) return '';
-        const parsedDate = parse(rawDate, 'd/M/yyyy', new Date());
-        const formattedDate = format(parsedDate, 'd MMM yyyy');
-        return formattedDate;
-    }
     return (
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetContent className="w-full p-4 !max-w-full  md:w-[550px] md:!max-w-[550px] overflow-y-auto">
@@ -35,7 +30,7 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Date Of Adventure</span>
-                                    <span>{formatProperDate(booking?.date_of_scuba)}</span>
+                                    <span>{bookingDateFormat(booking?.date_of_scuba ?? '')}</span>
                                 </div>
                             </div>
                         </div>
