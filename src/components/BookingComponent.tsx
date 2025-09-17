@@ -48,7 +48,7 @@ export default function BookingComponent() {
     const [locations, setLocations] = useState<string[]>([]);
     const [selectedLocation, setSelectedLocation] = useState<string | null>(null);
 
-localStorage.clear()
+    localStorage.clear();
 
     useEffect(() => {
         const fetchLocations = async () => {
@@ -79,17 +79,6 @@ localStorage.clear()
             setShowLocationModal(true);
         }
     }, []);
-
-    //  useEffect(() => {
-    //     const savedLocation = localStorage.getItem("selectedLocation");
-
-    //     if (savedLocation) {
-    //         setSelectedLocation(savedLocation);
-    //         setPopupStep(1);
-    //     } else {
-    //         setShowLocationModal(true);
-    //     }
-    // }, []);
 
     useEffect(() => {
         const fetchPackages = async () => {
