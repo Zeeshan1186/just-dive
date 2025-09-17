@@ -38,10 +38,12 @@ import TermsCondition from './Pages/admin/TermsCondition';
 import ReportPage from './Pages/admin/ReportPage';
 import BlogsCategories from './Pages/admin/BlogsCategories';
 import CategoryBlogsPage from './Pages/CategoryBlogsPage';
+import ScrollToTop from './components/ScrollToTop';
 
 const App: React.FC = () => {
   return (
     <RootLayout>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUsPage />} />

@@ -73,12 +73,15 @@ export default function Banner() {
             {/* Video Background */}
             <video
                 className="absolute top-0 left-0 w-full h-full object-cover"
-                src="/video/Maldives Deep South Diving 4k.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
-            />
+            >
+                <source src="/video/Maldives Deep South Diving 4k.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+
             <div className="absolute inset-0 bg-black/50" />
 
             {/* Content */}
@@ -100,7 +103,7 @@ export default function Banner() {
                     <img
                         src={peoples}
                         alt="avatars"
-                        className="inline-block w-6 sm:w-8 md:w-30 mr-2"
+                        className="hidden sm:inline-block w-12 md:w-33 mr-2"
                     />
                     <span className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                         50+ people booked Tomorrow’s Scuba Dive in last 24 hours
@@ -158,10 +161,10 @@ export default function Banner() {
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
-                                    className="flex-1 sm:w-40 bg-white text-black font-normal px-4 py-2 rounded-full flex items-center animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
+                                    className="flex-1 sm:w-auto min-w-[10rem] bg-white text-black font-normal px-4 py-2 rounded-full flex items-center justify-between animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 >
                                     {date ? format(date, "PPP") : "Choose Date"}
-                                    <CalendarIcon className="ml-2 h-4 w-4" />
+                                    <CalendarIcon className="ml-2 h-4 w-4 shrink-0" />
                                 </Button>
                             </PopoverTrigger>
 

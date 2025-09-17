@@ -73,8 +73,8 @@ const ContactUsPage = () => {
 
                         <div className="mb-6">
                             <h3 className="text-lg font-medium">Visit us</h3>
-                            <p className="text-sm">Come say hello at our office HQ.</p>
-                            <p className="text-sm">67 Wisteria Way, Croydon South VIC 3136 AU</p>
+                            <p className="text-sm">Golf Beach road, Matadahitlu,</p>
+                            <p className="text-sm">Murdeshwar, Karnataka 581350</p>
                         </div>
 
                         <div className="mb-6">
@@ -86,14 +86,16 @@ const ContactUsPage = () => {
                         <div className="mb-6">
                             <h3 className="text-lg font-medium">Call us</h3>
                             <p className="text-sm">Mon-Fri from 8am to 5pm</p>
-                            <p className="text-sm">(+995) 555-55-55-55</p>
+                            <p className="text-sm">087624 12121</p>
                         </div>
 
                         <div>
                             <h3 className="text-lg font-medium mb-2">Social media</h3>
                             <div className="flex gap-4">
-                                <Instagram className="cursor-pointer" />
-                                <Facebook className="cursor-pointer" />
+                                <a href="https://www.instagram.com/" target="_blank">
+                                    <Instagram className="cursor-pointer" /></a>
+                                <a href="https://www.facebook.com/" target="_blank">
+                                    <Facebook className="cursor-pointer" /></a>
                             </div>
                         </div>
                     </div>
@@ -134,7 +136,7 @@ const ContactUsPage = () => {
                             <div>
                                 <input
                                     type="tel"
-                                    placeholder="(+91) 5555-5555-55"
+                                    placeholder="(+91) 0000-0000-00"
                                     {...register("phone", { required: true })}
                                     className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                 />

@@ -21,7 +21,7 @@ export default function Footer() {
                 <div className="Poppins">
                     <ul className="space-y-3 text-sm text-gray-300 mt-0 md:mt-2">
                         <li><Link to="/contactus">Contact Us</Link></li>
-                        <li><Link to="/testimony">Testimony</Link></li>
+                        {/* <li><Link to="/testimony">Testimony</Link></li> */}
                         <li><Link to="/termsandcondition">Terms & Condition</Link></li>
                         <li><Link to="/contactus">Help Center</Link></li>
                         <li><Link to="/faq">FAQ</Link></li>
