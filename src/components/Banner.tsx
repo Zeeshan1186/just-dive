@@ -15,6 +15,7 @@ import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { getactivePackages } from "@/services/apiService";
+import video from "../../Video/Maldives Deep South Diving 4k.mp4";
 
 export default function Banner() {
     const [selectedLocation, setSelectedLocation] = useState<string>("");
@@ -78,7 +79,7 @@ export default function Banner() {
                 loop
                 playsInline
             >
-                <source src="/video/Maldives Deep South Diving 4k.mp4" type="video/mp4" />
+                <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
             </video>
 
