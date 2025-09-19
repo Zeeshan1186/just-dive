@@ -652,11 +652,12 @@ export default function AddPackage() {
                                         <FormControl>
                                             <Input
                                                 type='number'
-                                                placeholder="Enter duration of package"
+                                                placeholder="Enter duration of package in minutes"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />
                                         </FormControl>
+                                            {/* <div className='text-red-600'>Note: Enter time in minutes</div> */}
                                         <FormMessage />
                                     </div>
                                 </div>

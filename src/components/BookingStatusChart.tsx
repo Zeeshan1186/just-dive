@@ -1,7 +1,7 @@
 import { Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from './ui/chart';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts';
 
 const chartConfig = {
     cancel: {
@@ -17,7 +17,7 @@ const chartConfig = {
 
 export default function BookingStatusChart({ chartData, isLoading }: { chartData: any, isLoading: boolean }) {
     const hasChartData = chartData?.some((item: any) => item.cancel > 0 || item.confirm > 0);
-    
+
     return (
         <Card className='border-gray-300 mx-2'>
             <CardHeader>
@@ -40,6 +40,7 @@ export default function BookingStatusChart({ chartData, isLoading }: { chartData
                                     tickLine={false}
                                     axisLine={false}
                                     tickMargin={8}
+                                    domain={[0, (dataMax) => dataMax + 1]}
                                 />
                                 <ChartTooltip
                                     cursor={false}
@@ -51,12 +52,12 @@ export default function BookingStatusChart({ chartData, isLoading }: { chartData
                                     }
                                 />
                                 <ChartLegend content={<ChartLegendContent />} />
-                                <Bar dataKey="confirm" fill="var(--color-confirm)" radius={4}
-                                    maxBarSize={60}
-                                />
-                                <Bar dataKey="cancel" fill="var(--color-cancel)" radius={4}
-                                    maxBarSize={60}
-                                />
+                                <Bar dataKey="confirm" fill="var(--color-confirm)" radius={4} maxBarSize={60}>
+                                    <LabelList dataKey="confirm" position="top" className="fill-gray-700 text-sm" />
+                                </Bar>
+                                <Bar dataKey="cancel" fill="var(--color-cancel)" radius={4} maxBarSize={60}>
+                                    <LabelList dataKey="cancel" position="top" className="fill-gray-700 text-sm" />
+                                </Bar>
                             </BarChart>
                         </ChartContainer>
                     ) : (

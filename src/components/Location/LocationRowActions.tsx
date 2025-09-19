@@ -1,12 +1,37 @@
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
 import { Button } from '../ui/button';
 import { Edit, MoreHorizontal } from 'lucide-react';
 import type { Row } from '@tanstack/react-table';
 import type { ILocation } from '@/interface/location';
 import { useNavigate } from 'react-router-dom';
+import { Switch } from '../ui/switch';
+import { Label } from '../ui/label';
+import { useState } from 'react';
+import { toast } from 'sonner';
+import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
+import { HTTP_CODE } from '@/constants/http-codes';
+import { enableDisableLocation } from '@/services/apiService';
 
 export default function LocationRowActions({ row }: { row: Row<ILocation> }) {
     const navigate = useNavigate();
+    const locationId = row.original.id;
+    const [isDisabled, setIsDisabled] = useState<boolean>(row.original?.is_active);
+
+    const disablePackage = async (value: boolean) => {
+        try {
+            const res = await enableDisableLocation(locationId, value);
+            if (res.data.status === HTTP_CODE.SUCCESS_CODE) {
+                toast.success(res.data.message);
+            }
+        } catch (error) {
+            toast.error(GENERIC_ERROR_MESSAGE);
+        }
+    }
+
+    const handleSwitchChange = async (value: boolean) => {
+        setIsDisabled(value);
+        await disablePackage(value);
+    };
 
     return (
         <>
@@ -25,6 +50,16 @@ export default function LocationRowActions({ row }: { row: Row<ILocation> }) {
                         }}
                     >
                         <Edit className="h-2 w-2" /> Edit
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator className="border-b border border-gray-200" />
+                    <DropdownMenuItem className="px-0" >
+                        <div className="flex space-x-1" onClick={(e) => e.stopPropagation()}>
+                            <Switch id="enabled" className="scale-75 data-[state=checked]:bg-black"
+                                checked={isDisabled}
+                                onCheckedChange={handleSwitchChange}
+                            />
+                            <Label htmlFor="enabled" className='Poppins'>{isDisabled ? "Enabled" : "Disabled"}</Label>
+                        </div>
                     </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu >

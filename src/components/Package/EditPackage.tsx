@@ -668,7 +668,7 @@ export default function EditPackage() {
                                         <FormControl>
                                             <Input
                                                 type='number'
-                                                placeholder="Enter Duration Of Package"
+                                                placeholder="Enter duration of package in minutes"
                                                 className="rounded-sm bg-white w-full"
                                                 {...field}
                                             />

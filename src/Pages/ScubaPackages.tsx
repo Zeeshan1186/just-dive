@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
+import { minutesToHourMinuteString } from "@/utils/common-function";
 
 export default function ScubaPackages() {
     const [packages, setPackages] = useState<any[]>([]);
@@ -60,7 +61,8 @@ export default function ScubaPackages() {
                             </div>
 
                             <div className="absolute bottom-28 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
-                                {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""}
+                                {/* {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""} */}
+                                {minutesToHourMinuteString(pkg.duration)}
                                 <Clock3 size={16} strokeWidth={1.5} />
                             </div>
 

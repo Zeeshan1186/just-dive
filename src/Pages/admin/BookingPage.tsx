@@ -87,7 +87,20 @@ export default function AdminBookingPage() {
         },
         {
             accessorKey: "full_name",
-            header: "Name",
+            // header: "Name",
+            header: ({ column }) => {
+                const isSorted = column.getIsSorted();
+                return (
+                    <Button
+                        variant="ghost"
+                        className="hover:text-primary hover:cursor-pointer hover:bg-transparent"
+                        onClick={() => column.toggleSorting(isSorted === "asc")}
+                    >
+                        <ArrowUpDown className="mr-2 h-4 w-4" />
+                        Name
+                    </Button>
+                );
+            },
             cell: ({ row }) => (
                 <div className="font-medium">
                     {row.original?.full_name}

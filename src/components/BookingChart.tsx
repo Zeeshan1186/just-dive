@@ -1,7 +1,7 @@
 import { Loader2 } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { ChartContainer, ChartLegend, ChartLegendContent, ChartTooltip, ChartTooltipContent, type ChartConfig } from './ui/chart';
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts';
 
 const chartConfig = {
     online: {
@@ -39,6 +39,7 @@ export default function BookingChart({ chartData, isLoading }: { chartData: any,
                                     tickLine={false}
                                     axisLine={false}
                                     tickMargin={8}
+                                    domain={[0, (dataMax) => dataMax + 1]}
                                     label={{
                                         value: 'Number Of Booking',
                                         angle: -90,
@@ -57,12 +58,12 @@ export default function BookingChart({ chartData, isLoading }: { chartData: any,
                                     content={<ChartTooltipContent indicator="dashed" />}
                                 />
                                 <ChartLegend content={<ChartLegendContent />} />
-                                <Bar dataKey="online" fill="var(--color-online)" radius={4}
-                                    maxBarSize={60}
-                                />
-                                <Bar dataKey="offline" fill="var(--color-offline)" radius={4}
-                                    maxBarSize={60}
-                                />
+                                <Bar dataKey="online" fill="var(--color-online)" radius={4} maxBarSize={60}>
+                                    <LabelList dataKey="online" position="top" className="fill-gray-700 text-sm" />
+                                </Bar>
+                                <Bar dataKey="offline" fill="var(--color-offline)" radius={4} maxBarSize={60}>
+                                    <LabelList dataKey="offline" position="top" className="fill-gray-700 text-sm" />
+                                </Bar>
                             </BarChart>
                         </ChartContainer>
                     ) : (

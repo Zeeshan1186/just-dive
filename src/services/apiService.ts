@@ -26,6 +26,14 @@ export const editLocation = async (data: any, id: number) => {
   return await api.put(`${API_PATHS.ADDRESS}/${id}`, data);
 };
 
+export const enableDisableLocation = async (id: number, isEnable: boolean) => {
+  return await api.post(`${API_PATHS.ADDRESS}/status-update/${id}/${isEnable}`);
+};
+
+export const getAllLocations = async () => {
+  return await api.get(API_PATHS.ALL_ADDRESS);
+};
+
 // Coupon API
 export const getCoupons = async () => {
   return await api.get(API_PATHS.COUPON);

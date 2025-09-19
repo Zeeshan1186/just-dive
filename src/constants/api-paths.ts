@@ -1,6 +1,7 @@
 export const API_PATHS = {
   LOGIN: "api/login",
   ADDRESS: "api/address",
+  ALL_ADDRESS: "api/all-address",
   COUPON: "api/coupon",
   PACKAGE: "api/package",
   PACKAGE_LIST: "api/package",
