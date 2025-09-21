@@ -1,6 +1,6 @@
 import { GENERIC_ERROR_MESSAGE } from '@/constants/error-message';
 import { HTTP_CODE } from '@/constants/http-codes';
-import { getAllLocations, getLocations } from '@/services/apiService';
+import { getAllLocations } from '@/services/apiService';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, useReactTable, type ColumnDef, type Row, type SortingState, type VisibilityState } from '@tanstack/react-table';
