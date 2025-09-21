@@ -7,6 +7,7 @@ import RightBookingCard from "@/components/RightBookingCard";
 import Clients from "@/components/Clients";
 import CTA from "@/components/CTA";
 import waves from "../assets/images/Waves.png";
+import { minutesToHourMinuteString } from "@/utils/common-function";
 
 function ItineraryCardPage() {
     const { packageId } = useParams();
@@ -85,7 +86,7 @@ function ItineraryCardPage() {
                                         </p>
                                         <div className="flex items-center gap-2 text-sm mt-2">
                                             <span role="img" aria-label="clock">🕒</span>
-                                            <span>{packageData?.duration} Hours</span>
+                                            <span>{minutesToHourMinuteString(packageData?.duration)}</span>
                                         </div>
                                     </div>
 
