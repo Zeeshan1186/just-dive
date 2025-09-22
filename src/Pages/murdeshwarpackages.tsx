@@ -11,7 +11,7 @@ import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { minutesToHourMinuteString } from "@/utils/common-function";
 
-export default function ScubaPackages() {
+export default function murdeshwarpackages() {
     const [packages, setPackages] = useState<any[]>([]);
 
     useEffect(() => {
@@ -75,7 +75,7 @@ export default function ScubaPackages() {
                                     <Link to={`/booking/${pkg.id}`}>
                                         <Button
                                             variant="outline"
-                                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                            className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                         >
                                             Book Now
                                         </Button>
@@ -85,7 +85,7 @@ export default function ScubaPackages() {
                                     <Link to={`/itinerary/${pkg.id}`}>
                                         <Button
                                             variant="outline"
-                                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                            className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                         >
                                             Know More
                                         </Button>

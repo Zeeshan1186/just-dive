@@ -11,7 +11,7 @@ export default function Footer() {
                     <h4 className="font-semibold mb-3 text-lg">Home</h4>
                     <ul className="space-y-3 text-sm text-gray-300">
                         <li><Link to="/aboutus">About Us</Link></li>
-                        <li><Link to="/scubapackages">Packages</Link></li>
+                        <li><Link to="/murdeshwarpackages">Packages</Link></li>
                         <li><Link to="/blogs">Blog</Link></li>
                         <li><Link to="/media">Media</Link></li>
                     </ul>
@@ -41,10 +41,10 @@ export default function Footer() {
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                         <p className="font-medium mb-2 sm:mb-0">Follow Us</p>
                         <div className="flex justify-center sm:justify-start space-x-3 ml-4">
-                            <Link to="https://instagram.com" target="_blank" className="p-1 bg-white text-[#C3A357] rounded-md">
+                            <Link to="https://www.instagram.com/justdive/" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
                                 <Instagram size={20} />
                             </Link>
-                            <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#C3A357] rounded-md">
+                            <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
                                 <Facebook size={20} />
                             </Link>
                         </div>
@@ -55,7 +55,7 @@ export default function Footer() {
             {/* Bottom Bar */}
             <div className="Poppins border-t border-gray-700 mt-10 pt-6 flex flex-col sm:flex-row justify-between items-center text-sm text-gray-400 text-center sm:text-left">
                 <p className="mb-2 sm:mb-0">Copyright ©2025 JUST DIVE. All rights reserved.</p>
-                <p>Design by Excit Systems</p>
+                <p>Design by Excite Systems</p>
             </div>
         </footer>
     );

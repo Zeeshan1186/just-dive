@@ -157,7 +157,7 @@ export default function AddCoupon() {
                                         <Button
                                             type="button"
                                             variant="outline"
-                                            className="text-xs"
+                                            className="text-xs cursor-pointer"
                                             onClick={() => {
                                                 const coupon = generateCouponCode();
                                                 form.setValue("name", coupon, { shouldValidate: true });
@@ -331,11 +331,11 @@ export default function AddCoupon() {
 
                     {/* Submit Button */}
                     <div className="flex justify-end gap-4">
-                        <Button type="submit" disabled={isLoading} className="bg-[#509CDB] text-white">
+                        <Button type="submit" disabled={isLoading} className="bg-[#509CDB] cursor-pointer text-white">
                             Submit {isLoading ? <Loader2 className="w-5 animate-spin" /> : <ArrowUp />}
                         </Button>
                         <Button type="button" disabled={isLoading} onClick={() => { navigate('/admin/coupon') }}
-                            className="bg-[#152259] text-white">
+                            className="bg-[#152259] cursor-pointer text-white">
                             Cancel
                         </Button>
                     </div>

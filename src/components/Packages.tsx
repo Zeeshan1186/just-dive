@@ -15,10 +15,11 @@ import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { minutesToHourMinuteString } from "@/utils/common-function";
+import type { IPackage } from "@/interface/package";
 
 export default function Packages() {
     const { api, setApi } = useCarousel();
-    const [packages, setPackages] = useState<any[]>([]);
+    const [packages, setPackages] = useState<IPackage[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -34,6 +35,13 @@ export default function Packages() {
 
         fetchPackages();
     }, []);
+
+    const book = (packageData: IPackage) => {
+        localStorage.setItem("selectedLocation", packageData.location.location_name);
+        localStorage.setItem("selectedPackageId", packageData.id.toString());
+        localStorage.setItem("selectedPackageName", packageData.name);
+        navigate(`/booking/${packageData.id}`);
+    }
 
     // Limit to first 4 packages
     const displayedPackages = packages.slice(0, 4);
@@ -98,19 +106,20 @@ export default function Packages() {
                                             <FancyButton />
                                         </div> */}
 
-                                        <Link to={`/booking/${pkg.id}`}>
-                                            <Button
-                                                variant="outline"
-                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
-                                            >
-                                                Book Now
-                                            </Button>
-                                        </Link>
+                                        {/* <Link to={`/booking/${pkg.id}`}> */}
+                                        <Button
+                                            onClick={() => book(pkg)}
+                                            variant="outline"
+                                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                        >
+                                            Book Now
+                                        </Button>
+                                        {/* </Link> */}
 
                                         <Link to={`/itinerary/${pkg.id}`}>
                                             <Button
                                                 variant="outline"
-                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                                className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                             >
                                                 Know More
                                             </Button>
@@ -124,7 +133,7 @@ export default function Packages() {
                     {/* View More Card */}
                     <CarouselItem className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4">
                         <div
-                            onClick={() => navigate("/scubapackages")}
+                            onClick={() => navigate("/murdeshwarpackages")}
                             className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-4 sm:p-8 group bg-white cursor-pointer rounded-2xl hover:shadow-xl"
                         >
                             <p className="text-base sm:text-lg font-normal Poppins text-[#0191e9] group-hover:underline">
@@ -132,7 +141,7 @@ export default function Packages() {
                             </p>
                             <Button
                                 variant="outline"
-                                className="mt-3 sm:mt-4 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                className="mt-3 sm:mt-4 cursor-pointer text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                             >
                                 Explore All
                             </Button>

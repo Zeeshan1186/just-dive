@@ -46,7 +46,7 @@ export function ConfirmationDialog({
     buttonStyle?: any;
     cancelButtonStyle?: any;
 }) {
-    const DESKTOP_BREAKPOINT = "(min-width: 768px)"
+    const DESKTOP_BREAKPOINT = "(min-width: 768px)";
     const isDesktop = useMediaQuery({ query: DESKTOP_BREAKPOINT });
 
     if (isDesktop) {
@@ -61,7 +61,7 @@ export function ConfirmationDialog({
                     </DialogHeader>
                     <div className="flex gap-2 justify-end">
                         <Button variant={"outline"} onClick={() => setIsOpen(false)}
-                            className={`${cancelButtonStyle}`}
+                            className={`${cancelButtonStyle} cursor-pointer`}
                         >
                             Cancel
                         </Button>
@@ -69,7 +69,7 @@ export function ConfirmationDialog({
                             variant={successVariant}
                             disabled={isLoading || isDisabled}
                             onClick={() => successAction()}
-                            className={`${buttonStyle}`}
+                            className={`${buttonStyle} cursor-pointer`}
                         >
                             {isLoading ? (
                                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -93,13 +93,13 @@ export function ConfirmationDialog({
                     <Button
                         variant={"outline"}
                         onClick={() => setIsOpen(false)}
-                        className={`${cancelButtonStyle} w-full`}
+                        className={`${cancelButtonStyle} w-full cursor-pointer`}
                     >
                         Cancel
                     </Button>
                     <Button
                         variant={successVariant}
-                        className={`${buttonStyle} w-full`}
+                        className={`${buttonStyle} w-full cursor-pointer`}
                         disabled={isLoading || isDisabled}
                         onClick={() => successAction()}
                     >

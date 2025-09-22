@@ -19,6 +19,7 @@ import { getPackageById } from "../services/apiService";
 import { applyCoupon } from "../services/apiService";
 import { postBooking } from "../services/apiService";
 import { Input } from "./ui/input";
+import { useNavigate } from "react-router-dom";
 
 const BookingForm = () => {
     const [selectedDate, setSelectedDate] = useState("");
@@ -38,7 +39,12 @@ const BookingForm = () => {
     const [nationality, setNationality] = useState("");
     const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
     const [applyingCoupon, setApplyingCoupon] = useState(false);
+    const [errors, setErrors] = useState<{ whatsapp?: string; email?: string }>({});
+    const [isValid, setIsValid] = useState(false);
+    const [touched, setTouched] = useState<{ whatsapp?: boolean; email?: boolean }>({});
+    // const [isLoading ]
     const [gst, setGst] = useState("0.00");
+    const navigate = useNavigate();
 
     // ✅ Move summaryData here so it's available in JSX
     const summaryData = [
@@ -47,6 +53,35 @@ const BookingForm = () => {
         { label: "Discount", value: discount },
         { label: "Grand Total", value: grandTotal },
     ];
+
+    const validateField = (field: string, value: string) => {
+        switch (field) {
+            case "whatsapp":
+                if (!value) return "WhatsApp number is required";
+                if (!/^\d{10}$/.test(value)) return "WhatsApp number must be exactly 10 digits and only numbers";
+                return "";
+            case "email":
+                if (!value) return "Email is required";
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) return "Invalid email address";
+                return "";
+            default:
+                return "";
+        }
+    };
+
+    // Validate on every change
+    useEffect(() => {
+        const whatsappError = validateField("whatsapp", whatsapp);
+        const emailError = validateField("email", email);
+
+        setErrors({
+            whatsapp: whatsappError,
+            email: emailError,
+        });
+
+        // Form is valid if no errors
+        setIsValid(!whatsappError && !emailError);
+    }, [whatsapp, email]);
 
     useEffect(() => {
         const storedPackageId = localStorage.getItem("selectedPackageId");
@@ -161,9 +196,20 @@ const BookingForm = () => {
 
             await postBooking(formData);
             alert("Booking submitted successfully!");
+            navigate('/');
         } catch (error) {
             console.error("Booking failed:", error);
             alert("Booking failed. Please check the required fields.");
+        }
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        setTouched({ whatsapp: true, email: true });
+        if (isValid) {
+            handleBookingSubmit();
+        } else {
+            console.log("Form has errors:", errors);
         }
     };
 
@@ -219,9 +265,12 @@ const BookingForm = () => {
                                 className="w-full text-[#2e2e2e] placeholder:text-[#a2a2a2] focus:outline-none focus:ring-0 focus:border-transparent"
                                 value={whatsapp}
                                 onChange={(e) => setWhatsapp(e.target.value)}
+                                onBlur={() => setTouched((prev) => ({ ...prev, whatsapp: true }))}
                             />
-
                         </div>
+                        {touched.whatsapp && errors.whatsapp && (
+                            <span className="text-red-500 text-sm">{errors.whatsapp}</span>
+                        )}
                     </div>
 
                     {/* Email */}
@@ -234,8 +283,12 @@ const BookingForm = () => {
                                 className="w-full text-[#2e2e2e] placeholder:text-[#a2a2a2] focus:outline-none focus:ring-0 focus:border-transparent"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
                             />
                         </div>
+                        {touched.email && errors.email && (
+                            <span className="text-red-500 text-sm">{errors.email}</span>
+                        )}
                     </div>
 
                     {/* Age and Gender */}
@@ -395,7 +448,7 @@ const BookingForm = () => {
                             disabled={
                                 !fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
                             }
-                            onClick={handleBookingSubmit}
+                            onClick={handleSubmit}
                             className={`flex items-center justify-center gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
                                 ? "bg-[#0191e9] opacity-50 cursor-not-allowed"
                                 : "bg-[#0191e9] hover:opacity-90 cursor-pointer"

@@ -77,7 +77,7 @@ function Clients() {
                 {/* Custom Arrows */}
                 <button
                     onClick={() => api?.scrollPrev()}
-                    className="absolute left-2 sm:left-[-20px] text-[#C3A357] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2"
+                    className="absolute left-2 sm:left-[-20px] cursor-pointer text-[#C3A357] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2"
                 >
                     <ChevronLeft
                         size={window.innerWidth >= 640 ? 55 : 30}
@@ -86,7 +86,7 @@ function Clients() {
                 </button>
                 <button
                     onClick={() => api?.scrollNext()}
-                    className="absolute right-2 sm:right-[-20px] text-[#C3A357] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2"
+                    className="absolute right-2 sm:right-[-20px] cursor-pointer text-[#C3A357] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2"
                 >
                     <ChevronRight
                         size={window.innerWidth >= 640 ? 55 : 30}

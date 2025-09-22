@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod'
+import { z } from 'zod';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '../ui/form';
 import { applyCoupon, getactivePackages, getPackageById, getPackageSlotsByDate, postBooking } from '@/services/apiService';
 import { HttpStatusCode } from 'axios';
@@ -29,7 +29,7 @@ const schema = z.object({
     nationality: z.string().min(1, "Nationality is required"),
     dateOfScuba: z.string().min(1, "Date is required"),
     document: z.any().optional(),
-})
+});
 
 export default function AddAdminBooking() {
     const form = useForm<z.infer<typeof schema>>({
@@ -47,7 +47,7 @@ export default function AddAdminBooking() {
         },
     });
 
-    type FormData = z.infer<typeof schema>
+    type FormData = z.infer<typeof schema>;
     const navigate = useNavigate();
     const [packages, setPackages] = useState<IPackage[]>([]);
     const [dynamicSlots, setDynamicSlots] = useState<any[]>([]);
@@ -58,7 +58,7 @@ export default function AddAdminBooking() {
     const [grandTotal, setGrandTotal] = useState("0.00");
     const [couponId, setCouponId] = useState<Number | undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [applyingCoupon, ] = useState(false);
+    const [applyingCoupon,] = useState(false);
     const [couponError, setCouponError] = useState("");
     const date = form.watch('dateOfScuba');
     const selectedPackage = form.watch('package_id');
@@ -132,7 +132,7 @@ export default function AddAdminBooking() {
         } catch (error) {
             console.log('error occur in package:', error);
         }
-    }
+    };
 
     const fetchSlotsAndSeats = async () => {
         if (selectedPackage && date) {
@@ -194,7 +194,7 @@ export default function AddAdminBooking() {
         } finally {
             setIsLoading(false);
         }
-    }
+    };
 
     useEffect(() => {
         packageAPI();
@@ -254,7 +254,7 @@ export default function AddAdminBooking() {
                                             <Button
                                                 variant="outline"
                                                 className={cn(
-                                                    "w-full justify-start text-left font-normal bg-white",
+                                                    "w-full justify-start cursor-pointer text-left font-normal bg-white",
                                                     !field.value && "text-muted-foreground"
                                                 )}
                                             >
@@ -606,7 +606,7 @@ export default function AddAdminBooking() {
                     }
 
                     <div className=''>
-                        <Button type="submit" disabled={isLoading} className="mr-4 bg-[#509CDB] hover:bg-[#509CDB]">
+                        <Button type="submit" disabled={isLoading} className="mr-4 cursor-pointer bg-[#509CDB] hover:bg-[#509CDB]">
                             {isLoading ? (
                                 <div className="flex items-center">
                                     Submitting
@@ -616,13 +616,13 @@ export default function AddAdminBooking() {
                                 "Submit"
                             )}
                         </Button>
-                        <Button type="button" disabled={isLoading} onClick={() => { navigate('/admin/booking') }}
-                            className="bg-[#152259] hover:bg-[#152259] text-white">
+                        <Button type="button" disabled={isLoading} onClick={() => { navigate('/admin/booking'); }}
+                            className="bg-[#152259] cursor-pointer hover:bg-[#152259] text-white">
                             Cancel
                         </Button>
                     </div>
                 </form>
             </Form>
         </div>
-    )
+    );
 }

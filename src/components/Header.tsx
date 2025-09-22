@@ -136,11 +136,11 @@ export default function Header() {
 
                 {/* Right side icons */}
                 <div className="hidden md:flex items-center space-x-4">
-                    <a href="tel:8482911183" aria-label="Call us">
+                    <a href="tel:87624 12121" aria-label="Call us">
                         <Phone className="textgolden cursor-pointer" size={20} />
                     </a>
                     <Link to="/booking">
-                        <Button className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2">
+                        <Button className="text-white font-normal cursor-pointer bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2">
                             Book Now
                         </Button>
                     </Link>
@@ -198,7 +198,7 @@ export default function Header() {
                             <Phone className="textgolden" size={20} />
                         </a>
                         <Link to="/booking">
-                            <Button className="bg-[#0191e9] text-white px-4 py-2 rounded-full text-sm">
+                            <Button className="bg-[#0191e9] cursor-pointer text-white px-4 py-2 rounded-full text-sm">
                                 Book Now
                             </Button>
                         </Link>

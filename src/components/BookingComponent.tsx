@@ -285,7 +285,7 @@ export default function BookingComponent() {
                         </select>
                         <Button
                             disabled={!selectedLocation}
-                            className="bg-[#0191e9] text-white w-full"
+                            className="bg-[#0191e9] cursor-pointer text-white w-full"
                             onClick={() => {
                                 if (selectedLocation) {
                                     localStorage.setItem("selectedLocation", selectedLocation);
@@ -330,10 +330,10 @@ export default function BookingComponent() {
                                     </div>
                                 </div>
                                 <div className="flex justify-between gap-2">
-                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
+                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Cancel
                                     </Button>
-                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
+                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Next
                                     </Button>
                                 </div>
@@ -352,10 +352,10 @@ export default function BookingComponent() {
                                     onChange={(e) => setParticipants(e.target.value)}
                                 />
                                 <div className="flex justify-between gap-2">
-                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
+                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Cancel
                                     </Button>
-                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
+                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
                                         Next
                                     </Button>
                                 </div>

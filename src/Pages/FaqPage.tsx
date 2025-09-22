@@ -80,7 +80,7 @@ function FaqPage() {
                         >
                             <button
                                 onClick={() => toggleAccordion(idx)}
-                                className="w-full flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-sm sm:text-base"
+                                className="w-full flex items-center cursor-pointer justify-between px-3 sm:px-4 py-2 sm:py-3 text-left font-semibold text-sm sm:text-base"
                             >
                                 <span>{item.title}</span>
                                 {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}

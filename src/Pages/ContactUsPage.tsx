@@ -9,17 +9,39 @@ import { Button } from "@/components/ui/button";
 import { sendContactForm } from "../services/apiService";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+    Name: z.string().min(1, 'Name is required'),
+    EmailAddress: z.string().min(1, 'Email is required').email("Invalid email address"),
+    phone: z.string()
+        .min(1, "Phone number is required") // required check
+        .regex(/^\d{10}$/, "Phone number must be 10 digits and contain only numbers"),
+    message: z.string().min(1, 'Message is required'),
+    policy: z.literal(true, {
+        errorMap: () => ({ message: "Please accept the privacy policy" }),
+    }),
+});
 
 const ContactUsPage = () => {
+    type ContactFormData = z.infer<typeof formSchema>;
     const {
         register,
         handleSubmit,
         formState: { errors, isValid },
         reset,
-    } = useForm({
+    } = useForm<ContactFormData>({
+        resolver: zodResolver(formSchema),
         mode: "onChange",
+        defaultValues: {
+            Name: "",
+            EmailAddress: "",
+            phone: "",
+            message: "",
+            policy: undefined,
+        },
     });
-
     const [loading, setLoading] = useState(false);
 
     const onSubmit = async (data: any) => {
@@ -112,22 +134,22 @@ const ContactUsPage = () => {
                                     <input
                                         type="text"
                                         placeholder="Name"
-                                        {...register("Name", { required: true })}
+                                        {...register("Name")}
                                         className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                     />
                                     {errors.Name && (
-                                        <span className="text-red-500 text-sm">Name is required</span>
+                                        <span className="text-red-500 text-sm">{errors.Name.message}</span>
                                     )}
                                 </div>
                                 <div className="w-full">
                                     <input
                                         type="email"
                                         placeholder="Email Address"
-                                        {...register("EmailAddress", { required: true })}
+                                        {...register("EmailAddress")}
                                         className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                     />
                                     {errors.EmailAddress && (
-                                        <span className="text-red-500 text-sm">Email Address is required</span>
+                                        <span className="text-red-500 text-sm">{errors.EmailAddress.message}</span>
                                     )}
                                 </div>
                             </div>
@@ -137,11 +159,11 @@ const ContactUsPage = () => {
                                 <input
                                     type="tel"
                                     placeholder="(+91) 0000-0000-00"
-                                    {...register("phone", { required: true })}
+                                    {...register("phone")}
                                     className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md"
                                 />
                                 {errors.phone && (
-                                    <span className="text-red-500 text-sm">Phone number is required</span>
+                                    <span className="text-red-500 text-sm">{errors.phone.message}</span>
                                 )}
                             </div>
 
@@ -149,11 +171,11 @@ const ContactUsPage = () => {
                             <div>
                                 <textarea
                                     placeholder="Tell us what we can help you with"
-                                    {...register("message", { required: true })}
+                                    {...register("message")}
                                     className="w-full p-3 border placeholder:text-[#bbb] border-[#dedede] shadow-sm rounded-md h-32"
                                 ></textarea>
                                 {errors.message && (
-                                    <span className="text-red-500 text-sm">Message is required</span>
+                                    <span className="text-red-500 text-sm">{errors.message.message}</span>
                                 )}
                             </div>
 
@@ -161,7 +183,7 @@ const ContactUsPage = () => {
                             <div className="flex items-start gap-2">
                                 <input
                                     type="checkbox"
-                                    {...register("policy", { required: true })}
+                                    {...register("policy")}
                                     className="w-4 h-4 mt-1"
                                 />
                                 <label className="text-sm text-gray-600">
@@ -170,15 +192,15 @@ const ContactUsPage = () => {
                                 </label>
                             </div>
                             {errors.policy && (
-                                <span className="text-red-500 text-sm">Please accept the privacy policy</span>
+                                <span className="text-red-500 text-sm">{errors.policy.message}</span>
                             )}
 
                             {/* Submit Button */}
                             <Button
                                 type="submit"
-                                disabled={!isValid || loading}
+                                disabled={loading}
                                 className={`w-full sm:w-auto font-normal text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
-                                    ? "bg-[#0191e9] text-white opacity-70 cursor-not-allowed"
+                                    ? "bg-[#0191e9] text-white "
                                     : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border border-[#0191e9]"
                                     }`}
                             >

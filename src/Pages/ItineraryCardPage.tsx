@@ -190,7 +190,7 @@ function ItineraryCardPage() {
                                             <div key={idx} className="border rounded bg-[#0191e9] text-white overflow-hidden">
                                                 <button
                                                     onClick={() => toggleAccordion(idx)}
-                                                    className="w-full flex items-center justify-between px-3 sm:px-4 py-3 text-left font-semibold"
+                                                    className="w-full flex cursor-pointer items-center justify-between px-3 sm:px-4 py-3 text-left font-semibold"
                                                 >
                                                     <span>{item.title}</span>
                                                     {isOpen ? <ChevronUp /> : <ChevronDown />}
@@ -227,7 +227,7 @@ function ItineraryCardPage() {
                         {/* Right Sticky Booking */}
                         <div className="hidden lg:block w-full lg:w-[30%] pl-0 lg:pl-10">
                             <div className="sticky top-20">
-                                <RightBookingCard />
+                                <RightBookingCard packageData={packageData} />
                             </div>
                         </div>
                     </div>

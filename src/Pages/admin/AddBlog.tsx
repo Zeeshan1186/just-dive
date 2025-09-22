@@ -265,7 +265,7 @@ const AddBlog = () => {
                             </Button> */}
                             <Button
                                 type="button"
-                                className="bg-[#509CDB] hover:bg-[#509CDB] text-white"
+                                className="bg-[#509CDB] cursor-pointer hover:bg-[#509CDB] text-white"
                                 onClick={handleBlogImageClick}
                             >
                                 <Plus className="h-4 w-4 mr-1" /> Change Image
@@ -319,7 +319,7 @@ const AddBlog = () => {
                             </Button> */}
                             <Button
                                 type="button"
-                                className="bg-[#509CDB] hover:bg-[#509CDB] text-white"
+                                className="bg-[#509CDB] cursor-pointer hover:bg-[#509CDB] text-white"
                                 onClick={handleAuthorImageClick}
                             >
                                 <Plus className="h-4 w-4 mr-1" /> Change Image

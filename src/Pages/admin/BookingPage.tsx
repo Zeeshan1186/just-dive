@@ -62,7 +62,7 @@ export default function AdminBookingPage() {
                 return (
                     <Button
                         variant="ghost"
-                        className="hover:text-primary hover:cursor-pointer hover:bg-transparent"
+                        className="hover:text-primary cursor-pointer hover:cursor-pointer hover:bg-transparent"
                         onClick={() => column.toggleSorting(isSorted === "asc")}
                     >
                         <ArrowUpDown className="mr-2 h-4 w-4" />
@@ -298,13 +298,13 @@ export default function AdminBookingPage() {
                         </SelectContent>
                     </Select>
                     {selectedPackage && (
-                        <Button size="icon" onClick={() => setSelectedPackage("")} className="bg-destructive">
+                        <Button size="icon" onClick={() => setSelectedPackage("")} className="bg-destructive cursor-pointer">
                             <X className="h-5 w-5" />
                         </Button>
                     )}
                     <Tooltip>
                         <TooltipTrigger asChild>
-                            <Button size="icon" onClick={handleDownload} className="bg-white border hover:bg-white">
+                            <Button size="icon" onClick={handleDownload} className="bg-white border cursor-pointer hover:bg-white">
                                 <FileSpreadsheet className="text-green-500" />
                             </Button>
                         </TooltipTrigger>
@@ -332,6 +332,7 @@ export default function AdminBookingPage() {
                             <Button
                                 variant="outline"
                                 size="sm"
+                                className='cursor-pointer'
                                 onClick={() => table.previousPage()}
                                 disabled={!table.getCanPreviousPage()}
                             >
@@ -340,6 +341,7 @@ export default function AdminBookingPage() {
                             <Button
                                 variant="outline"
                                 size="sm"
+                                className='cursor-pointer'
                                 onClick={() => table.nextPage()}
                                 disabled={!table.getCanNextPage()}
                             >
