@@ -119,7 +119,7 @@ export default function Banner() {
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
-                                    className="flex-1 sm:w-52 bg-white font-normal text-black px-4 py-2 rounded-full animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
+                                    className="flex-1 sm:w-52 cursor-pointer bg-white font-normal text-black px-4 py-2 rounded-full animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 >
                                     {selectedLocation ? selectedLocation : "Select Location"}
                                     <ChevronDown className="ml-2" />
@@ -161,7 +161,7 @@ export default function Banner() {
                             <PopoverTrigger asChild>
                                 <Button
                                     variant="outline"
-                                    className="flex-1 sm:w-auto min-w-[10rem] bg-white text-black font-normal px-4 py-2 rounded-full flex items-center justify-between animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
+                                    className="flex-1 sm:w-auto min-w-[10rem] bg-white cursor-pointer text-black font-normal px-4 py-2 rounded-full flex items-center justify-between animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 >
                                     {date ? format(date, "PPP") : "Choose Date"}
                                     <CalendarIcon className="ml-2 h-4 w-4 shrink-0" />
@@ -205,7 +205,7 @@ export default function Banner() {
                         <Button
                             disabled={!selectedLocation || !date}
                             className={cn(
-                                "w-full sm:w-auto text-white font-normal rounded-full text-sm px-4 py-2 transition",
+                                "w-full sm:w-auto text-white font-normal cursor-pointer rounded-full text-sm px-4 py-2 transition",
                                 "bg-[#0191e9] hover:text-[#fff] hover:bg-transparent hover:border border-[#fff]",
                                 (!selectedLocation || !date) && "opacity-50 cursor-not-allowed"
                             )}

@@ -11,7 +11,7 @@ import { RootLayout } from './layouts/RootLayouts';
 import DashboardPage from './Pages/admin/DashboardPage';
 import PrivateLayout from './layouts/PrivateLayout';
 import Faq from './Pages/FaqPage';
-import ScubaPackages from './Pages/ScubaPackages';
+import ScubaPackages from './Pages/murdeshwarpackages';
 import ContactUsPage from './Pages/ContactUsPage';
 import ThankYouMessage from './components/ThankYouMessage';
 import LocationPage from './Pages/admin/LocationPage';
@@ -39,6 +39,7 @@ import ReportPage from './Pages/admin/ReportPage';
 import BlogsCategories from './Pages/admin/BlogsCategories';
 import CategoryBlogsPage from './Pages/CategoryBlogsPage';
 import ScrollToTop from './components/ScrollToTop';
+import Murdeshwar from './Pages/Murdeshwar';
 
 const App: React.FC = () => {
   return (
@@ -84,7 +85,8 @@ const App: React.FC = () => {
           <Route path="/admin/Termscondition" element={<TermsCondition />} />
         </Route>
         <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
-        <Route path="/scubapackages" element={<ScubaPackages />} />
+        <Route path="/murdeshwar" element={<Murdeshwar />} />
+        <Route path="/murdeshwarpackages" element={<ScubaPackages />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
         <Route path="/blogs" element={<Blogs />} />
         <Route path="/blogs/category/:categoryId" element={<CategoryBlogsPage />} />

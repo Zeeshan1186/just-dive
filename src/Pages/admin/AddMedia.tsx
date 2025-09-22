@@ -176,7 +176,7 @@ export default function AddMedia({ onMediaUploaded }: { onMediaUploaded?: () => 
                                                 <Button
                                                     type="button"
                                                     variant="ghost"
-                                                    className="absolute -top-2 -right-2 p-1 bg-white rounded-full shadow"
+                                                    className="absolute -top-2 -right-2 p-1 cursor-pointer bg-white rounded-full shadow"
                                                     onClick={(e) => {
                                                         e.stopPropagation();
                                                         handleRemoveImage(index);
@@ -202,7 +202,7 @@ export default function AddMedia({ onMediaUploaded }: { onMediaUploaded?: () => 
                             type="button"
                             onClick={onSubmit}
                             disabled={isUploading}
-                            className="mt-4 bg-[#232323] text-white hover:bg-white hover:text-[#232323] uppercase tracking-wide font-medium border hover:cursor-pointer"
+                            className="mt-4 bg-[#232323] cursor-pointer text-white hover:bg-white hover:text-[#232323] uppercase tracking-wide font-medium border hover:cursor-pointer"
                         >
                             {isUploading ? "Uploading..." : "Upload Images"}
                         </Button>
@@ -228,7 +228,7 @@ export default function AddMedia({ onMediaUploaded }: { onMediaUploaded?: () => 
                                 />
                                 <button
                                     onClick={() => handleDelete(img.id)}
-                                    className="absolute top-2 right-2 bg-white p-1 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
+                                    className="absolute cursor-pointer top-2 right-2 bg-white p-1 rounded-full shadow opacity-0 group-hover:opacity-100 transition"
                                 >
                                     <Trash2 className="text-red-500 h-5 w-5" />
                                 </button>

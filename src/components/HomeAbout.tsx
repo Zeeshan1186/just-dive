@@ -47,7 +47,7 @@ const HomeAbout = () => {
                 <div className="flex flex-col items-center sm:flex-row justify-around text-center gap-6 sm:gap-0">
                     <div>
                         <Link to={`/aboutus`}>
-                            <Button className="w-28 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
+                            <Button className="w-28 text-white  cursor-pointerfont-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                                 Read More
                             </Button>
                         </Link>

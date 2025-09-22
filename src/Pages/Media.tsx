@@ -63,7 +63,7 @@ const Media = () => {
                     {["images", "videos"].map((tab) => (
                         <button
                             key={tab}
-                            className={`px-6 py-2 rounded-full font-medium transition ${activeTab === tab
+                            className={`px-6 py-2 cursor-pointer rounded-full font-medium transition ${activeTab === tab
                                 ? "bg-[#0191e9] text-white"
                                 : "bg-transparent text-[#0191e9] border border-[#0191e9]"}`
                             }
@@ -114,7 +114,7 @@ const Media = () => {
                     onClick={() => setPopupImage(null)}
                 >
                     <button
-                        className="absolute top-2 right-4 text-white text-4xl font-bold hover:text-[#0191e9] transition z-50"
+                        className="absolute top-2 cursor-pointer right-4 text-white text-4xl font-bold hover:text-[#0191e9] transition z-50"
                         onClick={(e) => {
                             e.stopPropagation();
                             setPopupImage(null);

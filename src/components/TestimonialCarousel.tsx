@@ -121,7 +121,7 @@ export function TestimonialCarousel() {
                 {testimonials.map((t, index) => (
                   <button
                     key={index}
-                    className={`inline-flex items-center whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm shadow-sm transition-colors duration-150 ${index === active
+                    className={`inline-flex cursor-pointer items-center whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm shadow-sm transition-colors duration-150 ${index === active
                         ? "bg-[#0191e9] text-white shadow-indigo-950/10"
                         : "bg-white hover:bg-indigo-100 text-slate-900"
                       }`}

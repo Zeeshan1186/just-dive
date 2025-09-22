@@ -224,13 +224,13 @@ export default function BookingComponent() {
                                 <div className="flex justify-between">
                                     <Button
                                         onClick={() => setPopupStep(0)}
-                                        className="w-1/2 mr-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 mr-2 text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         onClick={handleNext}
-                                        className="w-1/2 ml-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 ml-2 text-white font-normal cursor-pointer bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Next
                                     </Button>
@@ -252,13 +252,13 @@ export default function BookingComponent() {
                                 <div className="flex justify-between">
                                     <Button
                                         onClick={() => setPopupStep(0)}
-                                        className="w-1/2 mr-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 mr-2 text-white font-normal cursor-pointer bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Cancel
                                     </Button>
                                     <Button
                                         onClick={handleNext}
-                                        className="w-1/2 ml-2 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
+                                        className="w-1/2 ml-2 text-white font-normal cursor-pointer bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
                                     >
                                         Next
                                     </Button>

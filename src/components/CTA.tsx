@@ -21,7 +21,7 @@ function CTA() {
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">
                         <Link to={`/contactus`}>
-                            <Button className="text-white font-normal bg-[#0191e9] hover:text-white hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
+                            <Button className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-white hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                                 Contact Us
                             </Button>
                         </Link>

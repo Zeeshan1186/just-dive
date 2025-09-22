@@ -189,7 +189,7 @@ function ItineraryCardPage() {
                                             <div key={idx} className="border rounded bg-[#0191e9] text-white overflow-hidden">
                                                 <button
                                                     onClick={() => toggleAccordion(idx)}
-                                                    className="w-full flex items-center justify-between px-3 sm:px-4 py-3 text-left font-semibold"
+                                                    className="w-full flex cursor-pointer items-center justify-between px-3 sm:px-4 py-3 text-left font-semibold"
                                                 >
                                                     <span>{item.title}</span>
                                                     {isOpen ? <ChevronUp /> : <ChevronDown />}

@@ -177,7 +177,7 @@ const ContactUsPage = () => {
                             <Button
                                 type="submit"
                                 disabled={!isValid || loading}
-                                className={`w-full sm:w-auto font-normal text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
+                                className={`w-full sm:w-auto font-normal cursor-pointer text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
                                     ? "bg-[#0191e9] text-white opacity-70 cursor-not-allowed"
                                     : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border border-[#0191e9]"
                                     }`}

@@ -99,7 +99,7 @@ export default function Packages() {
                                         <Link to={`/booking/${pkg.id}`}>
                                             <Button
                                                 variant="outline"
-                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                                className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                             >
                                                 Book Now
                                             </Button>
@@ -108,7 +108,7 @@ export default function Packages() {
                                         <Link to={`/itinerary/${pkg.id}`}>
                                             <Button
                                                 variant="outline"
-                                                className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                                className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                             >
                                                 Know More
                                             </Button>
@@ -122,7 +122,7 @@ export default function Packages() {
                     {/* View More Card */}
                     <CarouselItem className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4">
                         <div
-                            onClick={() => navigate("/scubapackages")}
+                            onClick={() => navigate("/murdeshwarpackages")}
                             className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-4 sm:p-8 group bg-white cursor-pointer rounded-2xl hover:shadow-xl"
                         >
                             <p className="text-base sm:text-lg font-normal Poppins text-[#0191e9] group-hover:underline">
@@ -130,7 +130,7 @@ export default function Packages() {
                             </p>
                             <Button
                                 variant="outline"
-                                className="mt-3 sm:mt-4 text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                className="mt-3 sm:mt-4 cursor-pointer text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                             >
                                 Explore All
                             </Button>

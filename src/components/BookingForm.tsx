@@ -396,7 +396,7 @@ const BookingForm = () => {
                                 !fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
                             }
                             onClick={handleBookingSubmit}
-                            className={`flex items-center justify-center gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
+                            className={`flex items-center justify-center cursor-pointer gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
                                 ? "bg-[#0191e9] opacity-50 cursor-not-allowed"
                                 : "bg-[#0191e9] hover:opacity-90 cursor-pointer"
                                 } rounded-full text-sm px-4 py-3`}
