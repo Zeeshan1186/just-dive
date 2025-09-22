@@ -173,7 +173,7 @@ export default function BookingComponent() {
                                     onSelect={(selectedDate) => {
                                         setDate(selectedDate);
                                         if (selectedDate) {
-                                            localStorage.setItem("selectedDate", format(selectedDate, "yyyy/MM/dd"));
+                                            localStorage.setItem("selectedDate", format(selectedDate, "yyyy-MM-dd"));
                                         }
                                     }}
                                     initialFocus
