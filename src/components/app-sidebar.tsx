@@ -52,7 +52,7 @@ const initialData = [
         url: "/admin/report",
     },
     {
-        title: "Manage Terms/Condition",
+        title: "Manage Policies",
         url: "/admin/Termscondition",
     },
     {

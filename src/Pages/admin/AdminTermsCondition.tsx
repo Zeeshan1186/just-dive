@@ -17,10 +17,12 @@ import { toast } from "sonner";
 import { addTermscondition, updateTermscondition } from "@/services/apiService";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const schema = z.object({
     id: z.number().optional(), // Allow id for edit mode
     title: z.string().min(1, "Title is required"),
+    type: z.string().min(1, "Policy type is required"),
     descriptions: z.array(
         z.object({
             text: z.string().min(1, "Description is required"),
@@ -32,10 +34,14 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 export default function AdminTermsCondition() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const existingTerm = location.state as FormData | undefined;
     const form = useForm<FormData>({
         resolver: zodResolver(schema),
         defaultValues: {
             title: "",
+            type: existingTerm?.type || "",
             descriptions: [{ text: "" }],
         },
     });
@@ -50,12 +56,7 @@ export default function AdminTermsCondition() {
         name: "descriptions",
     });
     const { isSubmitting } = formState;
-    // Inside your component
-    const location = useLocation();
-    const navigate = useNavigate();
-
     // Get passed term data if present
-    const existingTerm = location.state as FormData | undefined;
 
     // Prefill form if editing
     useEffect(() => {
@@ -69,6 +70,7 @@ export default function AdminTermsCondition() {
             form.reset({
                 id: existingTerm.id,
                 title: existingTerm.title,
+                type: existingTerm.type.trim(),
                 descriptions: formattedDescriptions,
             });
 
@@ -76,11 +78,21 @@ export default function AdminTermsCondition() {
         }
     }, [existingTerm, form]);
 
+    useEffect(() => {
+        if (existingTerm?.type) {
+            form.setValue('type', existingTerm.type.trim());
+        }
+    }, [form, existingTerm?.type])
+
+    console.log('vall', form.getValues());
+
     const onSubmit = async (data: FormData) => {
         const payload = {
             title: data.title,
+            type: data.type,
             descriptions: data.descriptions.map((d) => d.text),
         };
+
 
         try {
             if (data.id) {
@@ -110,7 +122,7 @@ export default function AdminTermsCondition() {
 
     return (
         <div className="p-6 bg-white rounded-lg shadow">
-            <h2 className="text-2xl font-bold mb-4">{existingTerm ? "Edit" : "Add"} Terms And Conditions</h2>
+            <h2 className="text-2xl font-bold mb-4">{existingTerm ? "Edit" : "Add"} Policies</h2>
 
             <Form {...form}>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -123,6 +135,32 @@ export default function AdminTermsCondition() {
                                 <FormLabel>Title *</FormLabel>
                                 <FormControl>
                                     <Input {...field} placeholder="Enter title" />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={control}
+                        name="type"
+                        render={({ field }) => (
+                            <FormItem className="">
+                                <FormLabel>Policy Type *</FormLabel>
+                                <FormControl>
+                                    <Select
+                                        defaultValue={form.watch('type') || ""}
+                                        onValueChange={field.onChange}
+                                        value={field.value.trim() || form.watch('type')}
+                                    >
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select Policy" />
+                                        </SelectTrigger>
+                                        <SelectContent className="border border-gray-200">
+                                            <SelectItem value="Terms And Condition">Terms And Condition</SelectItem>
+                                            <SelectItem value="Privacy Policy">Privacy Policy</SelectItem>
+                                        </SelectContent>
+                                    </Select>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -182,7 +220,7 @@ export default function AdminTermsCondition() {
                                     <Loader2 className="w-4 h-4 animate-spin mr-2" /> Saving...
                                 </>
                             ) : (
-                                "Submit"
+                                existingTerm ? "Update" : "Submit"
                             )}
                         </Button>
 

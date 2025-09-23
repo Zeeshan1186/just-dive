@@ -4,10 +4,12 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Plus, Trash2, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 interface Term {
     id: number;
     title: string;
+    type: string;
     descriptions: string[];
     created_at: string;
     updated_at: string;
@@ -64,7 +66,7 @@ export default function TermsCondition() {
         <div className="px-4 py-10">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl sm:text-4xl Poppins font-bold mb-4">
-                    Terms and Conditions
+                    Policies
                 </h1>
 
 
@@ -74,13 +76,13 @@ export default function TermsCondition() {
                         onClick={() => navigate('/admin/AddTermscondition')}
                         className="bg-[#00228c] Poppins hover:[#00228c] text-white"
                     >
-                        <Plus className="mr-1" /> Add New Term
+                        <Plus className="mr-1" /> Add policy
                     </Button>
                 </div>
             </div>
 
             {loading ? (
-                <p className="text-gray-600">Loading Terms & Conditions...</p>
+                <p className="text-gray-600">Loading Policies...</p>
             ) : (
                 <>
                     {terms.map((term) => (
@@ -98,7 +100,12 @@ export default function TermsCondition() {
                             </p>
 
                             {/* Title */}
-                            <h2 className="text-2xl font-semibold Poppins mb-2">{term.title}</h2>
+                            <div className="flex mb-2 items-center">
+                                <h2 className="text-2xl font-semibold Poppins">{term.title}</h2>
+                                {term.type &&
+                                    <Badge className="ml-4 font-normal text-sm">{term.type}</Badge>
+                                }
+                            </div>
 
                             {/* Descriptions */}
                             <div className="text-gray-700 Poppins leading-relaxed space-y-3">
