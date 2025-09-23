@@ -70,7 +70,7 @@ export default function AdminTermsCondition() {
             form.reset({
                 id: existingTerm.id,
                 title: existingTerm.title,
-                type: existingTerm.type.trim(),
+                type: existingTerm.type,
                 descriptions: formattedDescriptions,
             });
 
@@ -78,13 +78,6 @@ export default function AdminTermsCondition() {
         }
     }, [existingTerm, form]);
 
-    useEffect(() => {
-        if (existingTerm?.type) {
-            form.setValue('type', existingTerm.type.trim());
-        }
-    }, [form, existingTerm?.type])
-
-    console.log('vall', form.getValues());
 
     const onSubmit = async (data: FormData) => {
         const payload = {
@@ -149,9 +142,8 @@ export default function AdminTermsCondition() {
                                 <FormLabel>Policy Type *</FormLabel>
                                 <FormControl>
                                     <Select
-                                        defaultValue={form.watch('type') || ""}
                                         onValueChange={field.onChange}
-                                        value={field.value.trim() || form.watch('type')}
+                                        value={field.value}
                                     >
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Select Policy" />
