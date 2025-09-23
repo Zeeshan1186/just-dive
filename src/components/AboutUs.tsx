@@ -29,7 +29,7 @@ function AboutUs() {
             <section className="py-10 px-4 sm:px-6 md:px-10 lg:px-20 bg-white">
                 <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
                     {/* Left Image */}
-                    <div className="w-full md:w-1/2 flex justify-center md:justify-start">
+                    <div className="hidden md:flex w-full md:w-1/2 justify-center md:justify-start">
                         <img
                             src={img1}
                             alt="scuba"

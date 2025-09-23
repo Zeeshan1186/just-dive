@@ -240,10 +240,11 @@ export default function Banner() {
                                     variant="outline"
                                     className="flex-1 sm:w-auto min-w-[10rem] bg-white cursor-pointer text-black font-normal px-4 py-2 rounded-full flex items-center justify-between animate-float hover:scale-105 hover:shadow-2xl transition-all duration-300"
                                 >
-                                    {date ? format(date, "PPP") : "Choose Date"}
+                                    <span className="truncate max-w-[80%]">{date ? format(date, "PPP") : "Choose Date"}</span>
                                     <CalendarIcon className="ml-2 h-4 w-4 shrink-0" />
                                 </Button>
                             </PopoverTrigger>
+
 
                             <AnimatePresence>
                                 {openDate && (
@@ -283,7 +284,7 @@ export default function Banner() {
                             disabled={!selectedLocation || !date}
                             className={cn(
                                 "w-full sm:w-auto text-white font-normal cursor-pointer rounded-full text-sm px-4 py-2 transition",
-                                "bg-[#0191e9] hover:text-[#fff] hover:bg-transparent hover:border border-[#fff]",
+                                "bg-[#0191e9] hover:text-[#fff] hover:bg-transparent hover:border border-[#810000]",
                                 (!selectedLocation || !date) && "opacity-50 cursor-not-allowed"
                             )}
                             onClick={() => {

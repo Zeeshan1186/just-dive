@@ -97,114 +97,90 @@ export default function WhyUs() {
 
                 {/* Team Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5 pb-10 px-4 sm:px-8">
+
                     {/* Team Member 1 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${SUSHIl})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${SUSHIl})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">SUSHIL KUMAR PILLAI</h3>
-                            <p className="text-sm">MANAGING PARTNER</p>
+                            <h3 className="text-lg font-semibold">Sushil Kumar Pillai</h3>
+                            <p className="text-sm">Managing partner</p>
                         </div>
                     </div>
 
                     {/* Team Member 2 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${ARVIND})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${ARVIND})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">ARVIND BHADRAN</h3>
-                            <p className="text-sm">FINANCE MANAGER</p>
+                            <h3 className="text-lg font-semibold">Arvind Bhadran</h3>
+                            <p className="text-sm">Finance manager</p>
                         </div>
                     </div>
 
                     {/* Team Member 3 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${SAINATH})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${SAINATH})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">SAINATH  S</h3>
-                            <p className="text-sm">DIVE OPERATION MANAGER</p>
+                            <h3 className="text-lg font-semibold">Sainath S</h3>
+                            <p className="text-sm">Dive operation manager</p>
                         </div>
                     </div>
 
                     {/* Team Member 4 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${HARIKRISHNAN})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${HARIKRISHNAN})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">HARIKRISHNAN</h3>
-                            <p className="text-sm">PADI DIVE INSTRUCTOR</p>
+                            <h3 className="text-lg font-semibold">Harikrishnan</h3>
+                            <p className="text-sm">PADI dive instructor</p>
                         </div>
                     </div>
 
                     {/* Team Member 5 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${VINOD})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${VINOD})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">VINOD KUMAR D</h3>
-                            <p className="text-sm">PADI DIVE INSTRUCTOR</p>
+                            <h3 className="text-lg font-semibold">Vinod Kumar D</h3>
+                            <p className="text-sm">PADI dive instructor</p>
                         </div>
                     </div>
 
                     {/* Team Member 6 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${BIMAL})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${BIMAL})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">BIMAL BIJU</h3>
-                            <p className="text-sm">PADI DIVE MASTER</p>
+                            <h3 className="text-lg font-semibold">Bimal Biju</h3>
+                            <p className="text-sm">PADI dive master</p>
                         </div>
                     </div>
 
                     {/* Team Member 7 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${DHANUSH})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${DHANUSH})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">DHANUSH  B</h3>
-                            <p className="text-sm">PADI DIVE MASTER</p>
+                            <h3 className="text-lg font-semibold">Dhanush B</h3>
+                            <p className="text-sm">PADI dive master</p>
                         </div>
                     </div>
 
                     {/* Team Member 8 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${MUHAMMAD})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${MUHAMMAD})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">MUHAMMAD FIROZ KHAN</h3>
-                            <p className="text-sm">PADI DIVE MASTER</p>
+                            <h3 className="text-lg font-semibold">Muhammad Firoz Khan</h3>
+                            <p className="text-sm">PADI dive master</p>
                         </div>
                     </div>
 
                     {/* Team Member 9 */}
-                    <div
-                        className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden"
-                        style={{ backgroundImage: `url(${ABHISHEK})` }}
-                    >
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${ABHISHEK})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
-                            <h3 className="text-lg font-semibold">ABHISHEK JAYAMON</h3>
-                            <p className="text-sm">PADI DIVE MASTER</p>
+                            <h3 className="text-lg font-semibold">Abhishek Jayamon</h3>
+                            <p className="text-sm">PADI dive master</p>
                         </div>
                     </div>
+
                 </div>
+
             </section>
         </>
     );
