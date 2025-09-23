@@ -19,7 +19,8 @@ export const API_PATHS = {
   BLOG: "/api/blog",
   ADDMEDIA: "/api/media",
   BOOKING_STATUS: (id: number) => `api/enable-disable/booking/${id}`,
-  TERMSCONDITION: "/api/terms-condition",
+  TERMSCONDITION: "/api/terms-condition?type=Terms And Condition",
+  PRIVACYPOLICY: "/api/terms-condition?type=Privacy Policy",
   DASHBOARD: "api/dashboard",
   REPORT: "api/report",
 };

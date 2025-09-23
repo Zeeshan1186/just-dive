@@ -192,6 +192,10 @@ export const deleteMedia = async (id: number) => {
   return await api.delete(`/api/media/${id}`);
 };
 
+export const getPrivacyPolicy = async () => {
+  return await api.get(`${API_PATHS.PRIVACYPOLICY}`);
+};
+
 export const getTermscondition = async () => {
   return await api.get(`${API_PATHS.TERMSCONDITION}`);
 };

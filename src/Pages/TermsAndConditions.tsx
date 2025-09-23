@@ -22,6 +22,7 @@ export default function TermsAndConditions() {
             setLoading(true);
             try {
                 const res = await getTermscondition();
+                console.log("Check respons:",res)
                 if (res.data.status === 200 && Array.isArray(res.data.data)) {
                     // Sort terms by updated_at descending (latest first)
                     const sortedTerms = [...res.data.data].sort(
