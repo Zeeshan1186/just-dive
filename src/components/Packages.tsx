@@ -64,7 +64,7 @@ export default function Packages() {
             <Carousel
                 opts={{ align: "start", loop: true }}
                 setApi={setApi}
-                className="w-full max-w-screen-xl mx-auto relative"
+                className="w-full max-w-screen-xl mx-auto relative z-40"
             >
                 <CarouselContent className="-ml-2 sm:-ml-4 mb-6 sm:mb-10">
                     {displayedPackages.map((pkg, index) => (

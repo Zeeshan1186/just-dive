@@ -77,7 +77,6 @@ export default function BookingComponent() {
     //         setShowLocationModal(true);
     //     }
     // }, []);
-// localStorage.clear()
 
     useEffect(() => {
         const savedLocation = localStorage.getItem("selectedLocation");
