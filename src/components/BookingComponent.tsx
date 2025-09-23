@@ -67,16 +67,41 @@ export default function BookingComponent() {
         fetchLocations();
     }, []);
 
+    // useEffect(() => {
+    //     const savedLocation = localStorage.getItem("selectedLocation");
+
+    //     if (savedLocation) {
+    //         setSelectedLocation(savedLocation);
+    //         setPopupStep(1);
+    //     } else {
+    //         setShowLocationModal(true);
+    //     }
+    // }, []);
+// localStorage.clear()
+
     useEffect(() => {
         const savedLocation = localStorage.getItem("selectedLocation");
+        const savedPackage = localStorage.getItem("selectedPackageId");
+        const savedParticipants = localStorage.getItem("participants");
 
-        if (savedLocation) {
-            setSelectedLocation(savedLocation);
-            setPopupStep(1);
-        } else {
+        // If any of the required data is missing, show popups
+        if (!savedLocation) {
             setShowLocationModal(true);
+        } else if (!savedPackage || !savedParticipants) {
+            setSelectedLocation(savedLocation);
+            setPopupStep(1); // Show package selection popup
+        } else {
+            // All required data exists, just set state to keep selections
+            setSelectedLocation(savedLocation);
+            setSelectedPackage(Number(savedPackage));
+            setParticipants(savedParticipants);
         }
+
+        const savedDate = localStorage.getItem("selectedDate");
+        if (savedDate) setDate(new Date(savedDate));
     }, []);
+
+
 
     useEffect(() => {
         const fetchPackages = async () => {
@@ -149,7 +174,7 @@ export default function BookingComponent() {
     return (
         <section className="w-full pb-5">
             <div
-                className="relative h-[50vh] sm:h-[60vh] md:h-[75vh] bg-cover bg-no-repeat bg-center"
+                className="relative h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/20" />
@@ -306,58 +331,98 @@ export default function BookingComponent() {
                     <div className="bg-white rounded-lg p-4 sm:p-6 w-full max-w-md shadow-lg text-center">
                         {popupStep === 1 && (
                             <>
-                                <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">Select Your Package</h3>
-                                <div className="flex justify-center items-center border-1 border-[#63636333] rounded-md p-2 mb-4 pl-0">
-                                    <div className="relative w-full">
-                                        <select
-                                            className="w-full text-[#2e2e2e] bg-white pl-2 rounded-md appearance-none focus:outline-none"
-                                            value={selectedPackage}
-                                            onChange={(e) => {
-                                                const value = e.target.value;
-                                                setSelectedPackage(value === "" ? "" : Number(value));
-                                            }}
-                                        >
-                                            <option value="">Select a package</option>
-                                            {packages.map((pkg) => (
-                                                <option key={pkg.id} value={pkg.id}>
-                                                    {pkg.name}
-                                                </option>
-                                            ))}
-                                        </select>
-                                        <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-400">
-                                            <ChevronDown />
+                                <div className="relative bg-white rounded-md">
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setPopupStep(0)}
+                                        className="absolute -top-5 right-0 text-gray-500 hover:text-[#000] text-xl font-bold"
+                                    >
+                                        ✕
+                                    </button>
+
+                                    {/* Popup Content */}
+                                    <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">
+                                        Select Your Package
+                                    </h3>
+
+                                    <div className="flex justify-center items-center border border-[#63636333] rounded-md p-2 mb-4 pl-0">
+                                        <div className="relative w-full">
+                                            <select
+                                                className="w-full text-[#2e2e2e] bg-white pl-2 rounded-md appearance-none focus:outline-none"
+                                                value={selectedPackage}
+                                                onChange={(e) => {
+                                                    const value = e.target.value;
+                                                    setSelectedPackage(value === "" ? "" : Number(value));
+                                                }}
+                                            >
+                                                <option value="">Select a package</option>
+                                                {packages.map((pkg) => (
+                                                    <option key={pkg.id} value={pkg.id}>
+                                                        {pkg.name}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center text-gray-400">
+                                                <ChevronDown />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="flex justify-between gap-2">
-                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
-                                        Cancel
-                                    </Button>
-                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
-                                        Next
-                                    </Button>
+
+                                    <div className="flex justify-between gap-2">
+                                        <Button
+                                            onClick={() => setPopupStep(0)}
+                                            className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]"
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            onClick={handleNext}
+                                            className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]"
+                                        >
+                                            Next
+                                        </Button>
+                                    </div>
                                 </div>
                             </>
                         )}
 
                         {popupStep === 2 && (
                             <>
-                                <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">Enter Number of Participants</h3>
-                                <input
-                                    type="number"
-                                    min="1"
-                                    className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
-                                    placeholder="Enter number of participants"
-                                    value={participants}
-                                    onChange={(e) => setParticipants(e.target.value)}
-                                />
-                                <div className="flex justify-between gap-2">
-                                    <Button onClick={() => setPopupStep(0)} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
-                                        Cancel
-                                    </Button>
-                                    <Button onClick={handleNext} className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]">
-                                        Next
-                                    </Button>
+                                <div className="relative bg-white rounded-md">
+                                    {/* Close Button */}
+                                    <button
+                                        onClick={() => setPopupStep(0)}
+                                        className="absolute -top-5 right-0 text-gray-500 hover:text-[#000] text-xl font-bold"
+                                    >
+                                        ✕
+                                    </button>
+
+                                    {/* Popup Content */}
+                                    <h3 className="text-xl sm:text-2xl font-normal mb-4 Trirong">
+                                        Enter Number of Participants
+                                    </h3>
+                                    <input
+                                        type="number"
+                                        min="1"
+                                        className="w-full border border-gray-300 rounded px-3 py-2 mb-4"
+                                        placeholder="Enter number of participants"
+                                        value={participants}
+                                        onChange={(e) => setParticipants(e.target.value)}
+                                    />
+                                    <div className="flex justify-between gap-2">
+                                        <Button
+                                            onClick={() => setPopupStep(0)}
+                                            className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]"
+                                        >
+                                            Cancel
+                                        </Button>
+                                        <Button
+                                            onClick={handleNext}
+                                            className="w-1/2 text-sm bg-[#0392ea] cursor-pointer hover:bg-white border hover:text-[#0392ea] hover:border-[#0392ea]"
+                                        >
+                                            Next
+                                        </Button>
+                                    </div>
                                 </div>
                             </>
                         )}

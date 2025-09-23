@@ -64,7 +64,10 @@ const BlogSection = () => {
                         categories.find((c) => c.id === blog.category_id)?.name || "No Category";
 
                     return (
-                        <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
+                        <div
+                            key={blog.id}
+                            className="rounded-xl overflow-hidden bg-white transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                        >
                             <Link
                                 to={`/blog/${blog.id}`}
                                 className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
@@ -72,10 +75,10 @@ const BlogSection = () => {
                                 <img
                                     src={blog.blog_image}
                                     alt={blog.title}
-                                    className="h-48 sm:h-52 md:h-56 w-full object-cover"
+                                    className="h-48 sm:h-52 md:h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
                                 />
                                 <div className="p-4">
-                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2">
+                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2 group-hover:text-[#0191e9] transition-colors duration-300">
                                         {blog.title}
                                     </h4>
                                     <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">

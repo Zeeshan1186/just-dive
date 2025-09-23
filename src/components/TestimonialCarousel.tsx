@@ -1,29 +1,49 @@
 import { useEffect, useRef, useState } from "react";
-import anju from "../assets/images/Anju.jpg";
-import rahul from "../assets/images/blog-img.png";
+import Default from "../assets/images/defaultimag.png";
 
 // Dynamic data
 const testimonials = [
   {
-    img: anju,
+    img: Default,
     quote:
-      "Great service and attention to safety. A lot of effort went into choosing excellent dive sites. Everyone was incredibly enthusiastic and passionate about diving.",
-    name: "Anju G",
-    role: "Open Water Diver",
+      "One of the best and very professional instructors there is. Mr. Ajay is very helpful with all the facilities needed while the instructors are patient and professional. The first ever experience has been the best for us. Will seek their help again to do more.",
+    name: "Sree Lekha Cherukupalli",
+    // role: "Open Water Diver",
   },
   {
-    img: rahul,
+    img: Default,
     quote:
-      "An unforgettable diving experience! The instructors were top-notch, and the locations were simply breathtaking.",
-    name: "Rahul P",
-    role: "Adventure Diver",
+      "They organised a wonderful dive, with well qualified instructors who followed the protocol perfectly. They even provide practice lessons in the pool before actual dive. I would highly recommend this place for best scuba diving experience in Netrani.",
+    name: "Raghavendra Muttagi",
+    // role: "Adventure Diver",
   },
   {
-    img: anju,
+    img: Default,
     quote:
-      "Professional team and excellent equipment. It was my first dive and I felt very safe and excited.",
-    name: "Maria L",
-    role: "New Diver",
+      "It was a great experience of doing scuba diving with just dive, I enjoyed a lot with my family, they have experienced divers which made scuba diving safe and adventurous for us. Even non swimmer can also do scuba diving without any fear. The staff was very good and co-operative.",
+    name: "ANISHA CHARI",
+    // role: "New Diver",
+  },
+  {
+    img: Default,
+    quote:
+      "Its has been a wonderful experience scuba diving. First time swimming under waters has been mind blowing. They have speed boat service for flexible timings and take only few people at a time which is very good. Luckily we were only 3 people in a single boat and we enjoyed a private scuba diving kind of experience.",
+    name: "Pallanti Rohit",
+    // role: "New Diver",
+  },
+  {
+    img: Default,
+    quote:
+      "Had a splendid scuba experience and the instructors were very patient and made sure we spot variety of fishes in our spot.It was an amazing experience . The whole team was very talented and helpfull especially Mr.Punit. They cared a lot about our safety.",
+    name: "Manu Naik",
+    // role: "New Diver",
+  },
+  {
+    img: Default,
+    quote:
+      "Hi, it was an excellent experience. we enjoyed lot,and the diver who were helping us to get into the underwater world were just Amazing. Specially the diving master Sai and his team were very good. Thanks for the wonderful experience.",
+    name: "Maxwell D'silva",
+    // role: "New Diver",
   },
 ];
 
@@ -79,8 +99,8 @@ export function TestimonialCarousel() {
                       <div
                         key={index}
                         className={`absolute inset-0 transition-all duration-700 ease-[cubic-bezier(0.68,-0.3,0.32,1)] ${index === active
-                            ? "opacity-100 rotate-0 z-10"
-                            : "opacity-0 -rotate-[60deg] z-0"
+                          ? "opacity-100 rotate-0 z-10"
+                          : "opacity-0 -rotate-[60deg] z-0"
                           }`}
                       >
                         <img
@@ -105,11 +125,11 @@ export function TestimonialCarousel() {
                   <div
                     key={index}
                     className={`absolute left-0 right-0 transition-all duration-500 ${index === active
-                        ? "opacity-100 translate-x-0 relative"
-                        : "opacity-0 translate-x-4 absolute"
+                      ? "opacity-100 translate-x-0 relative"
+                      : "opacity-0 translate-x-4 absolute"
                       }`}
                   >
-                    <p className="text-base sm:text-lg md:text-xl font-semibold Poppins text-slate-900">
+                    <p className="text-base sm:text-lg md:text-xl font-normal Poppins text-slate-900">
                       {t.quote}
                     </p>
                   </div>
@@ -122,19 +142,19 @@ export function TestimonialCarousel() {
                   <button
                     key={index}
                     className={`inline-flex cursor-pointer items-center whitespace-nowrap rounded-full px-3 sm:px-4 py-1.5 text-xs sm:text-sm shadow-sm transition-colors duration-150 ${index === active
-                        ? "bg-[#0191e9] text-white shadow-indigo-950/10"
-                        : "bg-white hover:bg-indigo-100 text-slate-900"
+                      ? "bg-[#0191e9] text-white shadow-indigo-950/10"
+                      : "bg-white hover:bg-indigo-100 text-slate-900"
                       }`}
                     onClick={() => setActive(index)}
                   >
-                    <span>{t.name}</span>
+                    <span className="cursor-pointer">{t.name}</span>
                     <span
-                      className={`mx-1 ${index === active ? "text-indigo-200" : "text-slate-300"
+                      className={ ` cursor-pointer mx-1 ${index === active ? "text-indigo-200" : "text-slate-300"
                         }`}
                     >
                       -
                     </span>
-                    <span>{t.role}</span>
+                    {/* <span>{t.role}</span> */}
                   </button>
                 ))}
               </div>

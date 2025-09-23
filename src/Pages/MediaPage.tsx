@@ -43,7 +43,7 @@ const MediaPage = () => {
         <>
             {/* Hero Banner */}
             <div
-                className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[85vh] bg-cover bg-no-repeat bg-center"
+                className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${banner})` }}
             >
                 <div className="absolute inset-0 bg-black/30" />

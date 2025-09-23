@@ -24,7 +24,7 @@ function RightBookingCard({ packageData }: { packageData: IPackage }) {
                 <div className="bg-gray-100 rounded-xl shadow-md py-6 px-8 text-center w-full">
                     <p className="text-xl font-[600] mb-4">So, what are you waiting for? Book your package now!</p>
                     {/* <Link to={`/booking`}> */}
-                    <Button onClick={book} className="animate-pulse text-white Poppins font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
+                    <Button onClick={book} className="animate-pulse cursor-pointer text-white Poppins font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
                         Book Now
                     </Button>
                     {/* </Link> */}

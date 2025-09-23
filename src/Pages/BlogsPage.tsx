@@ -76,23 +76,25 @@ const BlogsPage = () => {
             <section className="px-4 sm:px-6 lg:px-8 py-8 max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {displayedBlogs.map((blog) => {
-                        // 👇 Find category name for this blog
                         const categoryName =
                             categories.find((c) => c.id === blog.category_id)?.name || "No Category";
 
                         return (
-                            <div key={blog.id} className="rounded-xl overflow-hidden bg-white">
+                            <div
+                                key={blog.id}
+                                className="rounded-xl overflow-hidden bg-white transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                            >
                                 <Link
                                     to={`/blog/${blog.id}`}
-                                    className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
+                                    className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block group"
                                 >
                                     <img
                                         src={blog.blog_image}
                                         alt={blog.title}
-                                        className="h-48 sm:h-52 md:h-56 w-full object-cover"
+                                        className="h-48 sm:h-52 md:h-56 w-full object-cover transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="p-4">
-                                        <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2">
+                                        <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2 transition-colors duration-300 group-hover:text-[#0191e9]">
                                             {blog.title}
                                         </h4>
                                         <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
@@ -100,7 +102,7 @@ const BlogsPage = () => {
                                         </p>
                                         <div className="flex justify-between text-sm text-gray-500">
                                             <span>{blog.creation_date}</span>
-                                            <span className="italic">{categoryName}</span> {/* 👈 Display category */}
+                                            <span className="italic">{categoryName}</span>
                                         </div>
                                     </div>
                                 </Link>

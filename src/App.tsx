@@ -40,6 +40,7 @@ import BlogsCategories from './Pages/admin/BlogsCategories';
 import CategoryBlogsPage from './Pages/CategoryBlogsPage';
 import ScrollToTop from './components/ScrollToTop';
 import Murdeshwar from './Pages/Murdeshwar';
+import PrivacyPolicy from './Pages/PrivacyPolicy';
 
 const App: React.FC = () => {
   return (
@@ -94,6 +95,7 @@ const App: React.FC = () => {
         <Route path="/faq" element={<Faq />} />
         <Route path="/contactus" element={<ContactUsPage />} />
         <Route path="/termsandcondition" element={<TermsAndConditions />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
         <Route path="/thankyou" element={<ThankYouMessage />} />
         <Route path="*" element={<NotFound />} />
       </Routes >
