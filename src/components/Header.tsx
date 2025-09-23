@@ -159,10 +159,10 @@ export default function Header() {
             {/* Mobile Navigation */}
             {isMobileMenuOpen && (
                 <div className="md:hidden bg-white mt-5 ml-3">
-                    <NavLink to="/" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
+                    <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
                         Home
                     </NavLink>
-                    <NavLink to="/aboutus" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
+                    <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/aboutus" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
                         About Us
                     </NavLink>
                     <details className="px-4 py-2 border-b-[1px] border-[#d2d2d2]">
@@ -173,6 +173,7 @@ export default function Header() {
                                     <Link
                                         key={pkg.id}
                                         to={`/itinerary/${pkg.id}`}
+                                        onClick={() => setIsMobileMenuOpen(false)}
                                         className="block py-1 text-sm"
                                     >
                                         {pkg.name}
@@ -185,20 +186,20 @@ export default function Header() {
                             )}
                         </div>
                     </details>
-                    <NavLink to="/media" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
+                    <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/media" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
                         Media
                     </NavLink>
-                    <NavLink to="/faq" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
+                    <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/faq" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
                         FAQ
                     </NavLink>
-                    <NavLink to="/contactus" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
+                    <NavLink onClick={() => setIsMobileMenuOpen(false)} to="/contactus" className="block px-4 py-2 text-sm border-b-[1px] border-[#d2d2d2]">
                         Contact Us
                     </NavLink>
                     <div className="flex items-center justify-between px-4 py-4">
                         <a href="tel:087624 12121" aria-label="Call us">
                             <Phone className="textgolden" size={20} />
                         </a>
-                        <Link to="/booking">
+                        <Link to="/booking" onClick={() => setIsMobileMenuOpen(false)}>
                             <Button className="bg-[#0191e9] cursor-pointer text-white px-4 py-2 rounded-full text-sm">
                                 Book Now
                             </Button>
