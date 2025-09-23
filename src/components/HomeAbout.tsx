@@ -35,7 +35,11 @@ const HomeAbout = () => {
 
             {/* Right Content */}
             <div className="w-full md:w-[50%] text-center md:text-left">
-                <img src={waves} alt="" className="w-12 mb-5" />
+                <div className="mb-4 flex justify-center">
+                    <span className="text-xl text-yellow-300">
+                        <img src={waves} alt="" className="w-12 sm:w-16" />
+                    </span>
+                </div>
                 <h2 className="text-3xl md:text-5xl Trirong font-normal mb-4">About Us</h2>
                 <p className="mb-6 Poppins text-[#3C3C3C] leading-relaxed">
                     Just Dive Murdeshwar is a premier PADI-certified scuba diving center

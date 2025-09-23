@@ -82,7 +82,7 @@ const BlogsPage = () => {
                         return (
                             <div
                                 key={blog.id}
-                                className="rounded-xl overflow-hidden bg-white transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+                                className="rounded-xl overflow-hidden bg-white shadow-md sm:shadow-none transform transition-all duration-300 sm:hover:-translate-y-2 sm:hover:shadow-2xl"
                             >
                                 <Link
                                     to={`/blog/${blog.id}`}

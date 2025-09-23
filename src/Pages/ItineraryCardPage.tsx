@@ -2,18 +2,21 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { getPackageById } from "../services/apiService"; // ✅ correct API call
 import { ChevronDown, ChevronUp, Loader2, Pencil, Timer } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import RightBookingCard from "@/components/RightBookingCard";
 import Clients from "@/components/Clients";
 import CTA from "@/components/CTA";
 import waves from "../assets/images/Waves.png";
 import { minutesToHourMinuteString } from "@/utils/common-function";
+import { Button } from "@/components/ui/button";
 
 function ItineraryCardPage() {
     const { packageId } = useParams();
     const [packageData, setPackageData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true);
@@ -36,6 +39,12 @@ function ItineraryCardPage() {
 
     const toggleAccordion = (index: number) => {
         setOpenIndex((prev) => (prev === index ? null : index));
+    };
+    const book = () => {
+        localStorage.setItem("selectedLocation", packageData.location.location_name);
+        localStorage.setItem("selectedPackageId", packageData.id.toString());
+        localStorage.setItem("selectedPackageName", packageData.name);
+        navigate(`/booking/${packageData.id}`);
     };
 
     // if (loading)
@@ -68,6 +77,13 @@ function ItineraryCardPage() {
                             <p className="text-xl sm:text-2xl md:text-3xl Poppins flex items-center">
                                 ₹ {packageData?.price}
                             </p>
+                            <Button
+                                onClick={book}
+                                className="mt-5 block md:hidden animate-pulse cursor-pointer text-white Poppins font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-transparent hover:border border-[#0191e9] rounded-full text-sm px-4 py-2"
+                            >
+                                Book Now
+                            </Button>
+
                         </div>
                     </div>
 
