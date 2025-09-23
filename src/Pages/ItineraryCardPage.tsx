@@ -54,7 +54,7 @@ function ItineraryCardPage() {
                 <>
                     {/* Banner Section */}
                     <div
-                        className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[75vh] bg-cover bg-no-repeat bg-center"
+                        className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"
                         style={{ backgroundImage: `url(${packageData?.page_image})` }}
                     >
                         <div className="absolute inset-0 bg-black/50" />

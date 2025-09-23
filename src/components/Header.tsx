@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
 import logo from "../assets/images/JustDiveLogo.jpeg";
+import whatsappicon from "../assets/images/WhatsApp_icon.png";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { getactivePackages } from "../services/apiService";
@@ -66,7 +67,7 @@ export default function Header() {
                         onMouseLeave={() => setIsDropdownOpen(false)}
                     >
                         <NavLink
-                            to="/scubapackages"
+                            to="/murdeshwarpackages"
                             className={({ isActive }) =>
                                 isActive
                                     ? "text-[#0191e9] font-medium flex items-center"
@@ -194,7 +195,7 @@ export default function Header() {
                         Contact Us
                     </NavLink>
                     <div className="flex items-center justify-between px-4 py-4">
-                        <a href="tel:8482911183" aria-label="Call us">
+                        <a href="tel:087624 12121" aria-label="Call us">
                             <Phone className="textgolden" size={20} />
                         </a>
                         <Link to="/booking">
@@ -205,6 +206,18 @@ export default function Header() {
                     </div>
                 </div>
             )}
+            <a
+                href="https://wa.me/87624 12121"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="fixed z-50 bottom-6 right-4 md:bottom-4 md:right-4"
+            >
+                <img
+                    src={whatsappicon}
+                    alt="WhatsApp"
+                    className="w-12 md:w-5 lg:w-16"
+                />
+            </a>
         </header>
     );
 }

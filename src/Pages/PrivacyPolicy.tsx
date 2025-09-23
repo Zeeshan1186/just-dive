@@ -13,7 +13,7 @@ interface Term {
     updated_at: string;
 }
 
-export default function TermsAndConditions() {
+export default function PrivacyPolicy() {
     const [terms, setTerms] = useState<Term[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -59,14 +59,14 @@ export default function TermsAndConditions() {
                         </span>
                     </div>
                     <h1 className="text-4xl sm:text-5xl Trirong md:text-5xl font-normal leading-tight mb-6">
-                        Terms And Conditions
+                        Privacy Policy
                     </h1>
                 </div>
             </div>
 
             <div className="px-12 py-10 pb-0">
                 <h1 className="text-3xl sm:text-4xl font-bold mb-4">
-                    Just Dive – Terms and Conditions
+                    Just Dive – Privacy Policy
                 </h1>
 
                 {/* 📅 Last Updated only once */}

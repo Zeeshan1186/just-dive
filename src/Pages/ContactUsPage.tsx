@@ -11,6 +11,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
     Name: z.string().min(1, 'Name is required'),
@@ -188,7 +189,7 @@ const ContactUsPage = () => {
                                 />
                                 <label className="text-sm text-gray-600">
                                     I’d like to receive more information about the company. I understand and agree to the
-                                    <a href="#" className="text-blue-500"> Privacy Policy</a>.
+                                    <Link to={`/privacypolicy`} className="text-blue-500"> Privacy Policy</Link>.
                                 </label>
                             </div>
                             {errors.policy && (

@@ -5,9 +5,21 @@ import { Link } from "react-router-dom";
 export default function Footer() {
     return (
         <footer className="bg-[#1B1B19] text-white px-6 sm:px-10 lg:px-20 xl:px-36 py-10 md:pt-26">
-            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
-                {/* Column 1 - Menu 1 */}
-                <div className="Poppins">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[35%_1fr_1fr_1fr] gap-8 text-center sm:text-left">
+                {/* Column 1 - Logo & Description */}
+                <div className="flex flex-col items-center md:items-start">
+                    <div className="flex justify-center mb-4">
+                        <Link to="/">
+                            <img src={logo} alt="JUST DIVE" className="w-40 sm:w-32 md:w-36" />
+                        </Link>
+                    </div>
+                    <p className="text-sm text-gray-300 Poppins mb-4 max-w-md">
+                        Experience incredible emotions discovering new amazing underwater worlds with our diving.
+                    </p>
+                </div>
+
+                {/* Column 2 - Menu 1 */}
+                <div className="Poppins flex flex-col items-center md:items-start">
                     <h4 className="font-semibold mb-3 text-lg">Home</h4>
                     <ul className="space-y-3 text-sm text-gray-300">
                         <li><Link to="/aboutus">About Us</Link></li>
@@ -17,37 +29,26 @@ export default function Footer() {
                     </ul>
                 </div>
 
-                {/* Column 2 - Menu 2 */}
-                <div className="Poppins">
-                    <ul className="space-y-3 text-sm text-gray-300 mt-0 md:mt-2">
+                {/* Column 3 - Menu 2 */}
+                <div className="Poppins flex flex-col items-center md:items-start">
+                    <h4 className="font-semibold mb-3 text-lg">Support</h4>
+                    <ul className="space-y-3 text-sm text-gray-300">
                         <li><Link to="/contactus">Contact Us</Link></li>
-                        {/* <li><Link to="/testimony">Testimony</Link></li> */}
                         <li><Link to="/termsandcondition">Terms & Condition</Link></li>
-                        <li><Link to="/contactus">Help Center</Link></li>
                         <li><Link to="/faq">FAQ</Link></li>
                     </ul>
                 </div>
 
-                {/* Column 3 - Logo & Description */}
-                <div className="md:col-span-2 flex flex-col sm:items-start md:items-start">
-                    <div className="flex justify-center sm:justify-start mb-4">
-                        <Link to="/">
-                            <img src={logo} alt="JUST DIVE" className="w-40 sm:w-32 md:w-36" />
+                {/* Column 4 - Social Links */}
+                <div className="flex flex-col items-center md:items-start">
+                    <p className="font-medium mb-2">Follow Us</p>
+                    <div className="flex justify-center space-x-3">
+                        <Link to="https://www.instagram.com/justdive/" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
+                            <Instagram size={20} />
                         </Link>
-                    </div>
-                    <p className="text-sm text-gray-300 Poppins mb-4 max-w-md text-center sm:text-left">
-                        Experience incredible emotions discovering new amazing underwater worlds with our diving.
-                    </p>
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-                        <p className="font-medium mb-2 sm:mb-0">Follow Us</p>
-                        <div className="flex justify-center sm:justify-start space-x-3 ml-4">
-                            <Link to="https://www.instagram.com/justdive/" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
-                                <Instagram size={20} />
-                            </Link>
-                            <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
-                                <Facebook size={20} />
-                            </Link>
-                        </div>
+                        <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
+                            <Facebook size={20} />
+                        </Link>
                     </div>
                 </div>
             </div>

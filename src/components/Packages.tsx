@@ -110,7 +110,7 @@ export default function Packages() {
                                         <Button
                                             onClick={() => book(pkg)}
                                             variant="outline"
-                                            className="text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                            className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                         >
                                             Book Now
                                         </Button>
