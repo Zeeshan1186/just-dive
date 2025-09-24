@@ -103,7 +103,7 @@ const ContactUsPage = () => {
                         <div className="mb-6">
                             <h3 className="text-lg font-medium">Chat to us</h3>
                             <p className="text-sm">Our friendly team is here to help.</p>
-                            <p className="text-sm">hello@paysphere.com</p>
+                            <p className="text-sm">contact@justdivescuba.com</p>
                         </div>
 
                         <div className="mb-6">
@@ -115,7 +115,7 @@ const ContactUsPage = () => {
                         <div>
                             <h3 className="text-lg font-medium mb-2">Social media</h3>
                             <div className="flex gap-4">
-                                <a href="https://www.instagram.com/" target="_blank">
+                                <a href="https://www.instagram.com/justdive/" target="_blank">
                                     <Instagram className="cursor-pointer" /></a>
                                 <a href="https://www.facebook.com/" target="_blank">
                                     <Facebook className="cursor-pointer" /></a>

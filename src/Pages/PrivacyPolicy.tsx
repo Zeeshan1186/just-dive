@@ -46,7 +46,7 @@ export default function PrivacyPolicy() {
     const lastUpdated = terms.length > 0 ? terms[0].updated_at : null;
 
     return (
-        <>
+        <div className="Poppins">
             <div
                 className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
                 style={{ backgroundImage: `url(${banner})` }}
@@ -106,11 +106,11 @@ export default function PrivacyPolicy() {
             <div className="ml-12 mb-12">
                 <h2 className="text-2xl font-semibold">Contact Information</h2>
                 <ul className="mt-3">
-                    <li className="flex gap-3"><Mail className="w-5" />hello@paysphere.com</li>
+                    <li className="flex gap-3"><Mail className="w-5" />contact@justdivescuba.com</li>
                     <li className="flex gap-3"><Phone className="w-5" />087624 12121</li>
                     <li className="flex gap-3"><LaptopMinimalCheck className="w-5" />Just Dive</li>
                 </ul>
             </div>
-        </>
+        </div>
     );
 }
