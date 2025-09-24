@@ -22,7 +22,7 @@ export default function TermsAndConditions() {
             setLoading(true);
             try {
                 const res = await getTermscondition();
-                console.log("Check respons:",res)
+                console.log("Check respons:", res);
                 if (res.data.status === 200 && Array.isArray(res.data.data)) {
                     // Sort terms by updated_at descending (latest first)
                     const sortedTerms = [...res.data.data].sort(
@@ -47,7 +47,8 @@ export default function TermsAndConditions() {
     const lastUpdated = terms.length > 0 ? terms[0].updated_at : null;
 
     return (
-        <>
+        <div className="Poppins">
+
             <div
                 className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
                 style={{ backgroundImage: `url(${banner})` }}
@@ -107,11 +108,11 @@ export default function TermsAndConditions() {
             <div className="ml-12 mb-12">
                 <h2 className="text-2xl font-semibold">Contact Information</h2>
                 <ul className="mt-3">
-                    <li className="flex gap-3"><Mail className="w-5" />hello@paysphere.com</li>
+                    <li className="flex gap-3"><Mail className="w-5" />contact@justdivescuba.com</li>
                     <li className="flex gap-3"><Phone className="w-5" />087624 12121</li>
                     <li className="flex gap-3"><LaptopMinimalCheck className="w-5" />Just Dive</li>
                 </ul>
             </div>
-        </>
+        </div>
     );
 }
