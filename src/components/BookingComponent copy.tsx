@@ -151,9 +151,9 @@ export default function BookingComponent() {
                                                 onChange={(e) => {
                                                     const selected = e.target.value;
                                                     setSelectedSlot(selected);
-                                                    localStorage.setItem("selectedSlot", selected);
-
                                                     const selectedSlotData = dynamicSlots.find(slot => slot.slot_time === selected);
+                                                    localStorage.setItem("selectedSlot", selected);
+                                                    localStorage.setItem("selectedSlotId", selectedSlotData?.slot_id !== undefined ? String(selectedSlotData.slot_id) : "");
                                                     setAvailableSeats(selectedSlotData?.available ?? null);
                                                 }}
                                                 className="w-full px-2 py-1 rounded"

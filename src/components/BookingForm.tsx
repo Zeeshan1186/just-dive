@@ -44,6 +44,7 @@ const BookingForm = () => {
     const [touched, setTouched] = useState<{ whatsapp?: boolean; email?: boolean }>({});
     const [isLoading, setIsLoading] = useState(false);
     const [gst, setGst] = useState("0.00");
+    const [selectedSlotId, setSelectedSlotId] = useState("");
     const navigate = useNavigate();
 
     // ✅ Move summaryData here so it's available in JSX
@@ -89,11 +90,13 @@ const BookingForm = () => {
         const storedDate = localStorage.getItem("selectedDate");
         const storedParticipants = localStorage.getItem("participants");
         const storedSlot = localStorage.getItem("selectedSlot");
+        const storedSlotId = localStorage.getItem("selectedSlotId");
 
         if (storedPackageName) setSelectedPackageName(storedPackageName);
         if (storedDate) setSelectedDate(storedDate);
         if (storedParticipants) setStoredParticipants(storedParticipants);
         if (storedSlot) setSelectedSlot(storedSlot);
+        if (storedSlotId) setSelectedSlotId(storedSlotId);
 
         if (storedPackageId && storedParticipants) {
             const packageId = Number(storedPackageId);
@@ -191,7 +194,7 @@ const BookingForm = () => {
                 formData.append("document", selectedDocument);
             }
             formData.append("dateOfScuba", selectedDate);
-            formData.append("slot", selectedSlot);
+            formData.append("slot", selectedSlotId);
             formData.append("numberOfParticipants", storedParticipants);
             formData.append("price", grandTotal);
 

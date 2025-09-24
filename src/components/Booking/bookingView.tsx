@@ -26,7 +26,7 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
                             <div className="mt-2 grid grid-cols-2 gap-x-4 text-sm text-[#000000B2] font-medium">
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Slot</span>
-                                    <span>{booking?.slot}</span>
+                                    <span>{booking?.slot?.time}</span>
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Date Of Adventure</span>
