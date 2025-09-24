@@ -140,11 +140,9 @@ export default function Banner() {
             try {
                 const res = await getactivePackages();
                 const packages = res?.data?.data || [];
-                console.log('packages', packages);
                 const uniqueLocations = Array.from(
                     new Set(packages.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
                 );
-                console.log('uniqueLocations', uniqueLocations);
                 setLocations(uniqueLocations as string[]);
             } catch (err) {
                 console.error("Failed to fetch locations", err);
@@ -166,8 +164,6 @@ export default function Banner() {
             localStorage.setItem("selectedDate", formattedDate);
         }
     }, [date]);
-
-    console.log('locations', locations);
 
     return (
         <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">

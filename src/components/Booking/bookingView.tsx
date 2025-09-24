@@ -14,8 +14,6 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
     const tabs = ['Personal Info', 'Payment Detail'];
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
-    console.log('booking', booking);
-
     return (
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetContent className="w-full p-4 !max-w-full  md:w-[550px] md:!max-w-[550px] overflow-y-auto">
