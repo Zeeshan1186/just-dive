@@ -42,7 +42,7 @@ const BookingForm = () => {
     const [errors, setErrors] = useState<{ whatsapp?: string; email?: string }>({});
     const [isValid, setIsValid] = useState(false);
     const [touched, setTouched] = useState<{ whatsapp?: boolean; email?: boolean }>({});
-    // const [isLoading ]
+    const [isLoading, setIsLoading] = useState(false);
     const [gst, setGst] = useState("0.00");
     const navigate = useNavigate();
 
@@ -177,6 +177,7 @@ const BookingForm = () => {
     };
 
     const handleBookingSubmit = async () => {
+        setIsLoading(true);
         try {
             const formData = new FormData();
             formData.append("fullName", fullName);
@@ -200,6 +201,8 @@ const BookingForm = () => {
         } catch (error) {
             console.error("Booking failed:", error);
             alert("Booking failed. Please check the required fields.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -446,7 +449,7 @@ const BookingForm = () => {
                         <Button
                             type="button"
                             disabled={
-                                !fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
+                                !fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot || isLoading
                             }
                             onClick={handleSubmit}
                             className={`flex items-center justify-center gap-1 w-40 text-white font-normal ${!fullName || !whatsapp || !email || !age || !gender || !nationality || !selectedDate || !selectedSlot
@@ -454,7 +457,7 @@ const BookingForm = () => {
                                 : "bg-[#0191e9] hover:opacity-90 cursor-pointer"
                                 } rounded-full text-sm px-4 py-3`}
                         >
-                            Make Payment <ChevronRight size={18} />
+                            Make Payment {isLoading ? <Loader2 className="animate-spin" size={18} /> : <ChevronRight size={18} />}
                         </Button>
                     </div>
                 </form >

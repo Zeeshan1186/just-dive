@@ -14,6 +14,8 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
     const tabs = ['Personal Info', 'Payment Detail'];
     const [activeTab, setActiveTab] = useState(tabs[0]);
 
+    console.log('booking', booking);
+
     return (
         <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetContent className="w-full p-4 !max-w-full  md:w-[550px] md:!max-w-[550px] overflow-y-auto">
@@ -21,12 +23,12 @@ const BookingView: React.FC<ViewBookingProps> = ({ sheetOpen, setSheetOpen, book
                     <div className='flex justify-start gap-4'>
                         <img src={booking?.package?.package_image} className='w-28 h-28 rounded-full' />
                         <div className='mt-2'>
-                            <p className=' font-semibold'>Booking Id - J8K5G</p>
+                            <p className=' font-semibold'>Booking Id - {booking?.booking_id ? booking.booking_id : "J8K5G"}</p>
                             <p className='text-[#000000B2] font-semibold text-lg'>{booking?.package?.name}</p>
                             <div className="mt-2 grid grid-cols-2 gap-x-4 text-sm text-[#000000B2] font-medium">
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Slot</span>
-                                    <span>{booking?.slot?.time}</span>
+                                    <span>{booking?.slot}</span>
                                 </div>
                                 <div className="flex flex-col">
                                     <span className="text-xs text-gray-500">Date Of Adventure</span>

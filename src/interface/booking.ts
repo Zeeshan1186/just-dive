@@ -1,7 +1,6 @@
 import type { ICoupon } from "./coupon";
 import type { ILocation } from "./location";
 import type { IPackage } from "./package";
-import type { Slot } from "./slot";
 
 export interface IBooking {
   id: number;
@@ -19,7 +18,7 @@ export interface IBooking {
   age: number;
   nationality: string;
   document?: string;
-  slot: Slot;
+  slot: string;
   booking_id: string;
   is_admin_booking: boolean;
   coupon_id?: number;

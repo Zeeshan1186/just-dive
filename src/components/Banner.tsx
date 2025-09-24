@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { buttonVariants } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -15,7 +15,7 @@ import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
-import video from "../../Video/Maldives Deep South Diving 4k.mp4";
+import video from "../../Video/Maldives Deep South Diving 4k1.mp4";
 
 export interface Package {
     id: number;
@@ -38,22 +38,44 @@ export default function Banner() {
     const { id } = useParams();
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
-
-
     const navigate = useNavigate();
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+    const [, setShowFallback] = useState(false);
 
-    // useEffect(() => {
-    //     const savedLocation = localStorage.getItem("selectedLocation");
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
 
-    //     if (savedLocation) {
-    //         setSelectedLocation(savedLocation);
-    //         setPopupStep(1);
-    //     } else {
-    //         setShowLocationModal(true);
-    //     }
-    // }, []);
+        // Force fast loading
+        video.preload = "auto";
+        video.load();
 
-    // localStorage.clear()
+        const handleLoadedData = () => {
+            setIsLoaded(true);
+        };
+
+        const handleError = () => {
+            setShowFallback(true);
+        };
+
+        // Timeout fallback
+        const timeout = setTimeout(() => {
+            if (!isLoaded) {
+                setShowFallback(true);
+            }
+        }, 3000); // Show fallback after 3 seconds
+
+        video.addEventListener('loadeddata', handleLoadedData);
+        video.addEventListener('error', handleError);
+
+        return () => {
+            clearTimeout(timeout);
+            video.removeEventListener('loadeddata', handleLoadedData);
+            video.removeEventListener('error', handleError);
+        };
+    }, []);
+
 
     useEffect(() => {
         const fetchPackages = async () => {
@@ -118,11 +140,11 @@ export default function Banner() {
             try {
                 const res = await getactivePackages();
                 const packages = res?.data?.data || [];
-
+                console.log('packages', packages);
                 const uniqueLocations = Array.from(
                     new Set(packages.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
                 );
-
+                console.log('uniqueLocations', uniqueLocations);
                 setLocations(uniqueLocations as string[]);
             } catch (err) {
                 console.error("Failed to fetch locations", err);
@@ -145,18 +167,22 @@ export default function Banner() {
         }
     }, [date]);
 
+    console.log('locations', locations);
+
     return (
         <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">
-            {/* Video Background */}
+            {/* Optimized video */}
             <video
-                className="absolute top-0 left-0 w-full h-full object-cover"
+                ref={videoRef}
+                className={`absolute top-0 left-0 w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'
+                    } transition-opacity duration-500`}
                 autoPlay
                 muted
                 loop
                 playsInline
+                preload="auto"
             >
                 <source src={video} type="video/mp4" />
-                Your browser does not support the video tag.
             </video>
 
             <div className="absolute inset-0 bg-black/50" />
