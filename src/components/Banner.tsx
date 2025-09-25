@@ -15,7 +15,7 @@ import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
-import video from "../../Video/Maldives Deep South Diving 4k1.mp4";
+import video from "../../Video/Maldives Deep South Diving 4k.mp4";
 
 export interface Package {
     id: number;

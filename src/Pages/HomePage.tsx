@@ -5,7 +5,7 @@ import Packages from '../components/Packages';
 import AboutUs from '@/components/HomeAbout';
 import BlogSection from '@/components/BlogSection';
 import { TestimonialCarousel } from '@/components/TestimonialCarousel';
-import Clients from '@/components/Clients';
+// import Clients from '@/components/Clients';
 
 function HomePage() {
     return (
@@ -17,7 +17,7 @@ function HomePage() {
             <BlogSection />
             <TestimonialCarousel />
             <CTA />
-            <Clients />
+            {/* <Clients /> */}
         </>
     );
 }
