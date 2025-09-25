@@ -11,8 +11,8 @@ const Media = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const videos = [
-        "https://www.w3schools.com/html/mov_bbb.mp4",
-        "https://www.w3schools.com/html/movie.mp4",
+        "https://youtu.be/sN2WM3VwVwM?si=URT4MrviWBoys7y0",
+        "https://youtu.be/sN2WM3VwVwM?si=URT4MrviWBoys7y0",
     ];
 
     // Fetch images from API
