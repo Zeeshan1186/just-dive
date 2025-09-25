@@ -206,7 +206,7 @@ export default function AddPackage() {
         }
     };
 
-    // must read image
+    // Package includes image
     const handleMustReadImageClick = () => {
         mustReadFileInputRef.current?.click();
     };
@@ -857,7 +857,7 @@ export default function AddPackage() {
                         )}
                     />
 
-                    {/* must read */}
+                    {/* Package includes */}
                     <FormField
                         control={form.control}
                         name="mustReads"
@@ -865,7 +865,7 @@ export default function AddPackage() {
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Must Read *
+                                        Package includes *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         <FormControl>

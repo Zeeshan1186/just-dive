@@ -39,7 +39,7 @@ const ScheduleSection = () => {
                     </div>
                 </div>
 
-                {/* Must Read Section */}
+                {/* Package includes Section */}
                 <div className="flex flex-col mt-10 md:flex-row gap-6">
                     {/* Image */}
                     <div className="w-full  md:w-1/2">
@@ -52,7 +52,7 @@ const ScheduleSection = () => {
 
                     {/* Text */}
                     <div className="w-full md:w-100">
-                        <h3 className="bg-gray-200 px-4 py-2 text-lg font-bold mb-4">Must Read</h3>
+                        <h3 className="bg-gray-200 px-4 py-2 text-lg font-bold mb-4">Package includes</h3>
                         <ul className="list-none space-y-2 text-gray-800">
                             {data.mustRead.map((point, idx) => (
                                 <li key={idx}>{point}</li>

@@ -43,7 +43,7 @@ export default function Footer() {
                 <div className="col-span-2 md:col-span-1 flex flex-col items-start">
                     <p className="font-medium mb-2">Follow Us</p>
                     <div className="flex space-x-3">
-                        <Link to="https://www.instagram.com/justdive/" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
+                        <Link to="https://www.instagram.com/justdive_murdeshwar" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
                             <Instagram size={20} />
                         </Link>
                         <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
