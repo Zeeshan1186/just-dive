@@ -1,5 +1,6 @@
 import waves from "../assets/images/Bluewave.png";
 import whyus from "../assets/images/whyus.png";
+import AJAY from "../assets/images/team/decosta.png";
 import SUSHIl from "../assets/images/team/managing-partner.png";
 import ARVIND from "../assets/images/team/ARVIND-BHADRAN.png";
 import SAINATH from "../assets/images/team/SAINATH.png";
@@ -98,8 +99,26 @@ export default function WhyUs() {
                 {/* Team Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-5 pb-10 px-4 sm:px-8">
 
+                    {/* Team Member 0 */}
+                    <div
+                        className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl"
+                        style={{ backgroundImage: `url(${AJAY})` }}
+                    >
+                        <div className="absolute inset-0 bg-black/20 hover:bg-black/40 transition-colors duration-500"></div>
+                        <div className="relative z-10">
+                            <h3 className="text-lg font-semibold">Ajay Dcosta</h3>
+                            <p className="text-sm">Manager</p>
+                        </div>
+                    </div>
+
                     {/* Team Member 1 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${SUSHIl})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${SUSHIl})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Sushil Kumar Pillai</h3>
@@ -108,7 +127,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 2 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${ARVIND})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${ARVIND})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Arvind Bhadran</h3>
@@ -117,7 +139,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 3 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${SAINATH})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${SAINATH})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Sainath S</h3>
@@ -126,7 +151,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 4 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${HARIKRISHNAN})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${HARIKRISHNAN})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Harikrishnan</h3>
@@ -135,7 +163,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 5 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${VINOD})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${VINOD})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Vinod Kumar D</h3>
@@ -144,7 +175,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 6 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${BIMAL})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${BIMAL})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Bimal Biju</h3>
@@ -153,7 +187,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 7 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${DHANUSH})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${DHANUSH})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Dhanush B</h3>
@@ -162,7 +199,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 8 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${MUHAMMAD})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${MUHAMMAD})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Muhammad Firoz Khan</h3>
@@ -171,7 +211,10 @@ export default function WhyUs() {
                     </div>
 
                     {/* Team Member 9 */}
-                    <div className="relative flex flex-col justify-end items-start text-white p-4 bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden" style={{ backgroundImage: `url(${ABHISHEK})` }}>
+                    <div className="relative flex flex-col justify-end items-start text-white p-4 
+               bg-cover bg-center w-full h-[50vh] rounded-lg overflow-hidden
+               transform transition-all duration-500 ease-in-out
+               hover:scale-105 hover:shadow-2xl" style={{ backgroundImage: `url(${ABHISHEK})` }}>
                         <div className="absolute inset-0 bg-black/20"></div>
                         <div className="relative z-10">
                             <h3 className="text-lg font-semibold">Abhishek Jayamon</h3>

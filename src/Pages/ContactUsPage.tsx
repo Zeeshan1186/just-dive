@@ -115,7 +115,7 @@ const ContactUsPage = () => {
                         <div>
                             <h3 className="text-lg font-medium mb-2">Social media</h3>
                             <div className="flex gap-4">
-                                <a href="https://www.instagram.com/justdive/" target="_blank">
+                                <a href="https://www.instagram.com/justdive_murdeshwar" target="_blank">
                                     <Instagram className="cursor-pointer" /></a>
                                 <a href="https://www.facebook.com/" target="_blank">
                                     <Facebook className="cursor-pointer" /></a>

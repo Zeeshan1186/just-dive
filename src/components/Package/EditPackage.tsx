@@ -254,7 +254,7 @@ export default function EditPackage() {
         }
     };
 
-    // must read image
+    // Package includes image
     const handleMustReadImageClick = () => {
         mustReadFileInputRef.current?.click();
     };
@@ -851,7 +851,7 @@ export default function EditPackage() {
                         )}
                     />
 
-                    {/* must read */}
+                    {/* Package includes */}
                     <FormField
                         control={form.control}
                         name="mustReads.0.description"

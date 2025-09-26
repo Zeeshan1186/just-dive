@@ -5,7 +5,7 @@ import { ChevronDown, ChevronUp, Loader2, Pencil, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import RightBookingCard from "@/components/RightBookingCard";
-import Clients from "@/components/Clients";
+// import Clients from "@/components/Clients";
 import CTA from "@/components/CTA";
 import waves from "../assets/images/Waves.png";
 import { minutesToHourMinuteString } from "@/utils/common-function";
@@ -151,7 +151,7 @@ function ItineraryCardPage() {
                                 </div>
                             </div>
 
-                            {/* Schedule & Must Read */}
+                            {/* Schedule & Package includes */}
                             <div className="max-w-7xl mx-auto py-5 Poppins space-y-10">
                                 {/* Schedule */}
                                 <div>
@@ -169,14 +169,14 @@ function ItineraryCardPage() {
                                     </div>
                                 </div>
 
-                                {/* Must Read */}
+                                {/* Package includes */}
                                 {packageData?.mustReads?.map((must: any, idx: number) => (
                                     <div key={idx} className="flex flex-col md:flex-row gap-4 sm:gap-6 mt-10">
                                         {must.photo && (
                                             <div className="w-full md:w-1/2">
                                                 <img
                                                     src={must.photo}
-                                                    alt="Must Read"
+                                                    alt="Package includes"
                                                     className="rounded-md w-full object-cover max-h-[50vh]"
                                                 />
                                             </div>
@@ -184,7 +184,7 @@ function ItineraryCardPage() {
                                         <div className="w-full md:w-1/2">
                                             <div className="flex gap-2 bg-[#0191e9] text-white px-3 sm:px-4 py-2 mb-4">
                                                 <Pencil className="w-5" />
-                                                <h2 className="text-md Poppins font-normal">Must Read</h2>
+                                                <h2 className="text-md Poppins font-normal">Package includes</h2>
                                             </div>
                                             <ul className="list-none space-y-2 text-gray-800 whitespace-pre-line">
                                                 {must.description.split("\n").map((line: string, i: number) => (
@@ -251,7 +251,7 @@ function ItineraryCardPage() {
                     </div>
 
                     <CTA />
-                    <Clients />
+                    {/* <Clients /> */}
                 </>
             }
         </>
