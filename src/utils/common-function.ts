@@ -10,3 +10,7 @@ export function minutesToHourMinuteString(totalMinutes: number): string {
   if (minutes === 0) return `${sign}${hours} Hour`;
   return `${sign}${hours} Hour ${minutes} Minutes`;
 }
+
+export function formattedText(text: string) {
+  return text.replace(/&/g, "").trim().replace(/\s+/g, "-");
+}

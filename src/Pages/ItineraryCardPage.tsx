@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { getPackageById } from "../services/apiService"; // ✅ correct API call
 import { ChevronDown, ChevronUp, Loader2, Pencil, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,9 @@ import { minutesToHourMinuteString } from "@/utils/common-function";
 import { Button } from "@/components/ui/button";
 
 function ItineraryCardPage() {
-    const { packageId } = useParams();
+    // const { packageId } = useParams();
+    const location = useLocation();
+    const packageId = location.state?.packageId;
     const [packageData, setPackageData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -119,7 +121,7 @@ function ItineraryCardPage() {
                                             <tbody>
                                                 <tr className="bg-white text-gray-800 font-normal border-t">
                                                     <td className="px-3 sm:px-4 py-2">{packageData?.services}</td>
-                                                    <td className="px-3 sm:px-4 py-2">{packageData?.duration} Hours</td>
+                                                    <td className="px-3 sm:px-4 py-2">{minutesToHourMinuteString(packageData?.duration)}</td>
                                                     <td className="px-3 sm:px-4 py-2">₹ {packageData?.price}</td>
                                                 </tr>
                                             </tbody>

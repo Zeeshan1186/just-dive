@@ -96,6 +96,8 @@ export default function EditPackage() {
     const { id } = useParams();
     const [packageData, setPackage] = useState<IPackage>();
 
+    console.log('packageData', packageData);
+
     const form = useForm<FormData>({
         resolver: zodResolver(packageSchema),
         defaultValues: {
@@ -108,7 +110,7 @@ export default function EditPackage() {
             duration: undefined,
             slots: [{ time: "", startTime: "", endTime: "" }],
             schedule: [{ title: "" }],
-            mustReads: [{ description: "", photo: undefined, id: undefined, existing_photo: packageData?.mustReads?.[0]?.photo }],
+            mustReads: [{ description: packageData?.mustReads[0].description, photo: undefined, id: undefined, existing_photo: packageData?.mustReads?.[0]?.photo }],
             whyChooseUs: [{ title: "", description: "" }],
             note: [{ title: '' }],
             services: "",
@@ -142,7 +144,7 @@ export default function EditPackage() {
             });
 
             form.setValue('name', packageData.name);
-            form.setValue('location', packageData.location.toString());
+            form.setValue('location', packageData.location.id.toString());
             form.setValue('slots', parsedSlots);
             form.setValue('seats', packageData.seats);
             form.setValue('price', packageData.price);
@@ -158,7 +160,7 @@ export default function EditPackage() {
             //     }]
             // })
             form.setValue('mustReads', [{
-                description: mustRead?.description || "",
+                description: mustRead?.description,
             }]);
             form.setValue('whyChooseUs', packageData.whyChooseUs.map(item => ({
                 title: item.title,
@@ -169,6 +171,8 @@ export default function EditPackage() {
             })));
         }
     }, [packageData])
+
+    console.log('val', form.getValues());
 
     const [image, setImage] = useState<File | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
@@ -479,7 +483,7 @@ export default function EditPackage() {
                                             value={field.value}
                                         >
                                             <SelectTrigger className="w-full bg-white">
-                                                <SelectValue className='Poppins' placeholder="Select a category" />
+                                                <SelectValue className='Poppins' placeholder="Select a dive sight" />
                                             </SelectTrigger>
                                             <SelectContent className='border Poppins border-gray-200 bg-white'>
                                                 <SelectGroup >
@@ -688,7 +692,7 @@ export default function EditPackage() {
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Services 
+                                        Services
                                     </FormLabel>
                                     <div className="w-full md:w-[70%]">
                                         <FormControl>
@@ -850,12 +854,12 @@ export default function EditPackage() {
                     {/* must read */}
                     <FormField
                         control={form.control}
-                        name="mustReads"
+                        name="mustReads.0.description"
                         render={() => (
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Must Read *
+                                        Package Includes *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         <FormControl>

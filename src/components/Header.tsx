@@ -5,6 +5,7 @@ import whatsappicon from "../assets/images/WhatsApp_icon.png";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { getactivePackages } from "../services/apiService";
+import { formattedText } from "@/utils/common-function";
 
 export default function Header() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -82,7 +83,8 @@ export default function Header() {
                                     packages.map((pkg: any) => (
                                         <NavLink
                                             key={pkg.id}
-                                            to={`/itinerary/${pkg.id}`}
+                                            to={`/${formattedText(pkg.name)}`}
+                                            state={{ packageId: pkg.id }}
                                             className={({ isActive }) =>
                                                 isActive
                                                     ? "block px-4 py-2 text-[#0191e9] font-medium"
@@ -172,7 +174,8 @@ export default function Header() {
                                 packages.map((pkg: any) => (
                                     <Link
                                         key={pkg.id}
-                                        to={`/itinerary/${pkg.id}`}
+                                        to={`/${formattedText(pkg.name)}`}
+                                        state={{ packageId: pkg.id }}
                                         onClick={() => setIsMobileMenuOpen(false)}
                                         className="block py-1 text-sm"
                                     >

@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
-import { minutesToHourMinuteString } from "@/utils/common-function";
+import { formattedText, minutesToHourMinuteString } from "@/utils/common-function";
 import type { IPackage } from "@/interface/package";
 
 export default function Packages() {
@@ -116,7 +116,10 @@ export default function Packages() {
                                         </Button>
                                         {/* </Link> */}
 
-                                        <Link to={`/itinerary/${pkg.id}`}>
+                                        <Link
+                                            to={`/${formattedText(pkg.name)}`}
+                                            state={{ packageId: pkg.id }}
+                                        >
                                             <Button
                                                 variant="outline"
                                                 className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"

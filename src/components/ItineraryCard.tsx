@@ -1,3 +1,4 @@
+import { minutesToHourMinuteString } from "@/utils/common-function";
 import packageimg from "../assets/images/Banner.png";
 
 const ItineraryCard = () => {
@@ -20,7 +21,7 @@ const ItineraryCard = () => {
 
     return (
         <>
-         
+
             <div className="flex flex-col Poppins gap-6 py-8 max-w-7xl">
                 {/* Left Section */}
                 <div className="w-full space-y-6">
@@ -49,7 +50,7 @@ const ItineraryCard = () => {
                                 {data.table.map((item, index) => (
                                     <tr key={index} className="bg-white text-lg text-[#3D3D3D] font-normal border-t">
                                         <td className="px-4 py-2">{item.service}</td>
-                                        <td className="px-4 py-2">{item.duration}</td>
+                                        <td className="px-4 py-2">{minutesToHourMinuteString(Number(item.duration))}</td>
                                         <td className="px-4 py-2">{item.price}</td>
                                     </tr>
                                 ))}
@@ -69,7 +70,7 @@ const ItineraryCard = () => {
                     </div>
                 </div>
 
-              
+
             </div>
         </>
     );

@@ -441,7 +441,7 @@ export default function AddPackage() {
                                             <SelectTrigger className="w-full bg-white">
                                                 <SelectValue
                                                     className="Poppins"
-                                                    placeholder="Select a category"
+                                                    placeholder="Select a dive sight"
                                                 />
                                             </SelectTrigger>
                                             <SelectContent className="border Poppins border-gray-200 bg-white">
@@ -865,7 +865,7 @@ export default function AddPackage() {
                             <FormItem>
                                 <div className="flex flex-col md:flex-row md:items-start gap-y-2">
                                     <FormLabel className="Poppins w-full md:w-[30%] pt-1.5 md:pt-2">
-                                        Must Read *
+                                        Package Includes *
                                     </FormLabel>
                                     <div className="w-full md:w-[70%] flex flex-col gap-3">
                                         <FormControl>

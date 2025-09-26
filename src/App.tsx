@@ -85,7 +85,7 @@ const App: React.FC = () => {
           <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
           <Route path="/admin/Termscondition" element={<TermsCondition />} />
         </Route>
-        <Route path="/itinerary/:packageId" element={<ItineraryCardPage />} />
+        <Route path="/:packageId" element={<ItineraryCardPage />} />
         <Route path="/murdeshwar" element={<Murdeshwar />} />
         <Route path="/murdeshwarpackages" element={<ScubaPackages />} />
         <Route path="/blog/:id" element={<BlogDetailPage />} />
