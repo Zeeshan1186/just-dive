@@ -10,6 +10,7 @@ import CTA from "@/components/CTA";
 import waves from "../assets/images/Waves.png";
 import { minutesToHourMinuteString } from "@/utils/common-function";
 import { Button } from "@/components/ui/button";
+import NotFound from "./NotFound";
 
 function ItineraryCardPage() {
     // const { packageId } = useParams();
@@ -18,6 +19,7 @@ function ItineraryCardPage() {
     const [packageData, setPackageData] = useState<any>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const [notFound, setNotFound] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -25,10 +27,16 @@ function ItineraryCardPage() {
         const fetchData = async () => {
             try {
                 if (!packageId) {
+                    setNotFound(true);
                     console.error("Package ID not found in URL");
                     return;
                 }
                 const response = await getPackageById(Number(packageId));
+                if (!response?.data?.data) {
+                    setNotFound(true);
+                } else {
+                    setNotFound(false);
+                }
                 setPackageData(response?.data?.data || null);
             } catch (error) {
                 console.error("Error fetching package:", error);
@@ -48,6 +56,8 @@ function ItineraryCardPage() {
         localStorage.setItem("selectedPackageName", packageData.name);
         navigate(`/booking/${packageData.id}`);
     };
+
+    if (notFound) return <NotFound />;
 
     // if (loading)
     //     return
