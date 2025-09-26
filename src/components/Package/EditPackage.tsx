@@ -96,8 +96,6 @@ export default function EditPackage() {
     const { id } = useParams();
     const [packageData, setPackage] = useState<IPackage>();
 
-    console.log('packageData', packageData);
-
     const form = useForm<FormData>({
         resolver: zodResolver(packageSchema),
         defaultValues: {
@@ -171,8 +169,6 @@ export default function EditPackage() {
             })));
         }
     }, [packageData])
-
-    console.log('val', form.getValues());
 
     const [image, setImage] = useState<File | undefined>(undefined);
     const [loading, setLoading] = useState<boolean>(false);
