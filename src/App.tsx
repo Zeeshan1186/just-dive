@@ -12,7 +12,7 @@ import DashboardPage from './Pages/admin/DashboardPage';
 import PrivateLayout from './layouts/PrivateLayout';
 import Faq from './Pages/FaqPage';
 import ScubaPackages from './Pages/murdeshwarpackages';
-import ContactUsPage from './Pages/ContactUsPage';
+import ContactUsPage from './Pages/ContactUsPage'; 
 import ThankYouMessage from './components/ThankYouMessage';
 import LocationPage from './Pages/admin/LocationPage';
 import AddLocation from './components/Location/AddLocation';
