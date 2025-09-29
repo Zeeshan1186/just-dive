@@ -6,7 +6,7 @@ import routes from "./src/routesConfig.ts";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const baseUrl = "https://justdivescuba.com";
+const baseUrl = "https://justdivescuba.com"; 
 
 async function generateSitemap(urls: string[]) {
   try {
