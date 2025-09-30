@@ -69,11 +69,20 @@ export default function Banner() {
         video.addEventListener('loadeddata', handleLoadedData);
         video.addEventListener('error', handleError);
 
+        // clear local storage
+        localStorage.removeItem("participants");
+        localStorage.removeItem("selectedDate");
+        localStorage.removeItem("selectedLocation");
+        localStorage.removeItem("selectedPackageId");
+        localStorage.removeItem("selectedPackageName");
+        localStorage.removeItem("selectedSlot");
+        localStorage.removeItem("selectedSlotId");
         return () => {
             clearTimeout(timeout);
             video.removeEventListener('loadeddata', handleLoadedData);
             video.removeEventListener('error', handleError);
         };
+
     }, []);
 
 

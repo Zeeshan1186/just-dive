@@ -11,8 +11,7 @@ const Media = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const videos = [
-        "https://youtu.be/sN2WM3VwVwM?si=URT4MrviWBoys7y0",
-        "https://youtu.be/sN2WM3VwVwM?si=URT4MrviWBoys7y0",
+        "https://www.youtube.com/embed/sN2WM3VwVwM",
     ];
 
     // Fetch images from API
@@ -96,11 +95,12 @@ const Media = () => {
 
                         {activeTab === "videos" &&
                             videos.map((src, index) => (
-                                <video
+                                <iframe
                                     key={index}
-                                    controls
                                     src={src}
-                                    className="w-full h-auto rounded-md shadow-md mb-4"
+                                    className="w-full h-64 rounded-md shadow-md"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
                                 />
                             ))}
                     </div>

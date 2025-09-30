@@ -11,8 +11,7 @@ const MediaPage = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const videos = [
-        "https://www.w3schools.com/html/mov_bbb.mp4",
-        "https://www.w3schools.com/html/movie.mp4",
+        "https://www.youtube.com/embed/sN2WM3VwVwM",
     ];
 
     // Fetch images from API
@@ -96,11 +95,13 @@ const MediaPage = () => {
 
                         {activeTab === "videos" &&
                             videos.map((src, index) => (
-                                <video
+                                <iframe
                                     key={index}
-                                    controls
                                     src={src}
-                                    className="w-full h-auto rounded-md shadow-md"
+                                    className="w-full h-64 rounded-md shadow-md"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                // controls
                                 />
                             ))}
                     </div>
