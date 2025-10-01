@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import banner from "../assets/images/media.png";
 import waves from "../assets/images/Waves.png";
 import { getMedia } from "../services/apiService"; // your API call
-import { toast } from "sonner";
+import { toast } from "sonner"; 
 
 const Media = () => {
     const [activeTab, setActiveTab] = useState<"images" | "videos">("images");
