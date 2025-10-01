@@ -46,7 +46,7 @@ export default function Footer() {
                         <Link to="https://www.instagram.com/justdive_murdeshwar" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
                             <Instagram size={20} />
                         </Link>
-                        <Link to="https://facebook.com" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
+                        <Link to="https://www.facebook.com/JustDiveScubaMurdeshwar/" target="_blank" className="p-1 bg-white text-[#0191e9] hover:bg-[#0191e9] hover:text-white rounded-md">
                             <Facebook size={20} />
                         </Link>
                     </div>

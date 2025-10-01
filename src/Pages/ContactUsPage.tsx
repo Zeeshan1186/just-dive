@@ -117,7 +117,7 @@ const ContactUsPage = () => {
                             <div className="flex gap-4">
                                 <a href="https://www.instagram.com/justdive_murdeshwar" target="_blank">
                                     <Instagram className="cursor-pointer" /></a>
-                                <a href="https://www.facebook.com/" target="_blank">
+                                <a href="https://www.facebook.com/JustDiveScubaMurdeshwar/" target="_blank">
                                     <Facebook className="cursor-pointer" /></a>
                             </div>
                         </div>
@@ -185,7 +185,7 @@ const ContactUsPage = () => {
                                 <input
                                     type="checkbox"
                                     {...register("policy")}
-                                    className="w-4 h-4 mt-1"
+                                    className="w-4 h-4 mt-1 cursor-pointer"
                                 />
                                 <label className="text-sm text-gray-600">
                                     I’d like to receive more information about the company. I understand and agree to the
@@ -200,7 +200,7 @@ const ContactUsPage = () => {
                             <Button
                                 type="submit"
                                 disabled={loading}
-                                className={`w-full sm:w-auto font-normal text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
+                                className={`w-full sm:w-auto cursor-pointer font-normal text-sm px-6 py-2 rounded-full transition flex items-center justify-center gap-2 ${(!isValid || loading)
                                     ? "bg-[#0191e9] text-white "
                                     : "bg-[#0191e9] text-white hover:text-[#0191e9] hover:bg-transparent border border-[#0191e9]"
                                     }`}

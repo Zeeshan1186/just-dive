@@ -41,7 +41,7 @@ export default function Packages() {
         localStorage.setItem("selectedPackageId", packageData.id.toString());
         localStorage.setItem("selectedPackageName", packageData.name);
         navigate(`/booking/${packageData.id}`);
-    }
+    };
 
     // Limit to first 4 packages
     const displayedPackages = packages.slice(0, 4);
@@ -91,22 +91,22 @@ export default function Packages() {
                                     />
                                 </div>
 
-                                <div className="absolute bottom-28 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
+                                <div className="absolute bottom-30 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
                                     {/* {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""} */}
                                     {minutesToHourMinuteString(pkg.duration)}
                                     <Clock3 size={16} strokeWidth={1.5} />
                                 </div>
 
-                                <div className="px-2 sm:px-4 py-3 pb-0 flex-1 flex flex-col justify-between">
-                                    <p className="text-xs sm:text-sm font-normal text-gray-800 text-center">
+                                <div className="px-2 sm:px-4 py-3 pb-0 flex flex-col justify-between flex-1">
+                                    {/* Package name - let it grow naturally */}
+                                    <p className="text-xs sm:text-sm font-normal text-gray-800 text-center mb-3 line-clamp-2">
                                         {pkg.name}
                                     </p>
-                                    <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out overflow-hidden flex justify-center gap-2 mt-3 sm:mt-4">
-                                        {/* <div className="flex items-center justify-center">
-                                            <FancyButton />
-                                        </div> */}
 
-                                        {/* <Link to={`/booking/${pkg.id}`}> */}
+                                    {/* Buttons fixed at bottom */}
+                                    <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 
+                  transition-all duration-500 ease-in-out overflow-hidden 
+                  flex justify-center gap-2 mt-auto">
                                         <Button
                                             onClick={() => book(pkg)}
                                             variant="outline"
@@ -114,12 +114,8 @@ export default function Packages() {
                                         >
                                             Book Now
                                         </Button>
-                                        {/* </Link> */}
 
-                                        <Link
-                                            to={`/${formattedText(pkg.name)}`}
-                                            state={{ packageId: pkg.id }}
-                                        >
+                                        <Link to={`/${formattedText(pkg.name)}`} state={{ packageId: pkg.id }}>
                                             <Button
                                                 variant="outline"
                                                 className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"

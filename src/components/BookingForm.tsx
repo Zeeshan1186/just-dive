@@ -20,6 +20,7 @@ import { applyCoupon } from "../services/apiService";
 import { postBooking } from "../services/apiService";
 import { Input } from "./ui/input";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const BookingForm = () => {
     const [selectedDate, setSelectedDate] = useState("");
@@ -39,9 +40,9 @@ const BookingForm = () => {
     const [nationality, setNationality] = useState("");
     const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
     const [applyingCoupon, setApplyingCoupon] = useState(false);
-    const [errors, setErrors] = useState<{ whatsapp?: string; email?: string }>({});
+    const [errors, setErrors] = useState<{ whatsapp?: string; email?: string; }>({});
     const [isValid, setIsValid] = useState(false);
-    const [touched, setTouched] = useState<{ whatsapp?: boolean; email?: boolean }>({});
+    const [touched, setTouched] = useState<{ whatsapp?: boolean; email?: boolean; }>({});
     const [isLoading, setIsLoading] = useState(false);
     const [gst, setGst] = useState("0.00");
     const [selectedSlotId, setSelectedSlotId] = useState("");
@@ -199,7 +200,7 @@ const BookingForm = () => {
             formData.append("price", grandTotal);
 
             await postBooking(formData);
-            alert("Booking submitted successfully!");
+            toast.success("Booking submitted successfully!");
             navigate('/');
         } catch (error) {
             console.error("Booking failed:", error);
@@ -460,7 +461,7 @@ const BookingForm = () => {
                                 : "bg-[#0191e9] hover:opacity-90 cursor-pointer"
                                 } rounded-full text-sm px-4 py-3`}
                         >
-                            Make Payment {isLoading ? <Loader2 className="animate-spin" size={18} /> : <ChevronRight size={18} />}
+                            Confirm Booking {isLoading ? <Loader2 className="animate-spin" size={18} /> : <ChevronRight size={18} />}
                         </Button>
                     </div>
                 </form >
