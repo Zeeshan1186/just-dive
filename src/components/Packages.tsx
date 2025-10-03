@@ -92,7 +92,6 @@ export default function Packages() {
                                 </div>
 
                                 <div className="absolute bottom-30 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
-                                    {/* {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""} */}
                                     {minutesToHourMinuteString(pkg.duration)}
                                     <Clock3 size={16} strokeWidth={1.5} />
                                 </div>

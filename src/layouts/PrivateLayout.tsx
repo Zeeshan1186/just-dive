@@ -2,7 +2,7 @@ import { AppSidebar } from '@/components/app-sidebar'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Separator } from '@/components/ui/separator'
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
-import person from '@/assets/images/john.png';
+import person from '@/assets/images/john.webp';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LogOut } from 'lucide-react';

@@ -1,4 +1,4 @@
-import logo from "../assets/images/JustDiveLogo.jpeg";
+import logo from "../assets/images/JustDiveLogo.webp";
 import { LoginForm } from "@/components/login-form";
 import customImage from "@/assets/images/cta.webp";
 

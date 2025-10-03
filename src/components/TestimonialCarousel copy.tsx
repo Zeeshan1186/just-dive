@@ -8,7 +8,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import anju from "../assets/images/Anju.jpg";
-import rahul from "../assets/images/blog-img.png";
+import rahul from "../assets/images/blog-img.webp";
 
 const testimonials = [
   {
