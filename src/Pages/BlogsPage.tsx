@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { getBlogs, getBlogscategories } from "@/services/apiService"; // 👈 Added getBlogscategories
-import banner from "../assets/images/blog2.png";
-import waves from "../assets/images/Waves.png";
+import banner from "../assets/images/blog2.webp";
+import waves from "../assets/images/Waves.webp";
 import { Link } from "react-router-dom";
 import {
     Pagination,

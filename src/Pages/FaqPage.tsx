@@ -1,6 +1,6 @@
-import banner from "../assets/images/blog2.png";
-import bluewaves from "../assets/images/Bluewave.png";
-import waves from "../assets/images/Waves.png";
+import banner from "../assets/images/blog2.webp";
+import bluewaves from "../assets/images/Bluewave.webp";
+import waves from "../assets/images/Waves.webp";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import CTA from "@/components/CTA";

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import cta from "../assets/images/cta.png";
+import cta from "../assets/images/cta.webp";
 import { Button } from "@/components/ui/button";
 
 function CTA() {

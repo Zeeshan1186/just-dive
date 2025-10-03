@@ -1,4 +1,4 @@
-import dive1 from "../assets/images/Location/dive1.png";
+import dive1 from "../assets/images/Location/dive1.webp";
 // import dive2 from "../assets/images/Location/dive2.png";
 // import cta from "../assets/images/Location/cta.png";
 import { Button } from "@/components/ui/button";

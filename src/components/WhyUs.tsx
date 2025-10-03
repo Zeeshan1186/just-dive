@@ -1,4 +1,4 @@
-import waves from "../assets/images/Bluewave.png";
+import waves from "../assets/images/Bluewave.webp";
 import whyus from "../assets/images/whyus.png";
 import AJAY from "../assets/images/team/decosta.png";
 import SUSHIl from "../assets/images/team/managing-partner.png";

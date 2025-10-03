@@ -6,7 +6,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import banner from "../assets/images/booking.png";
+import banner from "../assets/images/booking.webp";
 import BookingForm from "./BookingForm";
 import {
     getPackageSlotsByDate,

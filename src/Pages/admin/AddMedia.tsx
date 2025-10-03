@@ -159,7 +159,7 @@ export default function AddMedia({ onMediaUploaded }: { onMediaUploaded?: () => 
                                 >
                                     <input
                                         type="file"
-                                        accept="image/jpeg, image/png, image/jpg"
+                                        accept="image/jpeg, image/png, image/jpg, image/webp"
                                         multiple
                                         ref={fileInputRef}
                                         className="hidden"

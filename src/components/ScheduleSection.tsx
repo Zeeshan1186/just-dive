@@ -1,4 +1,4 @@
-import mustread from "../assets/images/boat.png";
+import mustread from "../assets/images/boat.webp";
 
 
 const ScheduleSection = () => {

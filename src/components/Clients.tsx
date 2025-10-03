@@ -5,10 +5,10 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
-import certificate1 from "../assets/images/Certificates/certificate.jpg";
-import certificate2 from "../assets/images/Certificates/certificatw.png";
-import padi from "../assets/images/Certificates/padi.jpg";
-import padi2 from "../assets/images/Certificates/padi2.png";
+import certificate1 from "../assets/images/Certificates/certificate.webp";
+import certificate2 from "../assets/images/Certificates/certificatw.webp";
+import padi from "../assets/images/Certificates/padi.webp";
+import padi2 from "../assets/images/Certificates/padi2.webp";
 import type { CarouselApi } from "@/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 

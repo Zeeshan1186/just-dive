@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
 import { useCarousel } from "../components/ui/use-carousel";
-import wave from "../assets/images/Bluewave.png";
+import wave from "../assets/images/Bluewave.webp";
 import { Link, useNavigate } from "react-router-dom";
 // import { FancyButton } from "../components/FancyButton";
 import { useEffect, useState } from "react";

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import RightBookingCard from "@/components/RightBookingCard";
 // import Clients from "@/components/Clients";
 import CTA from "@/components/CTA";
-import waves from "../assets/images/Waves.png";
+import waves from "../assets/images/Waves.webp";
 import { minutesToHourMinuteString } from "@/utils/common-function";
 import { Button } from "@/components/ui/button";
 import NotFound from "./NotFound";

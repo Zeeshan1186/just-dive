@@ -1,7 +1,7 @@
 import CountUp from "react-countup";
-import diver from "../assets/images/diver.png";
-import diverbg from "../assets/images/diverbg.png";
-import waves from "../assets/images/Bluewave.png";
+import diver from "../assets/images/diver.webp";
+import diverbg from "../assets/images/diverbg.webp";
+import waves from "../assets/images/Bluewave.webp";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
 

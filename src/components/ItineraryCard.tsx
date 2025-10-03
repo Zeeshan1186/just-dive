@@ -1,5 +1,5 @@
 import { minutesToHourMinuteString } from "@/utils/common-function";
-import packageimg from "../assets/images/Banner.png";
+import packageimg from "../assets/images/Banner.webp";
 
 const ItineraryCard = () => {
     const itineraryData = {

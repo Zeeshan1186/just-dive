@@ -1,8 +1,8 @@
-import banner from "../assets/images/About_ban.png";
-import about from "../assets/images/blog1.png";
-import waves from "../assets/images/Waves.png";
-import bluewaves from "../assets/images/Bluewave.png";
-import img1 from "../assets/images/about.png";
+import banner from "../assets/images/About_ban.webp";
+import about from "../assets/images/blog1.webp";
+import waves from "../assets/images/Waves.webp";
+import bluewaves from "../assets/images/Bluewave.webp";
+import img1 from "../assets/images/about.webp";
 
 function AboutUs() {
     return (

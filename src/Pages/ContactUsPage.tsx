@@ -1,9 +1,9 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import banner from "../assets/images/cta.png";
-import waves from "../assets/images/Waves.png";
-import bluewaves from "../assets/images/Bluewave.png";
+import banner from "../assets/images/cta.webp";
+import waves from "../assets/images/Waves.webp";
+import bluewaves from "../assets/images/Bluewave.webp";
 import { Facebook, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { sendContactForm } from "../services/apiService";

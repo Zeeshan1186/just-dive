@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getPrivacyPolicy } from "../services/apiService";
 import { toast } from "sonner";
-import banner from "../assets/images/About_ban.png";
-import waves from "../assets/images/Waves.png";
+import banner from "../assets/images/About_ban.webp";
+import waves from "../assets/images/Waves.webp";
 import { LaptopMinimalCheck, Mail, Phone } from "lucide-react";
 
 interface Term {

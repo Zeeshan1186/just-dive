@@ -1,6 +1,6 @@
 // Pages/NotFound.tsx
 import React from 'react';
-import notfound from "../assets/images/404.png";
+import notfound from "../assets/images/404.webp";
 
 const NotFound: React.FC = () => {
     return (

@@ -1,10 +1,10 @@
-import banner from "../assets/images/About_ban.png";
-import waves from "../assets/images/Waves.png";
-import bluewaves from "../assets/images/Bluewave.png";
-import img1 from "../assets/images/about.png";
+import banner from "../assets/images/About_ban.webp";
+import waves from "../assets/images/Waves.webp";
+import bluewaves from "../assets/images/Bluewave.webp";
+import img1 from "../assets/images/about.webp";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
-import cta from "../assets/images/cta.png";
+import cta from "../assets/images/cta.webp";
 import { Button } from "@/components/ui/button";
 
 function Murdeshwar() {

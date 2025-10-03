@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Clock3 } from "lucide-react";
-import wave from "../assets/images/Bluewave.png";
+import wave from "../assets/images/Bluewave.webp";
 import { Link } from "react-router-dom";
 // import turtor from '../assets/Animation - 1750418255641.json';
 // import Lottie from 'react-lottie-player';
