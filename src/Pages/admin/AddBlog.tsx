@@ -230,7 +230,7 @@ const AddBlog = () => {
                         <input
                             type="file"
                             name="blog_image"
-                            accept="image/jpeg, image/png, image/jpg"
+                            accept="image/jpeg, image/png, image/jpg, image/webp"
                             ref={blogImageInputRef}
                             className="absolute w-0 h-0 opacity-0 pointer-events-none"
                             onChange={handleFileChange}
@@ -284,7 +284,7 @@ const AddBlog = () => {
                         <input
                             type="file"
                             name="author_image"
-                            accept="image/jpeg, image/png, image/jpg"
+                            accept="image/jpeg, image/png, image/jpg, image/webp"
                             ref={authorImageInputRef}
                             className="absolute w-0 h-0 opacity-0 pointer-events-none"
                             onChange={handleAuthorFileChange}
