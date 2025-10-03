@@ -348,7 +348,7 @@ export default function AddPackage() {
                                         >
                                             <input
                                                 type="file"
-                                                accept="image/jpeg, image/png, image/jpg"
+                                                accept="image/jpeg, image/png, image/jpg, image/webp"
                                                 ref={fileInputRef}
                                                 className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                 onChange={handleFileChange}

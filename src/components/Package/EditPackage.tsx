@@ -369,7 +369,7 @@ export default function EditPackage() {
     return (
         <div className="py-4 px-8">
             <div className="text-[#181E4B] font-semibold text-xl Poppins">
-                Add Package
+                Edit Package
             </div>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="px-4 mb-6 mt-6 space-y-6">
@@ -391,7 +391,7 @@ export default function EditPackage() {
                                         >
                                             <input
                                                 type="file"
-                                                accept="image/jpeg, image/png, image/jpg"
+                                                accept="image/jpeg, image/png, image/jpg, image/webp"
                                                 ref={fileInputRef}
                                                 className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                 onChange={handleFileChange}
@@ -726,7 +726,7 @@ export default function EditPackage() {
                                         >
                                             <input
                                                 type="file"
-                                                accept="image/jpeg, image/png, image/jpg"
+                                                accept="image/jpeg, image/png, image/jpg, image/webp"
                                                 ref={pageFileInputRef}
                                                 className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                 onChange={handlePageFileChange}
@@ -880,7 +880,7 @@ export default function EditPackage() {
                                                             >
                                                                 <input
                                                                     type="file"
-                                                                    accept="image/jpeg, image/png, image/jpg"
+                                                                    accept="image/jpeg, image/png, image/jpg, image/webp"
                                                                     ref={mustReadFileInputRef}
                                                                     className="absolute w-0 h-0 opacity-0 pointer-events-none"
                                                                     onChange={handleMustReadFileChange}
