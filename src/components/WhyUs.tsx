@@ -88,7 +88,7 @@ export default function WhyUs() {
                     </div>
                 </div>
             </section>
-
+ 
             <section className="mt-6">
                 <div className="flex flex-col justify-center items-center pb-6 px-4">
                     <img src={waves} alt="waves" className="mx-auto mb-2 w-8" />
