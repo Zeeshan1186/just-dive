@@ -6,10 +6,16 @@ import CountUp from "react-countup";
 import { Link } from "react-router-dom";
 import cta from "../assets/images/cta.png";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 function Murdeshwar() {
     return (
         <>
+            <Helmet>
+                <title>Murudeshwar Scuba & Netrani Diving | Just Dive</title>
+                <meta name="description" content="Explore Murudeshwar’s underwater world with Just Dive — PADI scuba diving, guided dives to Netrani Island, courses & marine adventures." />
+                <meta name="keywords" content="Murudeshwar Scuba" />
+            </Helmet>
             {/* Top Banner */}
             <div
                 className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"

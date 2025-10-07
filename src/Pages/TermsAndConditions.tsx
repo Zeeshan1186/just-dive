@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import banner from "../assets/images/About_ban.png";
 import waves from "../assets/images/Waves.png";
 import { LaptopMinimalCheck, Mail, Phone } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 interface Term {
     id: number;
@@ -47,7 +48,11 @@ export default function TermsAndConditions() {
 
     return (
         <div className="Poppins">
-
+            <Helmet>
+                <title>Terms & Conditions | Just Dive Scuba Murudeshwar</title>
+                <meta name="description" content="Terms & Conditions | Just Dive Scuba Murudeshwar" />
+                <meta name="keywords" content="Just Dive Scuba Murudeshwar" />
+            </Helmet>
             <div
                 className="relative flex justify-center items-center h-[65vh] bg-cover bg-no-repeat bg-right"
                 style={{ backgroundImage: `url(${banner})` }}

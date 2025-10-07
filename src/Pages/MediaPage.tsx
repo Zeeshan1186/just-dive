@@ -3,6 +3,7 @@ import banner from "../assets/images/media.png";
 import waves from "../assets/images/Waves.png";
 import { getMedia } from "../services/apiService"; // your API call
 import { toast } from "sonner";
+import { Helmet } from "react-helmet-async";
 
 const MediaPage = () => {
     const [activeTab, setActiveTab] = useState<"images" | "videos">("images");
@@ -40,6 +41,11 @@ const MediaPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Just Dive Scuba Media Gallery | Murudeshwar Diving Moments</title>
+                <meta name="description" content="Explore photos & videos from Just Dive Scuba in Murudeshwar. Experience Netrani Island dives, PADI courses, and underwater adventures" />
+                <meta name="keywords" content="Murudeshwar Diving" />
+            </Helmet>
             {/* Hero Banner */}
             <div
                 className="relative flex justify-center items-center h-[50vh] sm:h-[65vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"

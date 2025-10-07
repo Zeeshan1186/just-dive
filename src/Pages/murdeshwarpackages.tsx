@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { formattedText, minutesToHourMinuteString } from "@/utils/common-function";
+import { Helmet } from "react-helmet-async";
 
 export default function murdeshwarpackages() {
     const [packages, setPackages] = useState<any[]>([]);
@@ -30,6 +31,11 @@ export default function murdeshwarpackages() {
 
     return (
         <div className="w-full px-4 sm:px-8 md:px-12 lg:px-20 pt-8 sm:pt-10 pb-0 relative">
+            <Helmet>
+                <title>Best Murudeshwar Dive Packages | Netrani Island Trips</title>
+                <meta name="description" content="Book Murudeshwar dive packages for Netrani Island with Just Dive Scuba. PADI-certified dives, expert trainers, and unforgettable ocean fun." />
+                <meta name="keywords" content="Best Murudeshwar Dive Packages" />
+            </Helmet>
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
                 <img src={wave} alt="Wave" className="w-8 sm:w-10 mb-4" />
