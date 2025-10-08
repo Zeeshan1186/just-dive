@@ -11,6 +11,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination";
+import { Helmet } from "react-helmet-async";
 
 const BlogsPage = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
@@ -56,6 +57,11 @@ const BlogsPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Just Dive Scuba Blog | Murudeshwar Diving Insights</title>
+                <meta name="description" content="Read diving tips, Netrani stories, PADI course guides & marine life in our blog. Stay updated with Just Dive Scuba, Murudeshwar." />
+                <meta name="keywords" content="Murudeshwar Diving Insights" />
+            </Helmet>
             {/* Hero Banner */}
             <div
                 className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"

@@ -4,6 +4,7 @@ import waves from "../assets/images/Waves.webp";
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import CTA from "@/components/CTA";
+import { Helmet } from "react-helmet-async";
 
 function FaqPage() {
     const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -41,6 +42,11 @@ function FaqPage() {
 
     return (
         <>
+            <Helmet>
+                <title>Scuba Diving FAQs | Just Dive Scuba Murudeshwar</title>
+                <meta name="description" content="Get answers to all your scuba diving questions, PADI courses, and Netrani Island trips with Just Dive Scuba, Murudeshwar" />
+                <meta name="keywords" content="Just Dive Scuba Murudeshwar" />
+            </Helmet>
             {/* Hero Banner */}
             <div
                 className="relative flex justify-center items-center h-[45vh] sm:h-[55vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"

@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const formSchema = z.object({
     Name: z.string().min(1, 'Name is required'),
@@ -61,6 +62,11 @@ const ContactUsPage = () => {
 
     return (
         <>
+            <Helmet>
+                <title>Contact Just Dive Scuba | Murudeshwar Dive Center</title>
+                <meta name="description" content="Get in touch with Just Dive Scuba for bookings, PADI courses, and Netrani Island dives. Visit us in Murudeshwar or reach out online" />
+                <meta name="keywords" content="Murudeshwar Dive Center" />
+            </Helmet>
             {/* Banner */}
             <div
                 className="relative flex justify-center items-center h-[50vh] sm:h-[60vh] md:h-[65vh] bg-cover bg-no-repeat bg-center"

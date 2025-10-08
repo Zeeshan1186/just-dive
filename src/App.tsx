@@ -12,7 +12,7 @@ import DashboardPage from './Pages/admin/DashboardPage';
 import PrivateLayout from './layouts/PrivateLayout';
 import Faq from './Pages/FaqPage';
 import ScubaPackages from './Pages/murdeshwarpackages';
-import ContactUsPage from './Pages/ContactUsPage'; 
+import ContactUsPage from './Pages/ContactUsPage';
 import ThankYouMessage from './components/ThankYouMessage';
 import LocationPage from './Pages/admin/LocationPage';
 import AddLocation from './components/Location/AddLocation';
@@ -41,65 +41,68 @@ import CategoryBlogsPage from './Pages/CategoryBlogsPage';
 import ScrollToTop from './components/ScrollToTop';
 import Murdeshwar from './Pages/Murdeshwar';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
+import { HelmetProvider } from "react-helmet-async";
 
 const App: React.FC = () => {
   return (
-    <RootLayout>
-      <ScrollToTop />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/aboutus" element={<AboutUsPage />} />
-        <Route path="/booking/:id" element={<BookingPage />} />
-        <Route path="/booking" element={<BookingPage />} />
-        <Route path="/itinerypage" element={<IteneraryCardPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/admin" element={<PrivateLayout />}>
-          <Route path="dashboard" element={<DashboardPage />} />
-          {/* Location Url */}
-          <Route path="location" element={<LocationPage />} />
-          <Route path="location/add" element={<AddLocation />} />
-          <Route path="location/edit/:id" element={<EditLocation />} />
-          {/* Coupon Url */}
-          <Route path="coupon" element={<CouponPage />} />
-          <Route path="coupon/add" element={<AddCoupon />} />
-          <Route path="coupon/edit/:id" element={<EditCoupon />} />
-          {/* Package Url */}
-          <Route path="add-package" element={<AddPackage />} />
-          <Route path="package" element={<PackagePage />} />
-          <Route path="package/edit/:id" element={<EditPackage />} />
-          {/* Booking Url */}
-          <Route path="booking" element={<AdminBookingPage />} />
-          <Route path="booking/add" element={<AddAdminBooking />} />
+    <HelmetProvider>
+      <RootLayout>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/aboutus" element={<AboutUsPage />} />
+          <Route path="/booking/:id" element={<BookingPage />} />
+          <Route path="/booking" element={<BookingPage />} />
+          <Route path="/itinerypage" element={<IteneraryCardPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/admin" element={<PrivateLayout />}>
+            <Route path="dashboard" element={<DashboardPage />} />
+            {/* Location Url */}
+            <Route path="location" element={<LocationPage />} />
+            <Route path="location/add" element={<AddLocation />} />
+            <Route path="location/edit/:id" element={<EditLocation />} />
+            {/* Coupon Url */}
+            <Route path="coupon" element={<CouponPage />} />
+            <Route path="coupon/add" element={<AddCoupon />} />
+            <Route path="coupon/edit/:id" element={<EditCoupon />} />
+            {/* Package Url */}
+            <Route path="add-package" element={<AddPackage />} />
+            <Route path="package" element={<PackagePage />} />
+            <Route path="package/edit/:id" element={<EditPackage />} />
+            {/* Booking Url */}
+            <Route path="booking" element={<AdminBookingPage />} />
+            <Route path="booking/add" element={<AddAdminBooking />} />
 
-          {/* Report Url */}
-          <Route path="report" element={<ReportPage />} />
+            {/* Report Url */}
+            <Route path="report" element={<ReportPage />} />
 
-          {/* Blog Url */}
-          <Route path="blogs" element={<AdminBlogs />} />
-          <Route path="add-blog" element={<AddBlog />} />
-          <Route path="edit-blog/:id" element={<AddBlog />} />
-          <Route path="/admin/add-blog" element={<AddBlog />} />
-          <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
-          <Route path="/admin/blogcategories" element={<BlogsCategories />} />
-          <Route path="/admin/Addmedia" element={<AdminMedia />} />
-          <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
-          <Route path="/admin/Termscondition" element={<TermsCondition />} />
-        </Route>
-        <Route path="/:packageId" element={<ItineraryCardPage />} />
-        <Route path="/murdeshwar" element={<Murdeshwar />} />
-        <Route path="/murdeshwarpackages" element={<ScubaPackages />} />
-        <Route path="/blog/:id" element={<BlogDetailPage />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blogs/category/:categoryId" element={<CategoryBlogsPage />} />
-        <Route path="/media" element={<Media />} />
-        <Route path="/faq" element={<Faq />} />
-        <Route path="/contactus" element={<ContactUsPage />} />
-        <Route path="/termsandcondition" element={<TermsAndConditions />} />
-        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-        <Route path="/thankyou" element={<ThankYouMessage />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes >
-    </RootLayout >
+            {/* Blog Url */}
+            <Route path="blogs" element={<AdminBlogs />} />
+            <Route path="add-blog" element={<AddBlog />} />
+            <Route path="edit-blog/:id" element={<AddBlog />} />
+            <Route path="/admin/add-blog" element={<AddBlog />} />
+            <Route path="/admin/edit-blog/:id" element={<AddBlog />} />
+            <Route path="/admin/blogcategories" element={<BlogsCategories />} />
+            <Route path="/admin/Addmedia" element={<AdminMedia />} />
+            <Route path="/admin/AddTermscondition" element={<AdminTermsCondition />} />
+            <Route path="/admin/Termscondition" element={<TermsCondition />} />
+          </Route>
+          <Route path="/:packageId" element={<ItineraryCardPage />} />
+          <Route path="/murdeshwar" element={<Murdeshwar />} />
+          <Route path="/murdeshwarpackages" element={<ScubaPackages />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blogs/category/:categoryId" element={<CategoryBlogsPage />} />
+          <Route path="/media" element={<Media />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/contactus" element={<ContactUsPage />} />
+          <Route path="/termsandcondition" element={<TermsAndConditions />} />
+          <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/thankyou" element={<ThankYouMessage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes >
+      </RootLayout >
+    </HelmetProvider>
   );
 };
 
