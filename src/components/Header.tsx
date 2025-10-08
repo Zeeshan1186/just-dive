@@ -4,7 +4,7 @@ import logo from "../assets/images/JustDiveLogo.webp";
 import whatsappicon from "../assets/images/WhatsApp_icon.png";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { getactivePackages } from "../services/apiService";
+import { getActiveSpecificPackages } from "../services/apiService";
 import { formattedText } from "@/utils/common-function";
 
 export default function Header() {
@@ -15,7 +15,7 @@ export default function Header() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const res = await getactivePackages();
+                const res = await getActiveSpecificPackages();
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Failed to fetch packages", err);

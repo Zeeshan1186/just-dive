@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 // import turtor from '../assets/Animation - 1750418255641.json';
 // import Lottie from 'react-lottie-player';
 import { useEffect, useState } from "react";
-import { getactivePackages } from "../services/apiService";
+import { getActiveSpecificPackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
 import { formattedText, minutesToHourMinuteString } from "@/utils/common-function";
 
@@ -17,7 +17,7 @@ export default function murdeshwarpackages() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
-                const res = await getactivePackages();
+                const res = await getActiveSpecificPackages();
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Packages API error:", err);

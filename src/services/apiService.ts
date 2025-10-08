@@ -86,6 +86,10 @@ export const getactivePackages = async () => {
   return await api.get(API_PATHS.ACTIVE_PACKAGE);
 };
 
+export const getActiveSpecificPackages = async () => {
+  return await api.get(API_PATHS.ACTIVE_SPECIFIC_PACKAGE);
+};
+
 export const getactivePackagesByLocation = async (location: string) => {
   return await api.get(API_PATHS.ACTIVE_PACKAGE_BY_lOCATION(location));
 };

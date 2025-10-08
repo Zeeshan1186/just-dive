@@ -16,17 +16,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
 import video from "../../Video/WhatsApp Video 2025-10-06 at 18.59.22.mp4";
+import bannerImg from "../assets/images/home_banner.webp";
+import type { IPackage } from "@/interface/package";
 
-export interface Package {
-    id: number;
-    title: string;
-    description: string;
-    price: number;
-    location_id: number;
-    name: string;
-}
-
-export default function Banner() {
+export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     const [selectedLocation, setSelectedLocation] = useState<string>("");
     const [openLocation, setOpenLocation] = useState(false);
     const [date, setDate] = useState<Date | undefined>(undefined);
@@ -34,7 +27,7 @@ export default function Banner() {
     const [locations, setLocations] = useState<string[]>([]);
     const [showLocationModal, setShowLocationModal] = useState(false);
     const [popupStep, setPopupStep] = useState(0);
-    const [packages, setPackages] = useState<Package[]>([]);
+    const [packages, setPackages] = useState<IPackage[]>([]);
     const { id } = useParams();
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
@@ -147,10 +140,10 @@ export default function Banner() {
     useEffect(() => {
         const fetchLocations = async () => {
             try {
-                const res = await getactivePackages();
-                const packages = res?.data?.data || [];
+                // const res = await getActiveSpecificPackages();
+                // const packages = res?.data?.data || [];
                 const uniqueLocations = Array.from(
-                    new Set(packages.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
+                    new Set(packagesData.map((pkg: any) => pkg.location?.location_name).filter(Boolean))
                 );
                 setLocations(uniqueLocations as string[]);
             } catch (err) {
@@ -159,7 +152,7 @@ export default function Banner() {
         };
 
         fetchLocations();
-    }, []);
+    }, [packagesData]);
 
     useEffect(() => {
         if (selectedLocation) {
@@ -174,8 +167,24 @@ export default function Banner() {
         }
     }, [date]);
 
+    useEffect(() => {
+        const videoElement = videoRef.current;
+        if (!videoElement) return;
+
+        const handleLoadedData = () => setIsLoaded(true);
+
+        videoElement.addEventListener("loadeddata", handleLoadedData);
+        return () => videoElement.removeEventListener("loadeddata", handleLoadedData);
+    }, []);
+
     return (
         <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">
+            <img
+                src={bannerImg}
+                alt="Banner"
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "opacity-0" : "opacity-100"}`}
+            />
+
             {/* Optimized video */}
             <video
                 ref={videoRef}

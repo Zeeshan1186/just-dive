@@ -11,30 +11,27 @@ import { useCarousel } from "../components/ui/use-carousel";
 import wave from "../assets/images/Bluewave.webp";
 import { Link, useNavigate } from "react-router-dom";
 // import { FancyButton } from "../components/FancyButton";
-import { useEffect, useState } from "react";
-import { getactivePackages } from "../services/apiService";
-import { toast } from "react-hot-toast";
 import { formattedText, minutesToHourMinuteString } from "@/utils/common-function";
 import type { IPackage } from "@/interface/package";
 
-export default function Packages() {
+export default function Packages({ packages }: { packages: IPackage[] }) {
     const { api, setApi } = useCarousel();
-    const [packages, setPackages] = useState<IPackage[]>([]);
+    // const [packages, setPackages] = useState<IPackage[]>([]);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchPackages = async () => {
-            try {
-                const res = await getactivePackages();
-                setPackages(res?.data?.data || []);
-            } catch (err) {
-                console.error("Packages API error:", err);
-                toast.error("Failed to load packages");
-            }
-        };
+    // useEffect(() => {
+    //     const fetchPackages = async () => {
+    //         try {
+    //             const res = await getActiveSpecificPackages();
+    //             setPackages(res?.data?.data || []);
+    //         } catch (err) {
+    //             console.error("Packages API error:", err);
+    //             toast.error("Failed to load packages");
+    //         }
+    //     };
 
-        fetchPackages();
-    }, []);
+    //     fetchPackages();
+    // }, []);
 
     const book = (packageData: IPackage) => {
         localStorage.setItem("selectedLocation", packageData.location.location_name);

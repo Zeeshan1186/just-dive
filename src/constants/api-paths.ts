@@ -6,6 +6,7 @@ export const API_PATHS = {
   PACKAGE: "api/package",
   PACKAGE_LIST: "api/package",
   ACTIVE_PACKAGE: "api/active-package",
+  ACTIVE_SPECIFIC_PACKAGE: "api/active-package/specific",
   ACTIVE_PACKAGE_BY_lOCATION: (location: string) =>
     `api/package/location/${location}`,
   PACKAGE_DETAIL: (id: string | number) => `api/package/${id}`,
