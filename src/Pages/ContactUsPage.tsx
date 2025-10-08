@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import banner from "../assets/images/cta.webp";
+import banner from "../assets/images/cta-img.webp";
 import waves from "../assets/images/Waves.webp";
 import bluewaves from "../assets/images/Bluewave.webp";
 import { Facebook, Instagram } from "lucide-react";

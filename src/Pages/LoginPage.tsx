@@ -1,6 +1,6 @@
 import logo from "../assets/images/JustDiveLogo.webp";
 import { LoginForm } from "@/components/login-form";
-import customImage from "@/assets/images/cta.webp";
+import customImage from "@/assets/images/cta-img.webp";
 
 export default function LoginPage() {
     return (

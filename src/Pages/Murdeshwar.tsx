@@ -4,7 +4,7 @@ import bluewaves from "../assets/images/Bluewave.webp";
 import img1 from "../assets/images/about.webp";
 import CountUp from "react-countup";
 import { Link } from "react-router-dom";
-import cta from "../assets/images/cta.webp";
+import cta from "../assets/images/cta-img.webp";
 import { Button } from "@/components/ui/button";
 
 function Murdeshwar() {
