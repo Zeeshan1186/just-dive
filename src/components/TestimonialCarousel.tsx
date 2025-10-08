@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import Default from "../assets/images/defaultimag.png";
+import Default from "../assets/images/defaultimag.webp";
 
 // Dynamic data
 const testimonials = [

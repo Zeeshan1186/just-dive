@@ -1,5 +1,5 @@
 import { Facebook, Instagram } from "lucide-react";
-import logo from "../assets/images/JustDiveBlack.png";
+import logo from "../assets/images/JustDiveBlack.webp";
 import { Link } from "react-router-dom";
 
 export default function Footer() {

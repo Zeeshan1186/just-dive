@@ -1,4 +1,4 @@
-import logo from '@/assets/images/JustDiveBlack.png';
+import logo from '@/assets/images/JustDiveBlack.webp';
 
 export function VersionSwitcher() {
     return (
