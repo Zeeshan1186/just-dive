@@ -2,6 +2,18 @@
 <html lang="en">
 
 <head>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    #root {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+  </style>
+
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/fav-ico.jpeg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -20,7 +32,7 @@
 
 <body>
   <div id="root"></div>
-  <script type="module" src="/src/main.tsx"></script>
+  <script defer type="module" src="/src/main.tsx"></script>
 </body>
 
 </html>
