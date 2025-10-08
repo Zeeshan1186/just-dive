@@ -29,6 +29,7 @@ html {
   src: url('/src/assets/fonts/Trirong-Regular.ttf') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -36,6 +37,7 @@ html {
   src: url('/src/assets/fonts/Poppins-Regular.ttf') format('woff');
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 .Trirong {
