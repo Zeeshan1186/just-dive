@@ -4,7 +4,7 @@ import DiveLocation from '../components/DiveLocation';
 import Packages from '../components/Packages';
 import AboutUs from '@/components/HomeAbout';
 import BlogSection from '@/components/BlogSection';
-import { TestimonialCarousel } from '@/components/TestimonialCarousel';
+// import { TestimonialCarousel } from '@/components/TestimonialCarousel';
 import React, { Suspense, useEffect, useState } from 'react';
 import type { IPackage } from '@/interface/package';
 import { getActiveSpecificPackages } from '@/services/apiService';
