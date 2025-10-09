@@ -182,9 +182,10 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
             <img
                 src={bannerImg}
                 alt="Banner"
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "opacity-0" : "opacity-100"}`}
+                loading="eager"
                 fetchPriority="high"
                 decoding="async"
+                className="absolute top-0 left-0 w-full h-full object-cover"
             />
 
             {/* Optimized video */}
