@@ -154,7 +154,7 @@ export default function Header() {
                     className="md:hidden"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    <Menu size={24} aria-hidden="true" />
+                    <Menu size={24} />
                 </button>
             </div>
 
