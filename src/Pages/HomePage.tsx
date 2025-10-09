@@ -5,10 +5,11 @@ import Packages from '../components/Packages';
 import AboutUs from '@/components/HomeAbout';
 import BlogSection from '@/components/BlogSection';
 import { TestimonialCarousel } from '@/components/TestimonialCarousel';
-import { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import type { IPackage } from '@/interface/package';
 import { getActiveSpecificPackages } from '@/services/apiService';
 import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 // import Clients from '@/components/Clients';
 
 function HomePage() {
@@ -31,6 +32,10 @@ function HomePage() {
         fetchPackages();
     }, []);
 
+    const TestimonialCarousel = React.lazy(() =>
+        import('@/components/TestimonialCarousel').then(module => ({ default: module.TestimonialCarousel }))
+    );
+
     return (
         <>
             {!loading && packages.length > 0 ? <Banner packagesData={packages} /> : <Banner packagesData={[]} />}
@@ -38,7 +43,13 @@ function HomePage() {
             <DiveLocation />
             <AboutUs />
             <BlogSection />
-            <TestimonialCarousel />
+            <Suspense fallback={
+                <div className='h-28 flex justify-center items-center'>
+                    <Loader2 className='animate-spin' />
+                </div>
+            }>
+                <TestimonialCarousel />
+            </Suspense>
             <CTA />
             {/* <Clients /> */}
 
