@@ -214,8 +214,8 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                 </div>
 
                 {/* Heading */}
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl Trirong font-normal leading-tight mb-4 sm:mb-6">
-                    Float in a weightless world
+                <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl Trirong font-normal leading-tight mb-4 sm:mb-6">
+                    Float in a weightless world with <br />Just dive scuba diving
                 </h1>
 
                 {/* Subtext */}

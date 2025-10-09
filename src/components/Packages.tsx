@@ -48,12 +48,11 @@ export default function Packages({ packages }: { packages: IPackage[] }) {
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
                 <img src={wave} alt="Wave" className="w-8 sm:w-10 mb-4" />
-                <h2 className="Trirong text-[#626262] text-2xl sm:text-3xl md:text-4xl font-normal mb-2">
-                    SPECIAL DIVE PACKAGE
+                <h2 className="Trirong text-[#626262] text-2xl sm:text-3xl md:text-4xl font-normal mb-2 uppercase">
+                    Scuba Diving Packages
                 </h2>
-                <p className="Poppins text-[#626262] text-sm sm:text-base max-w-md">
-                    Experience incredible emotions discovering new amazing underwater
-                    worlds with JUST DIVE
+                <p className="Poppins text-[#626262] text-sm sm:text-base max-w-xl">
+                    At Just Dive Scuba, experience one of the most thrilling and adventurous activities in Murdeshwar — Scuba Diving
                 </p>
             </div>
 

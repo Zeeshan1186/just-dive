@@ -15,8 +15,7 @@ function CTA() {
                 {/* Text and buttons */}
                 <div className="relative z-10 text-center px-4">
                     <h2 className="Trirong text-white text-3xl md:text-3xl font-normal mb-4 leading-tight">
-                        We also offer a range of additional services <br />
-                        to enhance your holiday experience
+                        Experience more than a vacation — enjoy Scuba Diving at <br /> Netrani Island and other exciting add-ons
                     </h2>
 
                     <div className="flex Poppins justify-center gap-3 flex-wrap">

@@ -48,7 +48,7 @@ function AboutUs() {
                             About Us
                         </h2>
                         <p className="text-gray-700 mb-4">
-                            Just Dive Murdeshwar is a premier PADI-certified scuba diving center offering world-class diving experiences and professional PADI courses at Netrani Island, Karnataka. Established in 2023, the company quickly gained recognition for its commitment to safety, quality, and excellence in diving education.
+                            Just Dive Scuba Murdeshwar is a premier PADI-certified scuba diving center offering world-class diving experiences and professional PADI courses at Netrani Island, Karnataka. Established in 2023, the company quickly gained recognition for its commitment to safety, quality, and excellence in diving education.
                         </p>
                         <p className="text-gray-700">
                             The dive center offers a range of programs catering to both beginners and experienced divers. From fun diving experiences for first-timers to advanced PADI certification courses, Just Dive provides a structured and enjoyable approach to learning scuba diving. The clear waters of Netrani Island, known for their rich marine biodiversity, make it an ideal location to explore coral reefs, schools of vibrant fish, and occasional sightings of reef sharks and turtles.
