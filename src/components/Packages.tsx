@@ -152,6 +152,7 @@ export default function Packages({ packages }: { packages: IPackage[] }) {
                     <ChevronLeft
                         size={window.innerWidth >= 640 ? 55 : 30}
                         strokeWidth={1}
+                        aria-hidden="true"
                     />
 
                 </button>
@@ -162,6 +163,7 @@ export default function Packages({ packages }: { packages: IPackage[] }) {
                     <ChevronRight
                         size={window.innerWidth >= 640 ? 55 : 30}
                         strokeWidth={1}
+                        aria-hidden="true"
                     />
                 </button>
             </Carousel>
