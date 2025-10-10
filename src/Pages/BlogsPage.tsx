@@ -12,6 +12,7 @@ import {
     PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Helmet } from "react-helmet-async";
+import { formattedText } from "@/utils/common-function";
 
 const BlogsPage = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
@@ -91,7 +92,8 @@ const BlogsPage = () => {
                                 className="rounded-xl overflow-hidden bg-white shadow-md sm:shadow-none transform transition-all duration-300 sm:hover:-translate-y-2 sm:hover:shadow-2xl"
                             >
                                 <Link
-                                    to={`/blog/${blog.id}`}
+                                    to={`/blog/${formattedText(blog.title)}`}
+                                    state={{ blogId: blog.id }}
                                     className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block group"
                                 >
                                     <img

@@ -5,17 +5,22 @@ import {
     Facebook,
     Instagram,
     Twitter,
+    Loader2,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
     getBlogById,
     getBlogsByCategoryId,
     getBlogscategories,
 } from "@/services/apiService";
+import DOMPurify from "dompurify";
+import { formattedText } from "@/utils/common-function";
 
 const BlogDetailPage = () => {
-    const { id } = useParams();
+    // const { id } = useParams();
+    const location = useLocation();
+    const id = location.state.blogId;
     const [blogPost, setBlogPost] = useState<any>(null);
     const [relatedBlogs, setRelatedBlogs] = useState<any[]>([]);
     const [categories, setCategories] = useState<{ id: number; name: string; }[]>([]);
@@ -81,7 +86,11 @@ const BlogDetailPage = () => {
     const getCategoryName = (categoryId: number) =>
         categories.find((c) => c.id === categoryId)?.name || "Category";
 
-    if (!blogPost) return <div className="text-center py-10">Loading...</div>;
+    if (!blogPost) {
+        return (<div className="h-60 flex justify-center items-center">
+            <Loader2 className="animate-spin w-6" />
+        </div>);
+    }
 
     return (
         <div className="flex flex-col max-w-6xl mx-auto px-4 py-8 gap-8">
@@ -113,9 +122,12 @@ const BlogDetailPage = () => {
                         className="rounded-lg mb-6 w-full object-cover max-h-[400px] sm:max-h-[500px]"
                     />
 
-                    <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
-                        {blogPost.description}
-                    </div>
+                    <div
+                        className="text-gray-700 leading-relaxed space-y-4 prose"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(blogPost.description),
+                        }}
+                    />
                 </div>
 
                 {/* Right - Sidebar */}
@@ -148,7 +160,7 @@ const BlogDetailPage = () => {
                                     key={category.id}
                                     className="text-sm text-gray-600 hover:text-[#0191e9] cursor-pointer"
                                 >
-                                    <Link to={`/blogs/category/${category.id}`}>
+                                    <Link to={`/blogs/category/${formattedText(category.name)}`} state={{ categoryId: category.id }}>
                                         {category.name}
                                     </Link>
                                 </li>
@@ -176,7 +188,8 @@ const BlogDetailPage = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                         {relatedBlogs.map((blog) => (
                             <Link
-                                to={`/blog/${blog.id}`}
+                                to={`/blog/${formattedText(blog.title)}`}
+                                state={{ blogId: blog.id }}
                                 key={blog.id}
                                 className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
                             >

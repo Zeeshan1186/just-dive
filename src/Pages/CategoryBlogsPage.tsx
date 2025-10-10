@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { getBlogsByCategoryId, getBlogscategories } from "@/services/apiService";
+import { formattedText } from "@/utils/common-function";
 
 const CategoryBlogsPage = () => {
-    const { categoryId } = useParams();
+    const location = useLocation();
+    const categoryId = location.state.categoryId;
     const [blogs, setBlogs] = useState<any[]>([]);
     const [categories, setCategories] = useState<{ id: number; name: string; }[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +68,8 @@ const CategoryBlogsPage = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {blogs.map((blog) => (
                         <Link
-                            to={`/blog/${blog.id}`}
+                            to={`/blog/${formattedText(blog.title)}`}
+                            state={{ blogId: blog.id }}
                             key={blog.id}
                             className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
                         >

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { getBlogs, getBlogscategories } from "@/services/apiService";
 import { useNavigate, Link } from "react-router-dom";
+import { formattedText } from "@/utils/common-function";
 
 const BlogSection = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
@@ -32,6 +33,8 @@ const BlogSection = () => {
     }, []);
 
     const displayedBlogs = blogs.slice(0, 3);
+
+    console.log('displayedBlogs', displayedBlogs);
 
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
@@ -70,7 +73,8 @@ const BlogSection = () => {
                         >
 
                             <Link
-                                to={`/blog/${blog.id}`}
+                                to={`/blog/${formattedText(blog.title)}`}
+                                state={{ blogId: blog.id }}
                                 className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
                             >
                                 <img

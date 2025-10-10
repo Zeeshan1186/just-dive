@@ -214,7 +214,7 @@ const AddBlog = () => {
                         name="description"
                         value={form.description}
                         onChange={handleChange}
-                        placeholder="Enter blog description"
+                        placeholder="Enter blog description (HTML tags allowed, e.g. <b>bold</b>)"
                         rows={6}
                         required
                     />
