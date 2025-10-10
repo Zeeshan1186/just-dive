@@ -13,6 +13,7 @@ import {
     getBlogsByCategoryId,
     getBlogscategories,
 } from "@/services/apiService";
+import DOMPurify from "dompurify";
 
 const BlogDetailPage = () => {
     const { id } = useParams();
@@ -113,9 +114,12 @@ const BlogDetailPage = () => {
                         className="rounded-lg mb-6 w-full object-cover max-h-[400px] sm:max-h-[500px]"
                     />
 
-                    <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
-                        {blogPost.description}
-                    </div>
+                    <div
+                        className="text-gray-700 leading-relaxed space-y-4 prose"
+                        dangerouslySetInnerHTML={{
+                            __html: DOMPurify.sanitize(blogPost.description),
+                        }}
+                    />
                 </div>
 
                 {/* Right - Sidebar */}
