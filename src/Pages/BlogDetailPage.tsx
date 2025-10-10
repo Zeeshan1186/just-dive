@@ -14,7 +14,7 @@ import {
     getBlogsByCategoryId,
     getBlogscategories,
 } from "@/services/apiService";
-import DOMPurify from "dompurify";
+// import DOMPurify from "dompurify";
 import { formattedText } from "@/utils/common-function";
 
 const BlogDetailPage = () => {
@@ -122,12 +122,15 @@ const BlogDetailPage = () => {
                         className="rounded-lg mb-6 w-full object-cover max-h-[400px] sm:max-h-[500px]"
                     />
 
-                    <div
+                    {/* <div
                         className="text-gray-700 leading-relaxed space-y-4 prose"
                         dangerouslySetInnerHTML={{
                             __html: DOMPurify.sanitize(blogPost.description),
                         }}
-                    />
+                    /> */}
+                    <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
+                        {blogPost.description}
+                    </div>
                 </div>
 
                 {/* Right - Sidebar */}
