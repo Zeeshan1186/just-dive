@@ -15,7 +15,7 @@ import waves from "../assets/images/Waves1.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
-import video from "../../Video/WhatsApp Video 2025-10-06 at 18.59.22.mp4";
+import video from "../../Video/Maldives Deep South Diving 4k.mp4";
 import bannerImg from "../assets/images/home_banner.webp";
 import type { IPackage } from "@/interface/package";
 
@@ -33,50 +33,31 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     const [participants, setParticipants] = useState("");
     const navigate = useNavigate();
     const videoRef = useRef<HTMLVideoElement>(null);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [, setShowFallback] = useState(false);
+    // const [isLoaded, setIsLoaded] = useState(false);
+    // const [, setShowFallback] = useState(false);
+    const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
+    // Detect when video has loaded enough
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
 
-        // Force fast loading
-        video.preload = "auto";
-        video.load();
-
         const handleLoadedData = () => {
-            setIsLoaded(true);
+            setIsVideoLoaded(true);
         };
 
         const handleError = () => {
-            setShowFallback(true);
+            setIsVideoLoaded(false);
         };
 
-        // Timeout fallback
-        const timeout = setTimeout(() => {
-            if (!isLoaded) {
-                setShowFallback(true);
-            }
-        }, 3000); // Show fallback after 3 seconds
+        video.addEventListener("loadeddata", handleLoadedData);
+        video.addEventListener("error", handleError);
 
-        video.addEventListener('loadeddata', handleLoadedData);
-        video.addEventListener('error', handleError);
-
-        // clear local storage
-        localStorage.removeItem("participants");
-        localStorage.removeItem("selectedDate");
-        localStorage.removeItem("selectedLocation");
-        localStorage.removeItem("selectedPackageId");
-        localStorage.removeItem("selectedPackageName");
-        localStorage.removeItem("selectedSlot");
-        localStorage.removeItem("selectedSlotId");
         return () => {
-            clearTimeout(timeout);
-            video.removeEventListener('loadeddata', handleLoadedData);
-            video.removeEventListener('error', handleError);
+            video.removeEventListener("loadeddata", handleLoadedData);
+            video.removeEventListener("error", handleError);
         };
-
-    }, []);
+    }, [video]);
 
 
     useEffect(() => {
@@ -167,40 +148,40 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
         }
     }, [date]);
 
-    useEffect(() => {
-        const videoElement = videoRef.current;
-        if (!videoElement) return;
+    // useEffect(() => {
+    //     const videoElement = videoRef.current;
+    //     if (!videoElement) return;
 
-        const handleLoadedData = () => setIsLoaded(true);
+    //     const handleLoadedData = () => setIsLoaded(true);
 
-        videoElement.addEventListener("loadeddata", handleLoadedData);
-        return () => videoElement.removeEventListener("loadeddata", handleLoadedData);
-    }, []);
+    //     videoElement.addEventListener("loadeddata", handleLoadedData);
+    //     return () => videoElement.removeEventListener("loadeddata", handleLoadedData);
+    // }, []);
 
     return (
         <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">
             <img
                 src={bannerImg}
                 alt="Banner"
-                loading="eager"
-                fetchPriority="high"
-                decoding="async"
-                className="absolute top-0 left-0 w-full h-full object-cover"
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${isVideoLoaded ? "opacity-0" : "opacity-100"
+                    }`}
             />
 
-            {/* Optimized video */}
-            <video
-                ref={videoRef}
-                className={`absolute top-0 left-0 w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'
-                    } transition-opacity duration-500`}
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="auto"
-            >
-                <source src={video} type="video/mp4" />
-            </video>
+            {/* Video fades in once loaded */}
+            {video && (
+                <video
+                    ref={videoRef}
+                    className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${isVideoLoaded ? "opacity-100" : "opacity-0"
+                        }`}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                >
+                    <source src={video} type="video/mp4" />
+                </video>
+            )}
 
             <div className="absolute inset-0 bg-black/50" />
 

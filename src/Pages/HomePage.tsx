@@ -27,7 +27,6 @@ function HomePage() {
             setLoading(false);
         }
     };
-
     useEffect(() => {
         fetchPackages();
     }, []);
