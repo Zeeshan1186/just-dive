@@ -39,7 +39,7 @@ function HomePage() {
     return (
         <>
             {!loading && packages.length > 0 ? <Banner packagesData={packages} /> : <Banner packagesData={[]} />}
-            <Packages packages={packages} />
+            <Packages packages={packages} loading={loading} />
             <DiveLocation />
             <AboutUs />
             <BlogSection />
