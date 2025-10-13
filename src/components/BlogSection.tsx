@@ -6,15 +6,19 @@ import { useNavigate, Link } from "react-router-dom";
 const BlogSection = () => {
     const [blogs, setBlogs] = useState<any[]>([]);
     const [categories, setCategories] = useState<{ id: number; name: string; }[]>([]);
+    const [loading, setLoading] = useState(true); // 🆕 Added loading state
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBlogs = async () => {
             try {
+                setLoading(true); // 🆕 Start loading
                 const res = await getBlogs();
                 setBlogs(res.data.data || []);
             } catch (err) {
                 console.error("Failed to load blogs", err);
+            } finally {
+                setLoading(false); // 🆕 Stop loading
             }
         };
 
@@ -38,8 +42,11 @@ const BlogSection = () => {
         const day = String(date.getDate()).padStart(2, "0");
         const month = String(date.getMonth() + 1).padStart(2, "0");
         const year = date.getFullYear();
-        return `${day}-${month}-${year}`; // DD-MM-YYYY
+        return `${day}-${month}-${year}`;
     };
+
+    // 🆕 Skeleton placeholder cards
+    const skeletonCards = Array(3).fill(0);
 
     return (
         <section className="px-4 py-8 sm:py-10 md:py-12 max-w-7xl mx-auto">
@@ -59,41 +66,58 @@ const BlogSection = () => {
 
             {/* Blogs Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-2 sm:px-6 md:px-10 lg:px-20">
-                {displayedBlogs.map((blog) => {
-                    const categoryName =
-                        categories.find((c) => c.id === blog.category_id)?.name || "No Category";
-
-                    return (
+                {loading
+                    ? skeletonCards.map((_, index) => (
                         <div
-                            key={blog.id}
-                            className="rounded-xl overflow-hidden bg-white shadow-md sm:shadow-none transform transition-all duration-300 sm:hover:-translate-y-2 sm:hover:shadow-2xl"
+                            key={index}
+                            className="rounded-xl overflow-hidden bg-white shadow-md animate-pulse"
                         >
-
-                            <Link
-                                to={`/blog/${blog.id}`}
-                                className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
-                            >
-                                <img
-                                    src={blog.blog_image}
-                                    alt={blog.title}
-                                    className="h-48 sm:h-52 md:h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
-                                />
-                                <div className="p-4">
-                                    <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2 group-hover:text-[#0191e9] transition-colors duration-300">
-                                        {blog.title}
-                                    </h4>
-                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
-                                        {blog.description}
-                                    </p>
-                                    <div className="flex justify-between text-sm text-gray-500">
-                                        <span>{formatDate(blog.creation_date)}</span>
-                                        <span className="italic">{categoryName}</span>
-                                    </div>
+                            <div className="h-48 sm:h-52 md:h-56 bg-gray-300 w-full" />
+                            <div className="p-4">
+                                <div className="h-4 bg-gray-300 rounded w-3/4 mb-3"></div>
+                                <div className="h-3 bg-gray-200 rounded w-full mb-2"></div>
+                                <div className="h-3 bg-gray-200 rounded w-5/6 mb-4"></div>
+                                <div className="flex justify-between">
+                                    <div className="h-3 bg-gray-200 rounded w-1/3"></div>
+                                    <div className="h-3 bg-gray-200 rounded w-1/4"></div>
                                 </div>
-                            </Link>
+                            </div>
                         </div>
-                    );
-                })}
+                    ))
+                    : displayedBlogs.map((blog) => {
+                        const categoryName =
+                            categories.find((c) => c.id === blog.category_id)?.name || "No Category";
+
+                        return (
+                            <div
+                                key={blog.id}
+                                className="rounded-xl overflow-hidden bg-white shadow-md sm:shadow-none transform transition-all duration-300 sm:hover:-translate-y-2 sm:hover:shadow-2xl"
+                            >
+                                <Link
+                                    to={`/blog/${blog.id}`}
+                                    className="rounded-md shadow-md overflow-hidden hover:shadow-lg transition block"
+                                >
+                                    <img
+                                        src={blog.blog_image}
+                                        alt={blog.title}
+                                        className="h-48 sm:h-52 md:h-56 w-full object-cover transition-transform duration-300 hover:scale-105"
+                                    />
+                                    <div className="p-4">
+                                        <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2 group-hover:text-[#0191e9] transition-colors duration-300">
+                                            {blog.title}
+                                        </h4>
+                                        <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
+                                            {blog.description}
+                                        </p>
+                                        <div className="flex justify-between text-sm text-gray-500">
+                                            <span>{formatDate(blog.creation_date)}</span>
+                                            <span className="italic">{categoryName}</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        );
+                    })}
             </div>
 
             {/* View More Button */}

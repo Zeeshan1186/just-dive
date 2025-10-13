@@ -10,7 +10,6 @@ import { ChevronLeft, ChevronRight, Clock3 } from "lucide-react";
 import { useCarousel } from "../components/ui/use-carousel";
 import wave from "../assets/images/Bluewave.png";
 import { Link, useNavigate } from "react-router-dom";
-// import { FancyButton } from "../components/FancyButton";
 import { useEffect, useState } from "react";
 import { getactivePackages } from "../services/apiService";
 import { toast } from "react-hot-toast";
@@ -18,6 +17,7 @@ import { formattedText, minutesToHourMinuteString } from "@/utils/common-functio
 import type { IPackage } from "@/interface/package";
 
 export default function Packages() {
+    const [loading, setLoading] = useState(true);
     const { api, setApi } = useCarousel();
     const [packages, setPackages] = useState<IPackage[]>([]);
     const navigate = useNavigate();
@@ -25,16 +25,20 @@ export default function Packages() {
     useEffect(() => {
         const fetchPackages = async () => {
             try {
+                setLoading(true);
                 const res = await getactivePackages();
                 setPackages(res?.data?.data || []);
             } catch (err) {
                 console.error("Packages API error:", err);
                 toast.error("Failed to load packages");
+            } finally {
+                setLoading(false);
             }
         };
-
         fetchPackages();
     }, []);
+
+    const skeletonCards = Array(4).fill(0);
 
     const book = (packageData: IPackage) => {
         localStorage.setItem("selectedLocation", packageData.location.location_name);
@@ -43,7 +47,6 @@ export default function Packages() {
         navigate(`/booking/${packageData.id}`);
     };
 
-    // Limit to first 4 packages
     const displayedPackages = packages.slice(0, 4);
 
     return (
@@ -67,106 +70,112 @@ export default function Packages() {
                 className="w-full max-w-screen-xl mx-auto relative z-40"
             >
                 <CarouselContent className="-ml-2 sm:-ml-4 mb-6 sm:mb-10">
-                    {displayedPackages.map((pkg, index) => (
-                        <CarouselItem
-                            key={index}
-                            className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4"
-                        >
-                            <div
-                                className="group relative pb-4 Poppins hover:bg-white overflow-hidden transition-all duration-500 ease-in-out hover:shadow-xl border-[#e1e1e1] hover:border-1 hover:rounded-2xl flex flex-col transform hover:-translate-y-2"
-                                onClick={(e) => {
-                                    // For touch devices, toggle hover on tap
-                                    if (window.innerWidth < 768) {
-                                        e.currentTarget.classList.toggle("hover");
-                                    }
-                                }}
+                    {/* ✅ Skeleton loader */}
+                    {loading
+                        ? skeletonCards.map((_, index) => (
+                            <CarouselItem
+                                key={index}
+                                className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4"
                             >
-                                <div className="p-2 sm:p-4 group overflow-hidden rounded-2xl">
-                                    <img
-                                        src={pkg.package_image}
-                                        alt={pkg.name}
-                                        width={400}
-                                        height={500}
-                                        className="w-full h-60 sm:h-72 md:h-80 object-cover rounded-2xl transform transition-transform duration-500 group-hover:scale-105"
-                                    />
+                                <div className="p-2 sm:p-4 rounded-2xl bg-white animate-pulse flex flex-col gap-3">
+                                    <div className="w-full h-60 sm:h-72 md:h-80 bg-gray-300 rounded-2xl"></div>
+                                    <div className="h-4 bg-gray-300 rounded w-3/4 mx-auto mt-2"></div>
+                                    <div className="flex justify-center gap-2 mt-3">
+                                        <div className="h-8 w-20 bg-gray-300 rounded-full"></div>
+                                        <div className="h-8 w-20 bg-gray-300 rounded-full"></div>
+                                    </div>
                                 </div>
+                            </CarouselItem>
+                        ))
+                        : displayedPackages.map((pkg, index) => (
+                            <CarouselItem
+                                key={index}
+                                className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4"
+                            >
+                                <div
+                                    className="group relative pb-4 Poppins hover:bg-white overflow-hidden transition-all duration-500 ease-in-out hover:shadow-xl border-[#e1e1e1] hover:border-1 hover:rounded-2xl flex flex-col transform hover:-translate-y-2"
+                                    onClick={(e) => {
+                                        if (window.innerWidth < 768) {
+                                            e.currentTarget.classList.toggle("hover");
+                                        }
+                                    }}
+                                >
+                                    <div className="p-2 sm:p-4 group overflow-hidden rounded-2xl">
+                                        <img
+                                            src={pkg.package_image}
+                                            alt={pkg.name}
+                                            width={400}
+                                            height={500}
+                                            className="w-full h-60 sm:h-72 md:h-80 object-cover rounded-2xl transform transition-transform duration-500 group-hover:scale-105"
+                                        />
+                                    </div>
 
-                                <div className="absolute bottom-30 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
-                                    {/* {pkg.duration} Hour{pkg.duration > 1 ? "s" : ""} */}
-                                    {minutesToHourMinuteString(pkg.duration)}
-                                    <Clock3 size={16} strokeWidth={1.5} />
-                                </div>
+                                    <div className="absolute bottom-30 right-2 bg-[#0191e9] text-white font-normal text-xs sm:text-sm px-3 sm:px-5 py-1 rounded-full flex items-center gap-1">
+                                        {minutesToHourMinuteString(pkg.duration)}
+                                        <Clock3 size={16} strokeWidth={1.5} />
+                                    </div>
 
-                                <div className="px-2 sm:px-4 py-3 pb-0 flex flex-col justify-between flex-1">
-                                    {/* Package name - let it grow naturally */}
-                                    <p className="text-xs sm:text-sm font-normal text-gray-800 text-center mb-3 line-clamp-2">
-                                        {pkg.name}
-                                    </p>
+                                    <div className="px-2 sm:px-4 py-3 pb-0 flex flex-col justify-between flex-1">
+                                        <p className="text-xs sm:text-sm font-normal text-gray-800 text-center mb-3 line-clamp-2">
+                                            {pkg.name}
+                                        </p>
 
-                                    {/* Buttons fixed at bottom */}
-                                    <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 
-                  transition-all duration-500 ease-in-out overflow-hidden 
-                  flex justify-center gap-2 mt-auto">
-                                        <Button
-                                            onClick={() => book(pkg)}
-                                            variant="outline"
-                                            className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
-                                        >
-                                            Book Now
-                                        </Button>
-
-                                        <Link to={`/${formattedText(pkg.name)}`} state={{ packageId: pkg.id }}>
+                                        <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out overflow-hidden flex justify-center gap-2 mt-auto">
                                             <Button
+                                                onClick={() => book(pkg)}
                                                 variant="outline"
                                                 className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
                                             >
-                                                Know More
+                                                Book Now
                                             </Button>
-                                        </Link>
+
+                                            <Link to={`/${formattedText(pkg.name)}`} state={{ packageId: pkg.id }}>
+                                                <Button
+                                                    variant="outline"
+                                                    className="text-white cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                                >
+                                                    Know More
+                                                </Button>
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
+                            </CarouselItem>
+                        ))}
+
+                    {/* View More Card (outside loop) */}
+                    {!loading && (
+                        <CarouselItem className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4">
+                            <div
+                                onClick={() => navigate("/murdeshwarpackages")}
+                                className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-4 sm:p-8 group bg-white cursor-pointer rounded-2xl hover:shadow-xl"
+                            >
+                                <p className="text-base sm:text-lg font-normal Poppins text-[#0191e9] group-hover:underline">
+                                    View More Packages
+                                </p>
+                                <Button
+                                    variant="outline"
+                                    className="mt-3 sm:mt-4 cursor-pointer text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
+                                >
+                                    Explore All
+                                </Button>
                             </div>
                         </CarouselItem>
-                    ))}
-
-                    {/* View More Card */}
-                    <CarouselItem className="pl-2 sm:pl-4 pb-4 sm:pb-6 basis-10/12 xs:basis-1/2 sm:basis-1/3 lg:basis-1/4">
-                        <div
-                            onClick={() => navigate("/murdeshwarpackages")}
-                            className="flex flex-col justify-center items-center transition-all duration-300 text-center h-full p-4 sm:p-8 group bg-white cursor-pointer rounded-2xl hover:shadow-xl"
-                        >
-                            <p className="text-base sm:text-lg font-normal Poppins text-[#0191e9] group-hover:underline">
-                                View More Packages
-                            </p>
-                            <Button
-                                variant="outline"
-                                className="mt-3 sm:mt-4 cursor-pointer text-white font-normal bg-[#0191e9] hover:text-[#0191e9] hover:bg-white border-[#0191e9] rounded-full text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2"
-                            >
-                                Explore All
-                            </Button>
-                        </div>
-                    </CarouselItem>
+                    )}
                 </CarouselContent>
 
-                {/* Custom Arrows */}
+                {/* Arrows */}
                 <button
                     onClick={() => api?.scrollPrev()}
                     className="absolute left-2 sm:left-[-40px] text-[#0191e9] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 hover:scale-110 transition-transform duration-300"
                 >
-                    <ChevronLeft
-                        size={window.innerWidth >= 640 ? 55 : 30}
-                        strokeWidth={1}
-                    />
-
+                    <ChevronLeft size={window.innerWidth >= 640 ? 55 : 30} strokeWidth={1} />
                 </button>
                 <button
                     onClick={() => api?.scrollNext()}
                     className="absolute right-2 sm:right-[-40px] text-[#0191e9] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 hover:scale-110 transition-transform duration-300"
                 >
-                    <ChevronRight
-                        size={window.innerWidth >= 640 ? 55 : 30}
-                        strokeWidth={1}
-                    />
+                    <ChevronRight size={window.innerWidth >= 640 ? 55 : 30} strokeWidth={1} />
                 </button>
             </Carousel>
 
