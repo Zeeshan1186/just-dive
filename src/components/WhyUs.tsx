@@ -3,7 +3,7 @@ import whyus from "../assets/images/whyus.png";
 import AJAY from "../assets/images/team/decosta.png";
 // import SUSHIl from "../assets/images/team/managing-partner.png";
 import ARVIND from "../assets/images/team/ARVIND-BHADRAN.png";
-import director from "../assets/images/team/director.webp";
+import director from "../assets/images/team/director.jpeg";
 // import SAINATH from "../assets/images/team/SAINATH.png";
 // import HARIKRISHNAN from "../assets/images/team/HARIKRISHNAN.png";
 // import VINOD from "../assets/images/team/VINOD-KUMAR.png";
