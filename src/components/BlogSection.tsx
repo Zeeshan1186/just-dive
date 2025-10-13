@@ -85,7 +85,7 @@ const BlogSection = () => {
                                     <div className="h-3 bg-gray-200 rounded w-1/4"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     ))
                     : displayedBlogs.map((blog) => {
                         const categoryName =
