@@ -160,7 +160,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     // }, []);
 
     return (
-        <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">
+        <div className="banner">
             <img
                 src="/assets/images/home_banner.webp"
                 alt="Banner"
@@ -168,8 +168,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                 loading="eager"
                 decoding="async"
                 onLoad={() => setIsImageLoaded(true)}
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${isImageLoaded ? "opacity-100" : "opacity-0"
-                    }`}
+                className={`banner-img ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
             />
 
             {/* Video fades in once loaded */}

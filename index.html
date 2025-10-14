@@ -19,16 +19,40 @@
       flex-direction: column;
       min-height: 100vh;
     }
+
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      /* default for small screens */
+      overflow: hidden;
+    }
+
+    .banner-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: opacity 0.7s ease;
+    }
+
+    /* Medium screens and up (Tailwind sm:) */
+    @media (min-width: 640px) {
+      .banner {
+        height: 85vh;
+      }
+    }
   </style>
 
   <!-- Preload main CSS asynchronously -->
-  <link rel="preload" href="/assets/index-DQo9RDZH.css" as="style"
-    onload="this.rel='stylesheet'">
+  <link rel="preload" href="/assets/index-DQo9RDZH.css" as="style" onload="this.rel='stylesheet'">
   <noscript>
     <link rel="stylesheet" href="/assets/index-DQo9RDZH.css">
   </noscript>
 
-   <link rel="prefetch" href="/assets/index-DQo9RDZH.css" as="style" />
+  <link rel="prefetch" href="/assets/index-DQo9RDZH.css" as="style" />
 
   <link rel="preload" href="/assets/home_banner.webp" as="image" fetchpriority="high">
 
