@@ -33,6 +33,9 @@ export default function Header() {
                     <img
                         src={logo}
                         alt="Logo"
+                        fetchPriority="high"
+                        loading="eager"
+                        decoding="async"
                         className="w-32 sm:w-50 md:w-48 lg:w-52 object-contain"
                     />
                 </Link>
