@@ -31,7 +31,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link to="/" className="flex items-center space-x-2">
                     <img
-                        src={logo}
+                        src={"/assets/images/JustDiveLogo.webp"}
                         alt="Logo"
                         fetchPriority="high"
                         loading="eager"
