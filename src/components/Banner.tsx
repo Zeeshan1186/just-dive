@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
 import video from "../../Video/banner_video.mp4";
-import bannerImg from "../assets/images/home_banner.webp";
+// import bannerImg from "../assets/images/home_banner.webp";
 import type { IPackage } from "@/interface/package";
 
 export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
@@ -31,6 +31,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     const { id } = useParams();
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
+    const [isImageLoaded, setIsImageLoaded] = useState(false);
     const navigate = useNavigate();
     const videoRef = useRef<HTMLVideoElement>(null);
     // const [isLoaded, setIsLoaded] = useState(false);
@@ -161,12 +162,13 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     return (
         <div className="relative w-full h-[80vh] sm:h-[85vh] overflow-hidden">
             <img
-                src={bannerImg}
+                src="/assets/images/home_banner.webp"
                 alt="Banner"
                 fetchPriority="high"
                 loading="eager"
                 decoding="async"
-                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${isVideoLoaded ? "opacity-0" : "opacity-100"
+                onLoad={() => setIsImageLoaded(true)}
+                className={`absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-700 ${isImageLoaded ? "opacity-100" : "opacity-0"
                     }`}
             />
 
