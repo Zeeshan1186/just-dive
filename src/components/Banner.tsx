@@ -10,7 +10,7 @@ import {
 import { format, parse } from "date-fns";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import peoples from "../assets/images/Peoples.png";
+import peoples from "../assets/images/Peoples.webp";
 import waves from "../assets/images/Waves1.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
