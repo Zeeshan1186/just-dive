@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
-// import logo from "../assets/images/JustDiveLogo.webp";
+import logo from "../assets/images/JustDiveLogo.webp";
 import whatsappicon from "../assets/images/WhatsApp_icon.webp";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -31,7 +31,7 @@ export default function Header() {
                 {/* Logo */}
                 <Link to="/" className="flex items-center space-x-2">
                     <img
-                        src={"/assets/images/JustDiveLogo.webp"}
+                        src={logo}
                         alt="Logo"
                         fetchPriority="high"
                         loading="eager"
