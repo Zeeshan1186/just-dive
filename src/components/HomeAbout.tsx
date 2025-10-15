@@ -52,7 +52,7 @@ const HomeAbout = () => {
                     <div>
                         <Link to={`/aboutus`}>
                             <Button className="w-28 text-white  cursor-pointer font-normal bg-[#0191e9] hover:text-[#0191e9] transition hover:bg-transparent hover:border-1 border-[#0191e9] rounded-full text-sm px-4 py-2">
-                                Read More
+                                Read More About Us
                             </Button>
                         </Link>
                     </div>
