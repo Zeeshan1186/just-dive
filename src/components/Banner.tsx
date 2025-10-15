@@ -11,7 +11,7 @@ import { format, parse } from "date-fns";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.webp";
-import waves from "../assets/images/Waves1.png";
+import waves from "../assets/images/Waves.png";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
@@ -161,7 +161,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
         <div className="banner">
             <img
                 src="/assets/images/home_banner.webp"
-                alt="Banner"
+                alt="Home Banner"
                 // fetchPriority="high"
                 // loading="eager"
                 decoding="async"
@@ -192,7 +192,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                 {/* Waves Icon */}
                 <div className="mb-4">
                     <span className="text-xl text-[#0191e9]">
-                        <img src={waves} alt="" className="w-16 sm:w-20 md:w-24" />
+                        <img src={waves} alt="wave" className="w-16 sm:w-20 md:w-24" />
                     </span>
                 </div>
 

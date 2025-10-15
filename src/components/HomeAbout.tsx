@@ -1,6 +1,6 @@
 import CountUp from "react-countup";
-import diver from "../assets/images/diver.webp";
-import diverbg from "../assets/images/diverbg.webp";
+import diver from "../assets/images/scuba-diver.webp";
+import diverbg from "../assets/images/scuba-diving.webp";
 import waves from "../assets/images/Bluewave.webp";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -12,7 +12,7 @@ const HomeAbout = () => {
             <div className="relative w-full md:w-1/2 flex justify-center">
                 <img
                     src={diverbg} // replace with actual path
-                    alt="Scuba Diver"
+                    alt="Scuba Diving"
                     className="max-w-[80%] md:max-w-[80%]"
                 />
 

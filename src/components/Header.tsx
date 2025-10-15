@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, ChevronDown, Phone } from "lucide-react";
-import logo from "../assets/images/JustDiveLogo.webp";
-import whatsappicon from "../assets/images/WhatsApp_icon.webp";
+import logo from "../assets/images/Just-dive-logo.webp";
+import whatsappicon from "../assets/images/WhatsApp.webp";
 import { NavLink, Link } from "react-router-dom";
 import { Button } from "./ui/button";
 import { getActiveSpecificPackages } from "../services/apiService";
