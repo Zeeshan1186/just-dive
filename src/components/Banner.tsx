@@ -210,7 +210,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                         alt="avatars"
                         className="hidden sm:inline-block w-12 md:w-33 mr-2"
                     />
-                    <span className="max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
+                    <span className="text-white max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg">
                         50+ people booked Tomorrow’s Scuba Dive in last 24 hours
                     </span>
                 </p>

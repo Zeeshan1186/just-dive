@@ -20,7 +20,7 @@ export default function Footer() {
 
                 {/* Column 2 - Menu 1 (left column when side-by-side) */}
                 <div className="Poppins flex flex-col items-start">
-                    <h4 className="font-semibold mb-3 text-lg">Home</h4>
+                    <div className="font-semibold mb-3 text-lg">Home</div>
                     <ul className="space-y-3 text-sm text-gray-300">
                         <li><Link to="/aboutus">About Us</Link></li>
                         <li><Link to="/murdeshwarpackages">Packages</Link></li>
@@ -31,7 +31,7 @@ export default function Footer() {
 
                 {/* Column 3 - Menu 2 (right column when side-by-side) */}
                 <div className="Poppins flex flex-col items-start">
-                    <h4 className="font-semibold mb-3 text-lg">Support</h4>
+                    <div className="font-semibold mb-3 text-lg">Support</div>
                     <ul className="space-y-3 text-sm text-gray-300">
                         <li><Link to="/contactus">Contact Us</Link></li>
                         <li><Link to="/termsandcondition">Terms & Condition</Link></li>
