@@ -8,7 +8,7 @@ Disallow: /privacypolicy/
 Disallow: /wp-admin/
 Disallow: /wp-login.php
 Disallow: /cgi-bin/
-
+ 
 # Allow search engines to index everything else
 Allow: /
 
