@@ -28,15 +28,13 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     const [showLocationModal, setShowLocationModal] = useState(false);
     const [popupStep, setPopupStep] = useState(0);
     const [packages, setPackages] = useState<IPackage[]>([]);
-    const { id } = useParams();
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
     const [isImageLoaded, setIsImageLoaded] = useState(false);
-    const navigate = useNavigate();
-    const videoRef = useRef<HTMLVideoElement>(null);
-    // const [isLoaded, setIsLoaded] = useState(false);
-    // const [, setShowFallback] = useState(false);
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+    const videoRef = useRef<HTMLVideoElement>(null);
+    const navigate = useNavigate();
+    const { id } = useParams();
 
     // Detect when video has loaded enough
     useEffect(() => {
@@ -58,7 +56,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
             video.removeEventListener("loadeddata", handleLoadedData);
             video.removeEventListener("error", handleError);
         };
-    }, [video]);
+    }, []);
 
 
     useEffect(() => {
@@ -164,8 +162,8 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
             <img
                 src="/assets/images/home_banner.webp"
                 alt="Banner"
-                fetchPriority="high"
-                loading="eager"
+                // fetchPriority="high"
+                // loading="eager"
                 decoding="async"
                 onLoad={() => setIsImageLoaded(true)}
                 className={`banner-img ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
@@ -183,7 +181,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                     playsInline
                     preload="auto"
                 >
-                    <source src={video} type="video/mp4" />
+                    <source src={"/videos/banner_video.mp4"} type="video/mp4" />
                 </video>
             )}
 
