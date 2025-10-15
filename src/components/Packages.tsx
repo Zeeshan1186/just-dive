@@ -164,12 +164,14 @@ export default function Packages({ packages, loading }: { packages: IPackage[], 
                 <button
                     onClick={() => api?.scrollPrev()}
                     className="absolute left-2 sm:left-[-40px] text-[#0191e9] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 hover:scale-110 transition-transform duration-300"
+                    aria-label="Click to see more packages"
                 >
                     <ChevronLeft size={window.innerWidth >= 640 ? 55 : 30} strokeWidth={1} />
                 </button>
                 <button
                     onClick={() => api?.scrollNext()}
                     className="absolute right-2 sm:right-[-40px] text-[#0191e9] top-1/2 -translate-y-1/2 z-10 p-1 sm:p-2 hover:scale-110 transition-transform duration-300"
+                    aria-label="Click to see more packages"
                 >
                     <ChevronRight size={window.innerWidth >= 640 ? 55 : 30} strokeWidth={1} />
                 </button>

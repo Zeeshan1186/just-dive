@@ -156,6 +156,7 @@ export default function Header() {
                 <button
                     className="md:hidden"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    aria-label="Open Navigation menu"   
                 >
                     <Menu size={24} />
                 </button>
