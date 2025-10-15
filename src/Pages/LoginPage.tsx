@@ -11,7 +11,7 @@ export default function LoginPage() {
                 <div className="flex justify-center items-center">
                     <img
                         src={logo}
-                        alt="Logo"
+                        alt="Scuba Dive Logo"
                         className="w-32 sm:w-full md:w-40 lg:w-60"
                     />
                 </div>

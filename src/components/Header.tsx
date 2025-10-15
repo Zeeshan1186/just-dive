@@ -32,7 +32,7 @@ export default function Header() {
                 <Link to="/" className="flex items-center space-x-2">
                     <img
                         src={logo}
-                        alt="Logo"
+                        alt="Scuba Dive Logo"
                         fetchPriority="high"
                         loading="eager"
                         decoding="async"

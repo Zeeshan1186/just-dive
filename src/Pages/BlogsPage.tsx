@@ -71,7 +71,7 @@ const BlogsPage = () => {
                 <div className="absolute inset-0 bg-black/50" />
                 <div className="relative z-10 text-center max-w-4xl mx-auto px-4 text-white">
                     <div className="mb-4">
-                        <img src={waves} alt="Wave" className="w-10 mx-auto" />
+                        <img src={waves} alt="Golden wave" className="w-10 mx-auto" />
                     </div>
                     <h1 className="text-3xl sm:text-4xl md:text-5xl Trirong font-normal leading-tight mb-6">
                         Blogs

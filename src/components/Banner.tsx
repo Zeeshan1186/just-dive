@@ -192,7 +192,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
                 {/* Waves Icon */}
                 <div className="mb-4">
                     <span className="text-xl text-[#0191e9]">
-                        <img src={waves} alt="wave" className="w-16 sm:w-20 md:w-24" />
+                        <img src={waves} alt="Golden Wave" className="w-16 sm:w-20 md:w-24" />
                     </span>
                 </div>
 

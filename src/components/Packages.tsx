@@ -50,7 +50,7 @@ export default function Packages({ packages, loading }: { packages: IPackage[], 
         <div className="w-full px-4 sm:px-8 lg:px-20 pt-8 sm:pt-10 pb-0 relative">
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
-                <img src={wave} alt="Wave" className="w-8 sm:w-10 mb-4" />
+                <img src={wave} alt="Blue wave" className="w-8 sm:w-10 mb-4" />
                 <h2 className="Trirong text-[#626262] text-2xl sm:text-3xl md:text-4xl font-normal mb-2 uppercase">
                     Scuba Diving Packages
                 </h2>

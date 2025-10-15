@@ -38,7 +38,7 @@ export default function murdeshwarpackages() {
             </Helmet>
             {/* Title Section */}
             <div className="flex flex-col justify-center items-center text-center mb-6">
-                <img src={wave} alt="Wave" className="w-8 sm:w-10 mb-4" />
+                <img src={wave} alt="Blue wave" className="w-8 sm:w-10 mb-4" />
                 <h2 className="Trirong text-[#626262] text-2xl sm:text-3xl md:text-4xl font-normal mb-2 uppercase">
                     Scuba Diving Packages
                 </h2>
