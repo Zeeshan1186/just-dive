@@ -11,7 +11,7 @@ import { format, parse } from "date-fns";
 import { CalendarIcon, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import peoples from "../assets/images/Peoples.webp";
-import waves from "../assets/images/Waves.png";
+import waves from "../assets/images/Waves.webp";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
