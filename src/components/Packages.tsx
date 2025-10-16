@@ -65,7 +65,7 @@ export default function Packages({ packages, loading }: { packages: IPackage[], 
                 setApi={setApi}
                 className="w-full max-w-screen-xl mx-auto relative z-40"
             >
-                <CarouselContent className="-ml-2 sm:-ml-4 mb-6 sm:mb-10">
+                <CarouselContent className="-ml-2 sm:-ml-4 mb-14 sm:mb-10">
                     {/* ✅ Skeleton loader */}
                     {loading
                         ? skeletonCards.map((_, index) => (
@@ -116,7 +116,12 @@ export default function Packages({ packages, loading }: { packages: IPackage[], 
                                             {pkg.name}
                                         </p>
 
-                                        <div className="opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-in-out overflow-hidden flex justify-center gap-2 mt-auto">
+                                        <div
+                                            className="
+    flex justify-center gap-2 mt-auto  overflow-hidden transition-all duration-500 ease-in-out
+    opacity-100 translate-y-0
+    sm:opacity-0 sm:translate-y-4 sm:group-hover:opacity-100 md:group-hover:translate-y-0
+  "                                        >
                                             <Button
                                                 onClick={() => book(pkg)}
                                                 variant="outline"

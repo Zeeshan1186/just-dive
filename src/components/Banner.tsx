@@ -16,7 +16,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { getactivePackages, getactivePackagesByLocation } from "@/services/apiService";
 import video from "../../Video/banner_video.mp4";
-// import bannerImg from "../assets/images/home_banner.webp";
+import bannerImg from "../assets/images/home_banner.webp";
 import type { IPackage } from "@/interface/package";
 
 export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
@@ -160,7 +160,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     return (
         <div className="banner">
             <img
-                src="/assets/images/home_banner.webp"
+                src={bannerImg}
                 alt="Home Banner"
                 // fetchPriority="high"
                 // loading="eager"
