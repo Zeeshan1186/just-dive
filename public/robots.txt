@@ -1,7 +1,6 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /login/
-Disallow: /booking/
 Disallow: /thankyou/
 Disallow: /termsandconditions/
 Disallow: /privacypolicy/

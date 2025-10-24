@@ -215,7 +215,7 @@ export default function Header() {
                 </div>
             )}
             <a
-                href="https://wa.me/8762412121"
+                href="https://wa.me/918762412121"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="fixed z-50 bottom-6 right-4 md:bottom-4 md:right-4"
