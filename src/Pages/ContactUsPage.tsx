@@ -114,7 +114,7 @@ const ContactUsPage = () => {
 
                         <div className="mb-6">
                             <h3 className="text-lg font-medium">Call us</h3>
-                            <p className="text-sm">Mon-Fri from 8am to 5pm</p>
+                            {/* <p className="text-sm">Mon-Fri from 8am to 5pm</p> */}
                             <p className="text-sm">087624 12121</p>
                         </div>
 
