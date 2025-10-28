@@ -53,7 +53,7 @@ export default function Header() {
                         Home
                     </NavLink>
 
-                    <NavLink
+                    <NavLink 
                         to="/aboutus"
                         className={({ isActive }) =>
                             isActive
