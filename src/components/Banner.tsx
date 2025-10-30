@@ -30,7 +30,7 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
     const [packages, setPackages] = useState<IPackage[]>([]);
     const [selectedPackage, setSelectedPackage] = useState<number | "">("");
     const [participants, setParticipants] = useState("");
-    const [isImageLoaded, setIsImageLoaded] = useState(false);
+    // const [isImageLoaded, setIsImageLoaded] = useState(false);
     const [isVideoLoaded, setIsVideoLoaded] = useState(false);
     const videoRef = useRef<HTMLVideoElement>(null);
     const navigate = useNavigate();
@@ -162,11 +162,11 @@ export default function Banner({ packagesData }: { packagesData: IPackage[] }) {
             <img
                 src={bannerImg}
                 alt="Home Banner"
-                // fetchPriority="high"
-                // loading="eager"
+                fetchPriority="high"
+                loading="eager"
                 decoding="async"
-                onLoad={() => setIsImageLoaded(true)}
-                className={`banner-img ${isImageLoaded ? "opacity-100" : "opacity-0"}`}
+                // onLoad={() => setIsImageLoaded(true)}
+                className={`banner-img`}
             />
 
             {/* Video fades in once loaded */}
