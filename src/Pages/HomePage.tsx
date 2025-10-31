@@ -1,16 +1,20 @@
 import CTA from '@/components/CTA';
 import Banner from '../components/Banner';
-import DiveLocation from '../components/DiveLocation';
 import Packages from '../components/Packages';
-import AboutUs from '@/components/HomeAbout';
-import BlogSection from '@/components/BlogSection';
+// import DiveLocation from '../components/DiveLocation';
+// import AboutUs from '@/components/HomeAbout';
+// import BlogSection from '@/components/BlogSection';
 // import { TestimonialCarousel } from '@/components/TestimonialCarousel';
 import React, { Suspense, useEffect, useState } from 'react';
 import type { IPackage } from '@/interface/package';
 import { getActiveSpecificPackages } from '@/services/apiService';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
-// import Clients from '@/components/Clients';
+
+// Imports component with lazy loading
+const DiveLocation = React.lazy(() => import('../components/DiveLocation'));
+const AboutUs = React.lazy(() => import('@/components/HomeAbout'));
+const BlogSection = React.lazy(() => import('@/components/BlogSection'));
 
 function HomePage() {
     const [packages, setPackages] = useState<IPackage[]>([]);
