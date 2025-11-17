@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { data, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { addBlog, getBlogById, updateBlog, getBlogscategories } from "@/services/apiService";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
@@ -159,7 +159,7 @@ const AddBlog = () => {
         }
     };
 
-    // console.log('form.description', form.description);
+    console.log('blog.description', blog?.description);
 
     return (
         <div className="m-5">
@@ -221,13 +221,18 @@ const AddBlog = () => {
                         rows={6}
                         required
                     /> */}
-                    <TextEditor
-                        markup={form.description}
-                        placeholder="Enter description here"
-                        onChange={(val) =>
-                            setForm((prev) => ({ ...prev, description: val }))
-                        }
-                    />
+                    {blog ? (
+                        <TextEditor
+                            markup={blog.description}
+                            placeholder="Enter description here"
+                            onChange={(val) =>
+                                setForm((prev) => ({ ...prev, description: val }))
+                            }
+                        />
+                    ) : (
+                        <p>Loading...</p> // or nothing if you prefer
+                    )}
+
 
                 </div>
 
