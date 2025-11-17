@@ -4,9 +4,10 @@ import { addBlog, getBlogById, updateBlog, getBlogscategories } from "@/services
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+// import { Textarea } from "@/components/ui/textarea";
 import { Loader2, Plus } from "lucide-react";
 import type { IBlog } from "@/interface/blog";
+import TextEditor from "@/components/TextEditor";
 
 type BlogCategory = {
     id: number;
@@ -158,6 +159,8 @@ const AddBlog = () => {
         }
     };
 
+    // console.log('form.description', form.description);
+
     return (
         <div className="m-5">
             <h2 className="text-2xl font-bold mb-4">
@@ -210,14 +213,22 @@ const AddBlog = () => {
 
                 <div>
                     <label className="block mb-1 font-medium">Description</label>
-                    <Textarea
+                    {/* <Textarea
                         name="description"
                         value={form.description}
                         onChange={handleChange}
                         placeholder="Enter blog description (HTML tags allowed, e.g. <b>bold</b>)"
                         rows={6}
                         required
+                    /> */}
+                    <TextEditor
+                        markup={form.description}
+                        placeholder="Enter description here"
+                        onChange={(val) =>
+                            setForm((prev) => ({ ...prev, description: val }))
+                        }
                     />
+
                 </div>
 
                 {/* ✅ Blog Image Upload */}

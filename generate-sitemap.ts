@@ -22,7 +22,6 @@ ${sitemapEntries}
 
     const outputPath = path.resolve(__dirname, "public", "sitemap.xml");
     await fs.writeFile(outputPath, sitemap, "utf8");
-    console.log("✅ Sitemap generated at /public/sitemap.xml");
   } catch (error) {
     console.error("Error generating sitemap:", error);
     process.exit(1);

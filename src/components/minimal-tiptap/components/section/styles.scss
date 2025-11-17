@@ -1,0 +1,17 @@
+/* Tiptap table styling */
+.ProseMirror table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+  padding: 8px;
+  text-align: left;
+}
+
+.ProseMirror th {
+  background: #f3f4f6; /* gray-100 */
+  font-weight: bold;
+}
