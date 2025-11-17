@@ -112,9 +112,9 @@ const BlogSection = () => {
                                         <h4 className="font-semibold text-[#171717] leading-6 Poppins text-lg mb-2 line-clamp-2 group-hover:text-[#0191e9] transition-colors duration-300">
                                             {blog.title}
                                         </h4>
-                                        <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
-                                            {blog.description}
-                                        </p>
+                                        <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3" dangerouslySetInnerHTML={{
+                                            __html: blog.description,
+                                        }} />
                                         <div className="flex justify-between text-sm text-gray-500">
                                             <span>{formatDate(blog.creation_date)}</span>
                                             <span className="italic">{categoryName}</span>
