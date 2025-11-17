@@ -1,17 +1,17 @@
-/* Tiptap table styling */
-.ProseMirror table {
+/* Apply only inside the editor */
+.minimal-tiptap-editor table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: collapse; /* ensures borders are not doubled */
+  border: 1px solid #ccc;    /* table border */
 }
 
-.ProseMirror th,
-.ProseMirror td {
-  border: 1px solid #d1d5db; /* Tailwind gray-300 */
+.minimal-tiptap-editor th,
+.minimal-tiptap-editor td {
+  border: 1px solid #ccc;    /* cell borders */
   padding: 8px;
   text-align: left;
 }
 
-.ProseMirror th {
-  background: #f3f4f6; /* gray-100 */
-  font-weight: bold;
+.minimal-tiptap-editor th {
+  background-color: #f5f5f5; /* optional header background */
 }

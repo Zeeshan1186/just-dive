@@ -1,6 +1,7 @@
+import './styles.scss'
+
 import React from "react";
 import type { Editor } from "@tiptap/react";
-
 import {
     DropdownMenu,
     DropdownMenuTrigger,
