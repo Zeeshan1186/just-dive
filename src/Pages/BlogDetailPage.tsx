@@ -14,11 +14,9 @@ import {
     getBlogsByCategoryId,
     getBlogscategories,
 } from "@/services/apiService";
-// import DOMPurify from "dompurify";
 import { formattedText } from "@/utils/common-function";
 
 const BlogDetailPage = () => {
-    // const { id } = useParams();
     const location = useLocation();
     const id = location.state.blogId;
     const [blogPost, setBlogPost] = useState<any>(null);
@@ -37,6 +35,8 @@ const BlogDetailPage = () => {
 
         fetchBlog();
     }, [id]);
+
+    // console.log("Blog Post:", blogPost);
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -123,7 +123,7 @@ const BlogDetailPage = () => {
                     />
 
                     <div
-                        className="text-gray-700 leading-relaxed space-y-4 prose"
+                        className="prose prose-lg prose-slate text-gray-700 leading-relaxed space-y-4 prose"
                         dangerouslySetInnerHTML={{
                             __html: blogPost.description,
                         }}
@@ -205,9 +205,10 @@ const BlogDetailPage = () => {
                                     <h4 className="font-semibold text-[#171717] leading-6 Poppins line-clamp-2 text-base sm:text-lg mb-2">
                                         {blog.title}
                                     </h4>
-                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3">
-                                        {blog.description}
-                                    </p>
+                                    <p className="font-normal text-gray-700 Poppins text-sm mb-2 line-clamp-3"
+                                        dangerouslySetInnerHTML={{
+                                            __html: blogPost.description,
+                                        }} />
                                     <p className="text-sm Poppins text-gray-500 flex justify-between items-center">
                                         <span>{formatDate(blog.updated_at)}</span>
                                     </p>
