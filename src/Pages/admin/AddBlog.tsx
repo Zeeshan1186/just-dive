@@ -159,8 +159,6 @@ const AddBlog = () => {
         }
     };
 
-    console.log('blog.description', blog?.description);
-
     return (
         <div className="m-5">
             <h2 className="text-2xl font-bold mb-4">

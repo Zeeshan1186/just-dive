@@ -15,3 +15,14 @@
 .minimal-tiptap-editor th {
   background-color: #f5f5f5; /* optional header background */
 }
+
+.ProseMirror table {
+  border-collapse: collapse;
+  border: 1px solid #ccc;
+}
+
+.ProseMirror th,
+.ProseMirror td {
+  border: 1px solid #ccc;
+  padding: 6px;
+}

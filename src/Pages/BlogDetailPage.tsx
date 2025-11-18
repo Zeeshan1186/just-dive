@@ -36,8 +36,6 @@ const BlogDetailPage = () => {
         fetchBlog();
     }, [id]);
 
-    // console.log("Blog Post:", blogPost);
-
     useEffect(() => {
         const fetchCategories = async () => {
             try {
@@ -123,11 +121,10 @@ const BlogDetailPage = () => {
                     />
 
                     <div
-                        className="prose prose-lg prose-slate text-gray-700 leading-relaxed space-y-4 prose"
-                        dangerouslySetInnerHTML={{
-                            __html: blogPost.description,
-                        }}
+                        className="max-w-full ProseMirror overflow-x-auto text-gray-700 leading-relaxed space-y-4"
+                        dangerouslySetInnerHTML={{ __html: blogPost.description }}
                     />
+
                     {/* <div className="text-gray-700 leading-relaxed space-y-4 whitespace-pre-line">
                         {blogPost.description}
                     </div> */}
