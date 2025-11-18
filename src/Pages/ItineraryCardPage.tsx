@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { getPackageById } from "../services/apiService"; // ✅ correct API call
-import { ChevronDown, ChevronUp, Loader2, Pencil, Timer } from "lucide-react";
+import { ChevronDown, ChevronRight, ChevronUp, Loader2, Pencil, SquareCheckBig, Timer } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
 import RightBookingCard from "@/components/RightBookingCard";
@@ -169,10 +169,11 @@ function ItineraryCardPage() {
                                         <Timer />
                                         <h2 className="text-md Poppins font-normal">Schedule</h2>
                                     </div>
-                                    <div className="space-y-6 pl-4 relative border-l-2 border-[#B9B9B9]">
+                                    <div className="space-y-6 relative ">
                                         {packageData?.schedules?.map((item: any, idx: number) => (
-                                            <div key={idx} className="relative pl-2 text-gray-800">
-                                                <span className="absolute -left-6 top-1 w-3 h-3 bg-gray-400 rounded-full" />
+                                            <div key={idx} className="relative flex  text-gray-800">
+                                                {/* <span className="absolute -left-6 top-1 w-3 h-3 bg-gray-400 rounded-full" /> */}
+                                                <ChevronRight className="mr-1" />
                                                 <p className="text-sm sm:text-base">{item.title}</p>
                                             </div>
                                         ))}
@@ -198,7 +199,11 @@ function ItineraryCardPage() {
                                             </div>
                                             <ul className="list-none space-y-2 text-gray-800 whitespace-pre-line">
                                                 {must.description.split("\n").map((line: string, i: number) => (
-                                                    <li key={i} className="text-sm sm:text-base">{line.trim()}</li>
+                                                    <li key={i} className="text-sm sm:text-base flex gap-2">
+                                                        <div className="flex gap-2">
+                                                            <SquareCheckBig className=" w-4" /> {line.trim()}
+                                                        </div>
+                                                    </li>
                                                 ))}
                                             </ul>
                                         </div>
@@ -240,10 +245,11 @@ function ItineraryCardPage() {
                                         <Pencil className="w-5 h-5" />
                                         <h3 className="text-lg sm:text-xl font-semibold">Note</h3>
                                     </div>
-                                    <div className="relative border-l-2 border-[#B9B9B9] pl-6 space-y-4">
+                                    <div className="relative space-y-4">
                                         {packageData?.notes?.map((note: any, idx: number) => (
-                                            <div key={idx} className="relative text-sm sm:text-base">
-                                                <span className="absolute -left-8 top-1 w-3 h-3 bg-gray-400 rounded-full" />
+                                            <div key={idx} className="relative flex gap-2 text-sm sm:text-base">
+                                                {/* <span className="absolute -left-8 top-1 w-3 h-3 bg-gray-400 rounded-full" /> */}
+                                                <div className="font-semibold">{idx + 1}.</div>
                                                 <p>{note.title}</p>
                                             </div>
                                         ))}
