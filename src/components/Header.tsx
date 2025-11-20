@@ -53,7 +53,7 @@ export default function Header() {
                         Home
                     </NavLink>
 
-                    <NavLink 
+                    <NavLink
                         to="/aboutus"
                         className={({ isActive }) =>
                             isActive
@@ -107,6 +107,17 @@ export default function Header() {
                     </div>
 
                     <NavLink
+                        to="/blogs"
+                        className={({ isActive }) =>
+                            isActive
+                                ? "text-[#0191e9] font-medium"
+                                : "text-[#303030] hover:font-medium hover:text-[#0191e9]"
+                        }
+                    >
+                        Blog
+                    </NavLink>
+
+                    <NavLink
                         to="/media"
                         className={({ isActive }) =>
                             isActive
@@ -156,7 +167,7 @@ export default function Header() {
                 <button
                     className="md:hidden"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                    aria-label="Open Navigation menu"   
+                    aria-label="Open Navigation menu"
                 >
                     <Menu size={24} />
                 </button>

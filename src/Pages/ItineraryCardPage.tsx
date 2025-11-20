@@ -201,7 +201,8 @@ function ItineraryCardPage() {
                                                 {must.description.split("\n").map((line: string, i: number) => (
                                                     <li key={i} className="text-sm sm:text-base flex gap-2">
                                                         <div className="flex gap-2">
-                                                            <SquareCheckBig className=" w-4" /> {line.trim()}
+                                                            <SquareCheckBig className="w-4 h-4 flex-shrink-0 mt-1" />
+                                                            <span className="whitespace-pre-line">{line.trim()}</span>
                                                         </div>
                                                     </li>
                                                 ))}
