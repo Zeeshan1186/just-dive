@@ -219,19 +219,18 @@ const AddBlog = () => {
                         rows={6}
                         required
                     /> */}
-                    {blog ? (
+                    {loading ? (
+                        // 👉 Show loader only
+                        <p>Loading...</p>
+                    ) : (
                         <TextEditor
-                            markup={blog.description}
+                            markup={blog?.description ?? form.description ?? ""}
                             placeholder="Enter description here"
                             onChange={(val) =>
                                 setForm((prev) => ({ ...prev, description: val }))
                             }
                         />
-                    ) : (
-                        <p>Loading...</p> // or nothing if you prefer
                     )}
-
-
                 </div>
 
                 {/* ✅ Blog Image Upload */}
